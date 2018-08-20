@@ -85,13 +85,21 @@ Appending/chaining commands(useful to reduce overhead of redundant material bind
 
 Sometimes you may want to share/reference a command so you don't copy it's data multiple times:
 ```cpp
-   //create the first the shared command
+    //create the first the shared command
     CommandPacket* headerPacket = buffer.createCommandPacketData<cmds:SetMatrixCommand>(matrices);
+
     //reference/share the command
+     key = cb::DrawKey::makeDefault(viewportId, cb::ViewLayerType::e3D);
     CommandPacket* cmd = buffer.addCommandFrom(key, headerPacket);
-    //append a new command to the shared one\
-    cmd::DrawInstanced* draw = buffer.appendCommand<cmd::DrawInstanced>(cmd);
-    //setup command to follow
+    //append a new command to the shared one
+    cmds::DrawArrays* draw = buffer.appendCommand<cmds::DrawArrays>(cmd);
+    //fill command data
+
+    //reference it again
+    key = cb::DrawKey::makeDefault(otherViewportId, cb::ViewLayerType::e3D);
+    cmd = buffer.addCommandFrom(key, headerPacket);
+    draw = buffer.appendCommand<cmds::DrawArrays>(cmd);
+    //fill command data
     ...
 ``` 
 NOTE. Since matrices is a POD you can use data copy commands which will automatically allocate auxilarry memory and copy it.
