@@ -7,3 +7,7 @@ example/GraphicsSamples/extensions/externals/lib/vs2015x64/HalfD.lib
 example/GraphicsSamples/extensions/externals/lib/vs2015x64/harfbuzzD.lib
 example/GraphicsSamples/extensions/lib/
 example/ThreadedRenderingGL/.vs/
+example/ThreadedRenderingGL/bin/vs2015x64/ThreadedRenderingGLD.lib
+example/ThreadedRenderingGL/bin/vs2015x64/ThreadedRenderingGLD.exp
+example/ThreadedRenderingGL/bin/vs2015x64/ThreadedRenderingGLD.exe.pdb
+example/ThreadedRenderingGL/bin/vs2015x64/ThreadedRenderingGLD.exe
