@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<Filter Include="src">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\NvVkUtil\NvAndVkWinUtil.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvAppContextAndVK.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvAppContextVK.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvAppNativeContextVK.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvAppWrapperContextVK.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvBitFontVK.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvGLFWContextVK.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvMaterialVK.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvMeshExtVK.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvModelExtVK.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvModelVK.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvPlatformVK.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvQuadVK.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvSampleAppVK.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvUIGraphicFrameVK.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvUIGraphicVK.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvUIShadersVK.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvUITextureRenderVK.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvUIVK.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvVkContext.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvVkRenderTargetImpls.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvVkUtil.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClInclude Include="..\..\src\NvVkUtil\NvAndVkWinUtil.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\NvVkUtil\NvAppContextAndVK.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\NvVkUtil\NvAppNativeContextVK.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\NvVkUtil\NvAppWrapperContextVK.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\NvVkUtil\NvGLFWContextVK.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\NvVkUtil\NvUIShadersVK.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\NvVkUtil\NvUITextureRenderVK.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\NvVkUtil\NvUIVK.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\NvVkUtil\NvVkRenderTargetImpls.h">
+			<Filter>src</Filter>
+		</ClInclude>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="include">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="..\..\include\NvVkUtil\NvAppContextVK.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvVkUtil\NvGPUTimerVK.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvVkUtil\NvMaterialVK.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvVkUtil\NvMeshExtVK.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvVkUtil\NvModelExtVK.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvVkUtil\NvModelVK.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvVkUtil\NvPlatformVK.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvVkUtil\NvQuadVK.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvVkUtil\NvSafeCommandBuffer.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvVkUtil\NvSampleAppVK.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvVkUtil\NvSimpleSyncRing.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvVkUtil\NvSimpleUBO.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvVkUtil\NvVkContext.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvVkUtil\NvVkUtil.h">
+			<Filter>include</Filter>
+		</ClInclude>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="glsl_shaders_hex">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<CustomBuild Include="..\..\src\NvVkUtil\src_shaders\font.glslc">
+			<Filter>glsl_shaders_hex</Filter>
+		</CustomBuild>
+		<CustomBuild Include="..\..\src\NvVkUtil\src_shaders\fontOutline.glslc">
+			<Filter>glsl_shaders_hex</Filter>
+		</CustomBuild>
+		<CustomBuild Include="..\..\src\NvVkUtil\src_shaders\graphic.glslc">
+			<Filter>glsl_shaders_hex</Filter>
+		</CustomBuild>
+		<CustomBuild Include="..\..\src\NvVkUtil\src_shaders\graphicFrame.glslc">
+			<Filter>glsl_shaders_hex</Filter>
+		</CustomBuild>
+	</ItemGroup>
+</Project>

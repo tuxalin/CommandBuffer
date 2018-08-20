@@ -1,0 +1,834 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="('$(Platform)'=='Tegra-Android')" Label="NsightTegraProject">
+    <NsightTegraProjectRevisionNumber Label="NsightTegraProject">11</NsightTegraProjectRevisionNumber>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="debug|Tegra-Android">
+      <Configuration>debug</Configuration>
+      <Platform>Tegra-Android</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="release|Tegra-Android">
+      <Configuration>release</Configuration>
+      <Platform>Tegra-Android</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="debug|Win32">
+      <Configuration>debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="release|Win32">
+      <Configuration>release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="debug|x64">
+      <Configuration>debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="release|x64">
+      <Configuration>release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{4112EB99-6B21-D171-D292-424A65BE95A6}</ProjectGuid>
+    <RootNamespace>cg4cpp</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>"arm-linux-androideabi-$(NDK_TOOLCHAIN_VERSION)"</PlatformToolset>
+    <FastDeploy>false</FastDeploy>
+    <AndroidArch>armv7-a</AndroidArch>
+    <AndroidStlType>gnustl_static</AndroidStlType>
+    <AndroidTargetAPI>android-24</AndroidTargetAPI>
+    <AndroidMinAPI>android-24</AndroidMinAPI>
+    <AndroidNativeAPI>android-24</AndroidNativeAPI>
+    <NdkToolchainVersion>DefaultGcc</NdkToolchainVersion>
+    <AndroidBuildSystem>AntBuild</AndroidBuildSystem>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>"arm-linux-androideabi-$(NDK_TOOLCHAIN_VERSION)"</PlatformToolset>
+    <FastDeploy>false</FastDeploy>
+    <AndroidArch>armv7-a</AndroidArch>
+    <AndroidStlType>gnustl_static</AndroidStlType>
+    <AndroidTargetAPI>android-24</AndroidTargetAPI>
+    <AndroidMinAPI>android-24</AndroidMinAPI>
+    <AndroidNativeAPI>android-24</AndroidNativeAPI>
+    <NdkToolchainVersion>DefaultGcc</NdkToolchainVersion>
+    <AndroidBuildSystem>AntBuild</AndroidBuildSystem>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">
+    <OutDir>$(ProjectDir)./../../lib/Tegra-Android\</OutDir>
+    <IntDir>./intermediate/cg4cpp/Tegra-Android/debug\</IntDir>
+    <TargetExt>.a</TargetExt>
+    <TargetName>libcg4cppD</TargetName>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules />
+    <CodeAnalysisRuleAssemblies />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">
+    <ClCompile>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <AdditionalOptions>-funwind-tables -O0 -g -ggdb -fno-omit-frame-pointer -Wno-attributes</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>./../../src/cg4cpp;./../../include;./../../../extensions/include;./../../../extensions/externals/include;./../../../extensions/include/NsFoundation;./../../../extensions/include/NvFoundation;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>android;ANDROID;_LIB;NV_ANDROID;__STDC_LIMIT_MACROS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+    </ClCompile>
+    <Lib>
+      <AdditionalOptions> -Wl,--start-group -lc -lm -lgcc -Wl,--end-group</AdditionalOptions>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)libcg4cppD.a</OutputFile>
+      <AdditionalLibraryDirectories>./../../../extensions/externals/lib/Tegra-Android;./../../../extensions/lib/Tegra-Android;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ProgramDatabaseFile>$(OutDir)/libcg4cppD.a.pdb</ProgramDatabaseFile>
+    </Lib>
+    <ResourceCompile>
+    </ResourceCompile>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">
+    <OutDir>$(ProjectDir)./../../lib/Tegra-Android\</OutDir>
+    <IntDir>./intermediate/cg4cpp/Tegra-Android/release\</IntDir>
+    <TargetExt>.a</TargetExt>
+    <TargetName>libcg4cpp</TargetName>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules />
+    <CodeAnalysisRuleAssemblies />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">
+    <ClCompile>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <AdditionalOptions>-funwind-tables -O2 -fno-omit-frame-pointer -Wno-attributes</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>./../../src/cg4cpp;./../../include;./../../../extensions/include;./../../../extensions/externals/include;./../../../extensions/include/NsFoundation;./../../../extensions/include/NvFoundation;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>android;ANDROID;_LIB;NV_ANDROID;__STDC_LIMIT_MACROS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+    </ClCompile>
+    <Lib>
+      <AdditionalOptions> -Wl,--start-group -lc -lm -lgcc -Wl,--end-group</AdditionalOptions>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)libcg4cpp.a</OutputFile>
+      <AdditionalLibraryDirectories>./../../../extensions/externals/lib/Tegra-Android;./../../../extensions/lib/Tegra-Android;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ProgramDatabaseFile>$(OutDir)/libcg4cpp.a.pdb</ProgramDatabaseFile>
+    </Lib>
+    <ResourceCompile>
+    </ResourceCompile>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">
+    <OutDir>./../../lib/vs2015x86\</OutDir>
+    <IntDir>./intermediate/cg4cpp/vs2015x86/debug\</IntDir>
+    <TargetExt>.lib</TargetExt>
+    <TargetName>cg4cppD</TargetName>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules />
+    <CodeAnalysisRuleAssemblies />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">
+    <ClCompile>
+      <CallingConvention>Cdecl</CallingConvention>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <AdditionalOptions>/Oy- /EHsc /wd4100 /wd4201 /wd4390 /wd4748 /wd4995 /wd4996 /wd4244 /wd4267 /wd4334</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>./../../src/cg4cpp;./../../include;./../../../extensions/include;./../../../extensions/externals/include;./../../../extensions/include/NsFoundation;./../../../extensions/include/NvFoundation;./../../../extensions/externals/include/GLFW;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NV_FOUNDATION_DLL=0;_LIB;_DEBUG;PROFILE;_ITERATOR_DEBUG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level3</WarningLevel>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)cg4cppD.lib</OutputFile>
+      <AdditionalLibraryDirectories>./../../../extensions/externals/lib/vs2015x86;./../../../extensions/lib/vs2015x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ProgramDatabaseFile>$(OutDir)/cg4cppD.lib.pdb</ProgramDatabaseFile>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Lib>
+    <ResourceCompile>
+    </ResourceCompile>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Win32'">
+    <OutDir>./../../lib/vs2015x86\</OutDir>
+    <IntDir>./intermediate/cg4cpp/vs2015x86/release\</IntDir>
+    <TargetExt>.lib</TargetExt>
+    <TargetName>cg4cpp</TargetName>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules />
+    <CodeAnalysisRuleAssemblies />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|Win32'">
+    <ClCompile>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <AdditionalOptions>/Oy- /EHsc /wd4100 /wd4201 /wd4390 /wd4748 /wd4995 /wd4996 /wd4244 /wd4267 /wd4334</AdditionalOptions>
+      <Optimization>Full</Optimization>
+      <AdditionalIncludeDirectories>./../../src/cg4cpp;./../../include;./../../../extensions/include;./../../../extensions/externals/include;./../../../extensions/include/NsFoundation;./../../../extensions/include/NvFoundation;./../../../extensions/externals/include/GLFW;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NV_FOUNDATION_DLL=0;_LIB;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level3</WarningLevel>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)cg4cpp.lib</OutputFile>
+      <AdditionalLibraryDirectories>./../../../extensions/externals/lib/vs2015x86;./../../../extensions/lib/vs2015x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ProgramDatabaseFile>$(OutDir)/cg4cpp.lib.pdb</ProgramDatabaseFile>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Lib>
+    <ResourceCompile>
+    </ResourceCompile>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
+    <OutDir>./../../lib/vs2015x64\</OutDir>
+    <IntDir>./intermediate/cg4cpp/vs2015x64/debug\</IntDir>
+    <TargetExt>.lib</TargetExt>
+    <TargetName>cg4cppD</TargetName>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules />
+    <CodeAnalysisRuleAssemblies />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
+    <ClCompile>
+      <CallingConvention>Cdecl</CallingConvention>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <AdditionalOptions>/Oy- /EHsc /wd4100 /wd4201 /wd4390 /wd4748 /wd4995 /wd4996 /wd4244 /wd4267 /wd4334</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>./../../src/cg4cpp;./../../include;./../../../extensions/include;./../../../extensions/externals/include;./../../../extensions/include/NsFoundation;./../../../extensions/include/NvFoundation;./../../../extensions/externals/include/GLFW;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NV_FOUNDATION_DLL=0;_LIB;_DEBUG;PROFILE;_ITERATOR_DEBUG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level3</WarningLevel>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)cg4cppD.lib</OutputFile>
+      <AdditionalLibraryDirectories>./../../../extensions/externals/lib/vs2015x64;./../../../extensions/lib/vs2015x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ProgramDatabaseFile>$(OutDir)/cg4cppD.lib.pdb</ProgramDatabaseFile>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Lib>
+    <ResourceCompile>
+    </ResourceCompile>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'">
+    <OutDir>./../../lib/vs2015x64\</OutDir>
+    <IntDir>./intermediate/cg4cpp/vs2015x64/release\</IntDir>
+    <TargetExt>.lib</TargetExt>
+    <TargetName>cg4cpp</TargetName>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules />
+    <CodeAnalysisRuleAssemblies />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'">
+    <ClCompile>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <AdditionalOptions>/Oy- /EHsc /wd4100 /wd4201 /wd4390 /wd4748 /wd4995 /wd4996 /wd4244 /wd4267 /wd4334</AdditionalOptions>
+      <Optimization>Full</Optimization>
+      <AdditionalIncludeDirectories>./../../src/cg4cpp;./../../include;./../../../extensions/include;./../../../extensions/externals/include;./../../../extensions/include/NsFoundation;./../../../extensions/include/NvFoundation;./../../../extensions/externals/include/GLFW;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NV_FOUNDATION_DLL=0;_LIB;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level3</WarningLevel>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)cg4cpp.lib</OutputFile>
+      <AdditionalLibraryDirectories>./../../../extensions/externals/lib/vs2015x64;./../../../extensions/lib/vs2015x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ProgramDatabaseFile>$(OutDir)/cg4cpp.lib.pdb</ProgramDatabaseFile>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Lib>
+    <ResourceCompile>
+    </ResourceCompile>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">
+  </PropertyGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\cg4cpp\abs.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\acos.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\all.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\any.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\asin.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\atan.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\atan2.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\ceil.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\clamp.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\cos.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\cosh.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\cross.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\degrees.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\determinant.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\distance.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\dot.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\exp.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\exp2.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\faceforward.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\floatToIntBits.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\floatToRawIntBits.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\floor.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\fmod.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\frac.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\fresnel.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\frexp.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\intBitsToFloat.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\inverse.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\iostream.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\isfinite.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\isinf.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\isnan.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\ldexp.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\length.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\lerp.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\lit.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\log.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\log10.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\log2.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\max.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\min.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\modf.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\mul.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\normalize.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\pow.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\radians.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\reflect.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\refract.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\round.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\rsqrt.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\saturate.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\sign.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\sin.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\sincos.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\sinh.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\smoothstep.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\sqrt.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\step.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\tan.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\tanh.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\transpose.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\trunc.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\upper1x1.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\upper1x2.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\upper1x3.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\upper1x4.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\upper2x1.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\upper2x2.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\upper2x3.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\upper2x4.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\upper3x1.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\upper3x2.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\upper3x3.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\upper3x4.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\upper4x1.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\upper4x2.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\upper4x3.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cg4cpp\upper4x4.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClInclude Include="..\..\src\cg4cpp\sampler2D_state.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\src\cg4cpp\sampler_state.hpp">
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\Cg\abs.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\acos.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\all.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\any.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\asin.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\assert.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\atan.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\atan2.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\ceil.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\clamp.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\cos.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\cosh.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\cross.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\degrees.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\determinant.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\distance.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\dot.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\dotv1.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\double.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\exp.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\exp2.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\faceforward.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\fixed.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\floatToIntBits.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\floatToRawIntBits.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\floor.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\fmod.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\frac.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\frexp.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\half.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\inout.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\intBitsToFloat.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\inverse.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\iostream.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\isfinite.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\isinf.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\isnan.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\length.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\lerp.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\log.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\log10.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\log2.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\matrix.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\max.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\min.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\mul.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\mulv0.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\mulv1.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\normalize.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\pow.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\radians.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\round.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\rsqrt.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\sampler.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\sampler1D.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\sampler1DARRAY.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\sampler2D.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\sampler2DARRAY.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\sampler3D.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\samplerBUF.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\samplerCUBE.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\samplerRECT.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\saturate.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\sign.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\sin.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\sinh.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\smoothstep.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\sqrt.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\stdlib.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\step.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\tan.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\tanh.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\transpose.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\trunc.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\upper1x1.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\upper1x2.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\upper1x3.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\upper1x4.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\upper2x1.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\upper2x2.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\upper2x3.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\upper2x4.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\upper3x1.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\upper3x2.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\upper3x3.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\upper3x4.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\upper4x1.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\upper4x2.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\upper4x3.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\upper4x4.hpp">
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cg\vector.hpp">
+    </ClInclude>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

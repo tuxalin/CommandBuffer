@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<Filter Include="src">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\NvModel\NvModel.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvModel\NvModelExt.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvModel\NvModelExtBin.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvModel\NvModelExtBuilder.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvModel\NvModelExtObj.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvModel\NvModelMeshFace.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvModel\NvModelObj.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvModel\NvModelSubMeshObj.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvModel\NvSkeleton.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClInclude Include="..\..\src\NvModel\NvModelExtBin.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\NvModel\NvModelExtFile.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\NvModel\NvModelExtObj.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\NvModel\NvModelMeshFace.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\NvModel\NvModelMeshVertex.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\NvModel\NvModelObj.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\NvModel\NvModelSubMeshBin.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\NvModel\NvModelSubMeshObj.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\NvModel\NvModelVectorCompactor.h">
+			<Filter>src</Filter>
+		</ClInclude>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="include">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="..\..\include\NvModel\NvModel.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvModel\NvModelExt.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvModel\NvModelExtBuilder.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvModel\NvModelMaterial.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvModel\NvModelSubMesh.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvModel\NvModelSubMeshBuilder.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvModel\NvSkeleton.h">
+			<Filter>include</Filter>
+		</ClInclude>
+	</ItemGroup>
+</Project>

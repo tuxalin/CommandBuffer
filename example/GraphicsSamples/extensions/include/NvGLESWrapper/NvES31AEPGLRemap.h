@@ -1,0 +1,91 @@
+//----------------------------------------------------------------------------------
+// File:        NvGLESWrapper/NvES31AEPGLRemap.h
+// SDK Version: v3.00 
+// Email:       gameworks@nvidia.com
+// Site:        http://developer.nvidia.com/
+//
+// Copyright (c) 2014-2015, NVIDIA CORPORATION. All rights reserved.
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions
+// are met:
+//  * Redistributions of source code must retain the above copyright
+//    notice, this list of conditions and the following disclaimer.
+//  * Redistributions in binary form must reproduce the above copyright
+//    notice, this list of conditions and the following disclaimer in the
+//    documentation and/or other materials provided with the distribution.
+//  * Neither the name of NVIDIA CORPORATION nor the names of its
+//    contributors may be used to endorse or promote products derived
+//    from this software without specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS ``AS IS'' AND ANY
+// EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+// PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+// CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+// EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+// PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+// PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY
+// OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+//----------------------------------------------------------------------------------
+NV_ES31_WRAP_FUNC(void, glBlendBarrierKHR, glBlendBarrier, (void), ());
+
+NV_ES31_WRAP_FUNC(void, glDebugMessageControlKHR, glDebugMessageControl, (GLenum source, GLenum type, GLenum severity, GLsizei count, const GLuint *ids, GLboolean enabled), (source, type, severity, count, ids, enabled));
+NV_ES31_WRAP_FUNC(void, glDebugMessageInsertKHR, glDebugMessageInsert, (GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar *buf), (source, type, id, severity, length, buf));
+NV_ES31_WRAP_FUNC(void, glDebugMessageCallbackKHR, glDebugMessageCallback, (GLDEBUGPROCKHR callback, const void *userParam), (callback, userParam));
+NV_ES31_WRAP_FUNC_RET(GLuint, glGetDebugMessageLogKHR, glGetDebugMessageLog, (GLuint count, GLsizei bufSize, GLenum *sources, GLenum *types, GLuint *ids, GLenum *severities, GLsizei *lengths, GLchar *messageLog), (count, bufSize, sources, types, ids, severities, lengths, messageLog));
+NV_ES31_WRAP_FUNC(void, glPushDebugGroupKHR, glPushDebugGroup, (GLenum source, GLuint id, GLsizei length, const GLchar *message), (source, id, length, message));
+NV_ES31_WRAP_FUNC(void, glPopDebugGroupKHR, glPopDebugGroup, (void), ());
+NV_ES31_WRAP_FUNC(void, glObjectLabelKHR, glObjectLabel, (GLenum identifier, GLuint name, GLsizei length, const GLchar *label), (identifier, name, length, label));
+NV_ES31_WRAP_FUNC(void, glGetObjectLabelKHR, glGetObjectLabel, (GLenum identifier, GLuint name, GLsizei bufSize, GLsizei *length, GLchar *label), (identifier, name, bufSize, length, label));
+NV_ES31_WRAP_FUNC(void, glObjectPtrLabelKHR, glObjectPtrLabel, (const void *ptr, GLsizei length, const GLchar *label), (ptr, length, label));
+NV_ES31_WRAP_FUNC(void, glGetObjectPtrLabelKHR, glGetObjectPtrLabel, (const void *ptr, GLsizei bufSize, GLsizei *length, GLchar *label), (ptr, bufSize, length, label));
+NV_ES31_WRAP_FUNC(void, glGetPointervKHR, glGetPointerv, (GLenum pname, void **params), (pname, params));
+
+
+NV_ES31_WRAP_FUNC(void, glMinSampleShadingOES, glMinSampleShading, (GLfloat value), (value));
+
+
+
+
+
+NV_ES31_WRAP_FUNC(void, glTexStorage3DMultisampleOES, glTexStorage3DMultisample, (GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedsamplelocations), (target, samples, internalformat, width, height, depth, fixedsamplelocations));
+
+NV_ES31_WRAP_FUNC(void, glCopyImageSubDataEXT, glCopyImageSubData, (GLuint srcName, GLenum srcTarget, GLint srcLevel, GLint srcX, GLint srcY, GLint srcZ, GLuint dstName, GLenum dstTarget, GLint dstLevel, GLint dstX, GLint dstY, GLint dstZ, GLsizei srcWidth, GLsizei srcHeight, GLsizei srcDepth), (srcName, srcTarget, srcLevel, srcX, srcY, srcZ, dstName, dstTarget, dstLevel, dstX, dstY, dstZ, srcWidth, srcHeight, srcDepth));
+
+NV_ES31_WRAP_FUNC(void, glEnableiEXT, glEnablei, (GLenum target, GLuint index), (target, index));
+NV_ES31_WRAP_FUNC(void, glDisableiEXT, glDisablei, (GLenum target, GLuint index), (target, index));
+NV_ES31_WRAP_FUNC(void, glBlendEquationiEXT, glBlendEquationi, (GLuint buf, GLenum mode), (buf, mode));
+NV_ES31_WRAP_FUNC(void, glBlendEquationSeparateiEXT, glBlendEquationSeparatei, (GLuint buf, GLenum modeRGB, GLenum modeAlpha), (buf, modeRGB, modeAlpha));
+NV_ES31_WRAP_FUNC(void, glBlendFunciEXT, glBlendFunci, (GLuint buf, GLenum src, GLenum dst), (buf, src, dst));
+NV_ES31_WRAP_FUNC(void, glBlendFuncSeparateiEXT, glBlendFuncSeparatei, (GLuint buf, GLenum srcRGB, GLenum dstRGB, GLenum srcAlpha, GLenum dstAlpha), (buf, srcRGB, dstRGB, srcAlpha, dstAlpha));
+NV_ES31_WRAP_FUNC(void, glColorMaskiEXT, glColorMaski, (GLuint index, GLboolean r, GLboolean g, GLboolean b, GLboolean a), (index, r, g, b, a));
+NV_ES31_WRAP_FUNC_RET(GLboolean, glIsEnablediEXT, glIsEnabledi, (GLenum target, GLuint index), (target, index));
+
+NV_ES31_WRAP_FUNC(void, glFramebufferTextureEXT, glFramebufferTexture, (GLenum target, GLenum attachment, GLuint texture, GLint level), (target, attachment, texture, level));
+
+NV_ES31_WRAP_FUNC(void, glProgramParameteriEXT, glProgramParameteri, (GLuint program, GLenum pname, GLint value), (program, pname, value));
+
+
+NV_ES31_WRAP_FUNC(void, glPrimitiveBoundingBoxEXT, glPrimitiveBoundingBox, (GLfloat minX, GLfloat minY, GLfloat minZ, GLfloat minW, GLfloat maxX, GLfloat maxY, GLfloat maxZ, GLfloat maxW), (minX, minY, minZ, minW, maxX, maxY, maxZ, maxW));
+
+
+NV_ES31_WRAP_FUNC(void, glPatchParameteriEXT, glPatchParameteri, (GLenum pname, GLint value), (pname, value));
+
+NV_ES31_WRAP_FUNC(void, glTexParameterIivEXT, glTexParameterIiv, (GLenum target, GLenum pname, const GLint *params), (target, pname, params));
+NV_ES31_WRAP_FUNC(void, glTexParameterIuivEXT, glTexParameterIuiv, (GLenum target, GLenum pname, const GLuint *params), (target, pname, params));
+NV_ES31_WRAP_FUNC(void, glGetTexParameterIivEXT, glGetTexParameterIiv, (GLenum target, GLenum pname, GLint *params), (target, pname, params));
+NV_ES31_WRAP_FUNC(void, glGetTexParameterIuivEXT, glGetTexParameterIuiv, (GLenum target, GLenum pname, GLuint *params), (target, pname, params));
+NV_ES31_WRAP_FUNC(void, glSamplerParameterIivEXT, glSamplerParameterIiv, (GLuint sampler, GLenum pname, const GLint *param), (sampler, pname, param));
+NV_ES31_WRAP_FUNC(void, glSamplerParameterIuivEXT, glSamplerParameterIuiv, (GLuint sampler, GLenum pname, const GLuint *param), (sampler, pname, param));
+NV_ES31_WRAP_FUNC(void, glGetSamplerParameterIivEXT, glGetSamplerParameterIiv, (GLuint sampler, GLenum pname, GLint *params), (sampler, pname, params));
+NV_ES31_WRAP_FUNC(void, glGetSamplerParameterIuivEXT, glGetSamplerParameterIuiv, (GLuint sampler, GLenum pname, GLuint *params), (sampler, pname, params));
+
+NV_ES31_WRAP_FUNC(void, glTexBufferEXT, glTexBuffer, (GLenum target, GLenum internalformat, GLuint buffer), (target, internalformat, buffer));
+NV_ES31_WRAP_FUNC(void, glTexBufferRangeEXT, glTexBufferRange, (GLenum target, GLenum internalformat, GLuint buffer, GLintptr offset, GLsizeiptr size), (target, internalformat, buffer, offset, size));
+
+
+

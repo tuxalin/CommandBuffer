@@ -1,0 +1,88 @@
+//----------------------------------------------------------------------------------
+// File:        NvVkUtil\src_shaders/fontOutline.glslc
+// SDK Version: v3.00 
+// Email:       gameworks@nvidia.com
+// Site:        http://developer.nvidia.com/
+//
+// Copyright (c) 2014-2015, NVIDIA CORPORATION. All rights reserved.
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions
+// are met:
+//  * Redistributions of source code must retain the above copyright
+//    notice, this list of conditions and the following disclaimer.
+//  * Redistributions in binary form must reproduce the above copyright
+//    notice, this list of conditions and the following disclaimer in the
+//    documentation and/or other materials provided with the distribution.
+//  * Neither the name of NVIDIA CORPORATION nor the names of its
+//    contributors may be used to endorse or promote products derived
+//    from this software without specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS ``AS IS'' AND ANY
+// EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+// PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+// CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+// EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+// PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+// PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY
+// OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+//----------------------------------------------------------------------------------
+#GLSL_VS
+#version 440 core
+
+// this is set from higher level.  think of it as the upper model matrix
+layout(set = 0, binding = 0) uniform Block {
+    mat4 pixelToClipMat;
+    vec2 texelScale;
+    vec4 outlineColor;
+};
+
+layout(location = 0) in vec2 pos_attr;
+layout(location = 1) in vec2 tex_attr;
+layout(location = 2) in vec4 col_attr;
+
+layout(location = 0) out vec4 col_var;
+layout(location = 1) out vec2 tex_var;
+
+void main() {
+    // account for translation and rotation of the primitive into [-1,1] spatial default.
+    gl_Position = pixelToClipMat * vec4(pos_attr.x, pos_attr.y, 0, 1);
+    col_var = col_attr;
+    tex_var = tex_attr;
+}
+#GLSL_FS
+#version 440 core
+
+layout(set = 0, binding = 0) uniform Block {
+    mat4 pixelToClipMat;
+    vec2 texelScale;
+    vec4 outlineColor;
+};
+
+layout(set = 1, binding = 1) uniform sampler2D fontTex;
+
+layout(location = 0) in vec4 col_var;
+layout(location = 1) in vec2 tex_var;
+
+layout(location = 0) out vec4 fragColor;
+
+void main() {
+    float alpha = texture(fontTex, tex_var).r;
+    vec4 baseCol = col_var;
+    baseCol.a = alpha;
+    float left = tex_var.x - texelScale.x;
+    float right = tex_var.x + texelScale.x;
+    float top = tex_var.y - texelScale.y;
+    float bottom = tex_var.y + texelScale.y;
+    float a1 = texture(fontTex, vec2(left, top)).r;
+    float a2 = texture(fontTex, vec2(right, top)).r;
+    float a3 = texture(fontTex, vec2(left, bottom)).r;
+    float a4 = texture(fontTex, vec2(right, bottom)).r;
+    vec4 lineCol = outlineColor;
+    lineCol.a = clamp(a1+a2+a3+a4+alpha, 0.0, 1.0);
+    fragColor = mix(lineCol, baseCol, alpha);
+}

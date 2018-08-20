@@ -1,0 +1,354 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>cg4cpp</ProjectName>
+    <ProjectGuid>{DD69089E-81D7-4BB2-8A3D-CBE3C94A8684}</ProjectGuid>
+    <RootNamespace>cg4cpp</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Platform)_2012\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Platform)_2012\$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Platform)_2012\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Platform)_2012\$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)_2012\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)_2012\$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)_2012\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)_2012\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <EnablePREfast>false</EnablePREfast>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <EnablePREfast>false</EnablePREfast>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <EnablePREfast>false</EnablePREfast>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <EnablePREfast>false</EnablePREfast>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="abs.cpp" />
+    <ClCompile Include="acos.cpp" />
+    <ClCompile Include="all.cpp" />
+    <ClCompile Include="any.cpp" />
+    <ClCompile Include="asin.cpp" />
+    <ClCompile Include="atan.cpp" />
+    <ClCompile Include="atan2.cpp" />
+    <ClCompile Include="ceil.cpp" />
+    <ClCompile Include="clamp.cpp" />
+    <ClCompile Include="cos.cpp" />
+    <ClCompile Include="cosh.cpp" />
+    <ClCompile Include="cross.cpp" />
+    <ClCompile Include="degrees.cpp" />
+    <ClCompile Include="determinant.cpp" />
+    <ClCompile Include="distance.cpp" />
+    <ClCompile Include="dot.cpp" />
+    <ClCompile Include="exp.cpp" />
+    <ClCompile Include="exp2.cpp" />
+    <ClCompile Include="faceforward.cpp" />
+    <ClCompile Include="floatToIntBits.cpp" />
+    <ClCompile Include="floatToRawIntBits.cpp" />
+    <ClCompile Include="floor.cpp" />
+    <ClCompile Include="fmod.cpp" />
+    <ClCompile Include="frac.cpp" />
+    <ClCompile Include="fresnel.cpp" />
+    <ClCompile Include="frexp.cpp" />
+    <ClCompile Include="intBitsToFloat.cpp" />
+    <ClCompile Include="inverse.cpp" />
+    <ClCompile Include="iostream.cpp" />
+    <ClCompile Include="isfinite.cpp" />
+    <ClCompile Include="isinf.cpp" />
+    <ClCompile Include="isnan.cpp" />
+    <ClCompile Include="ldexp.cpp" />
+    <ClCompile Include="length.cpp" />
+    <ClCompile Include="lerp.cpp" />
+    <ClCompile Include="lit.cpp" />
+    <ClCompile Include="log.cpp" />
+    <ClCompile Include="log10.cpp" />
+    <ClCompile Include="log2.cpp" />
+    <ClCompile Include="max.cpp" />
+    <ClCompile Include="min.cpp" />
+    <ClCompile Include="modf.cpp" />
+    <ClCompile Include="mul.cpp" />
+    <ClCompile Include="normalize.cpp" />
+    <ClCompile Include="pow.cpp" />
+    <ClCompile Include="radians.cpp" />
+    <ClCompile Include="reflect.cpp" />
+    <ClCompile Include="refract.cpp" />
+    <ClCompile Include="round.cpp" />
+    <ClCompile Include="rsqrt.cpp" />
+    <ClCompile Include="sampler1D.cpp" />
+    <ClCompile Include="sampler1DARRAY.cpp" />
+    <ClCompile Include="sampler2D.cpp" />
+    <ClCompile Include="sampler2DARRAY.cpp" />
+    <ClCompile Include="sampler3D.cpp" />
+    <ClCompile Include="sampler_gl.cpp" />
+    <ClCompile Include="sampler_state.cpp" />
+    <ClCompile Include="samplerBUF.cpp" />
+    <ClCompile Include="samplerCUBE.cpp" />
+    <ClCompile Include="samplerRECT.cpp" />
+    <ClCompile Include="saturate.cpp" />
+    <ClCompile Include="sign.cpp" />
+    <ClCompile Include="sin.cpp" />
+    <ClCompile Include="sincos.cpp" />
+    <ClCompile Include="sinh.cpp" />
+    <ClCompile Include="smoothstep.cpp" />
+    <ClCompile Include="sqrt.cpp" />
+    <ClCompile Include="step.cpp" />
+    <ClCompile Include="tan.cpp" />
+    <ClCompile Include="tanh.cpp" />
+    <ClCompile Include="transpose.cpp" />
+    <ClCompile Include="trunc.cpp" />
+    <ClCompile Include="upper1x1.cpp" />
+    <ClCompile Include="upper1x2.cpp" />
+    <ClCompile Include="upper1x3.cpp" />
+    <ClCompile Include="upper1x4.cpp" />
+    <ClCompile Include="upper2x1.cpp" />
+    <ClCompile Include="upper2x2.cpp" />
+    <ClCompile Include="upper2x3.cpp" />
+    <ClCompile Include="upper2x4.cpp" />
+    <ClCompile Include="upper3x1.cpp" />
+    <ClCompile Include="upper3x2.cpp" />
+    <ClCompile Include="upper3x3.cpp" />
+    <ClCompile Include="upper3x4.cpp" />
+    <ClCompile Include="upper4x1.cpp" />
+    <ClCompile Include="upper4x2.cpp" />
+    <ClCompile Include="upper4x3.cpp" />
+    <ClCompile Include="upper4x4.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="sampler_state.hpp" />
+    <ClInclude Include="..\include\Cg\abs.hpp" />
+    <ClInclude Include="..\include\Cg\acos.hpp" />
+    <ClInclude Include="..\include\Cg\all.hpp" />
+    <ClInclude Include="..\include\Cg\any.hpp" />
+    <ClInclude Include="..\include\Cg\asin.hpp" />
+    <ClInclude Include="..\include\Cg\atan.hpp" />
+    <ClInclude Include="..\include\Cg\atan2.hpp" />
+    <ClInclude Include="..\include\Cg\ceil.hpp" />
+    <ClInclude Include="..\include\Cg\clamp.hpp" />
+    <ClInclude Include="..\include\Cg\cos.hpp" />
+    <ClInclude Include="..\include\Cg\cosh.hpp" />
+    <ClInclude Include="..\include\Cg\cross.hpp" />
+    <ClInclude Include="..\include\Cg\degrees.hpp" />
+    <ClInclude Include="..\include\Cg\distance.hpp" />
+    <ClInclude Include="..\include\Cg\dot.hpp" />
+    <ClInclude Include="..\include\Cg\double.hpp" />
+    <ClInclude Include="..\include\Cg\exp.hpp" />
+    <ClInclude Include="..\include\Cg\exp2.hpp" />
+    <ClInclude Include="..\include\Cg\faceforward.hpp" />
+    <ClInclude Include="..\include\Cg\fixed.hpp" />
+    <ClInclude Include="..\include\Cg\floatToIntBits.hpp" />
+    <ClInclude Include="..\include\Cg\floatToRawIntBits.hpp" />
+    <ClInclude Include="..\include\Cg\floor.hpp" />
+    <ClInclude Include="..\include\Cg\fmod.hpp" />
+    <ClInclude Include="..\include\Cg\frac.hpp" />
+    <ClInclude Include="..\include\Cg\frexp.hpp" />
+    <ClInclude Include="..\include\Cg\half.hpp" />
+    <ClInclude Include="..\include\Cg\inout.hpp" />
+    <ClInclude Include="..\include\Cg\intbitstofloat.hpp" />
+    <ClInclude Include="..\include\Cg\inverse.hpp" />
+    <ClInclude Include="..\include\Cg\iostream.hpp" />
+    <ClInclude Include="..\include\Cg\isfinite.hpp" />
+    <ClInclude Include="..\include\Cg\isinf.hpp" />
+    <ClInclude Include="..\include\Cg\isnan.hpp" />
+    <ClInclude Include="..\include\Cg\length.hpp" />
+    <ClInclude Include="..\include\Cg\lerp.hpp" />
+    <ClInclude Include="..\include\Cg\log.hpp" />
+    <ClInclude Include="..\include\Cg\log10.hpp" />
+    <ClInclude Include="..\include\Cg\log2.hpp" />
+    <ClInclude Include="..\include\Cg\matrix.hpp" />
+    <ClInclude Include="..\include\Cg\max.hpp" />
+    <ClInclude Include="..\include\Cg\min.hpp" />
+    <ClInclude Include="..\include\Cg\mul.hpp" />
+    <ClInclude Include="..\include\Cg\normalize.hpp" />
+    <ClInclude Include="..\include\Cg\pow.hpp" />
+    <ClInclude Include="..\include\Cg\radians.hpp" />
+    <ClInclude Include="..\include\Cg\round.hpp" />
+    <ClInclude Include="..\include\Cg\rsqrt.hpp" />
+    <ClInclude Include="..\include\Cg\sampler.hpp" />
+    <ClInclude Include="..\include\Cg\sampler1D.hpp" />
+    <ClInclude Include="..\include\Cg\sampler1DARRAY.hpp" />
+    <ClInclude Include="..\include\Cg\sampler2D.hpp" />
+    <ClInclude Include="..\include\Cg\sampler2DARRAY.hpp" />
+    <ClInclude Include="..\include\Cg\sampler3D.hpp" />
+    <ClInclude Include="..\include\Cg\samplerBUF.hpp" />
+    <ClInclude Include="..\include\Cg\samplerCUBE.hpp" />
+    <ClInclude Include="..\include\Cg\samplerRECT.hpp" />
+    <ClInclude Include="..\include\Cg\saturate.hpp" />
+    <ClInclude Include="..\include\Cg\sign.hpp" />
+    <ClInclude Include="..\include\Cg\sin.hpp" />
+    <ClInclude Include="..\include\Cg\sinh.hpp" />
+    <ClInclude Include="..\include\Cg\smoothstep.hpp" />
+    <ClInclude Include="..\include\Cg\sqrt.hpp" />
+    <ClInclude Include="..\include\Cg\stdlib.hpp" />
+    <ClInclude Include="..\include\Cg\step.hpp" />
+    <ClInclude Include="..\include\Cg\tan.hpp" />
+    <ClInclude Include="..\include\Cg\tanh.hpp" />
+    <ClInclude Include="..\include\Cg\transpose.hpp" />
+    <ClInclude Include="..\include\Cg\trunc.hpp" />
+    <ClInclude Include="..\include\Cg\upper1x1.hpp" />
+    <ClInclude Include="..\include\Cg\upper1x2.hpp" />
+    <ClInclude Include="..\include\Cg\upper1x3.hpp" />
+    <ClInclude Include="..\include\Cg\upper1x4.hpp" />
+    <ClInclude Include="..\include\Cg\upper2x1.hpp" />
+    <ClInclude Include="..\include\Cg\upper2x2.hpp" />
+    <ClInclude Include="..\include\Cg\upper2x3.hpp" />
+    <ClInclude Include="..\include\Cg\upper2x4.hpp" />
+    <ClInclude Include="..\include\Cg\upper3x1.hpp" />
+    <ClInclude Include="..\include\Cg\upper3x2.hpp" />
+    <ClInclude Include="..\include\Cg\upper3x3.hpp" />
+    <ClInclude Include="..\include\Cg\upper3x4.hpp" />
+    <ClInclude Include="..\include\Cg\upper4x1.hpp" />
+    <ClInclude Include="..\include\Cg\upper4x2.hpp" />
+    <ClInclude Include="..\include\Cg\upper4x3.hpp" />
+    <ClInclude Include="..\include\Cg\upper4x4.hpp" />
+    <ClInclude Include="..\include\Cg\vector.hpp" />
+    <ClInclude Include="..\include\Cg\vector\rgba.hpp" />
+    <ClInclude Include="..\include\Cg\vector\stpq.hpp" />
+    <ClInclude Include="..\include\Cg\vector\xyzw.hpp" />
+    <ClInclude Include="..\include\Cg\matrix\0based.hpp" />
+    <ClInclude Include="..\include\Cg\matrix\1based.hpp" />
+    <ClInclude Include="..\include\Cg\matrix\columns.hpp" />
+    <ClInclude Include="..\include\Cg\matrix\elements.hpp" />
+    <ClInclude Include="..\include\Cg\matrix\rows.hpp" />
+    <ClInclude Include="..\include\Cg\GL\sampler.hpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

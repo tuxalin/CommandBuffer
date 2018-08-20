@@ -1,0 +1,638 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup Condition="('$(Platform)'=='Tegra-Android')" Label="NsightTegraProject">
+		<NsightTegraProjectRevisionNumber Label="NsightTegraProject">11</NsightTegraProjectRevisionNumber>
+		</PropertyGroup>
+	<ItemGroup Label="ProjectConfigurations">
+		<ProjectConfiguration Include="debug|Tegra-Android">
+			<Configuration>debug</Configuration>
+			<Platform>Tegra-Android</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="release|Tegra-Android">
+			<Configuration>release</Configuration>
+			<Platform>Tegra-Android</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="debug|Win32">
+			<Configuration>debug</Configuration>
+			<Platform>Win32</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="release|Win32">
+			<Configuration>release</Configuration>
+			<Platform>Win32</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="debug|x64">
+			<Configuration>debug</Configuration>
+			<Platform>x64</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="release|x64">
+			<Configuration>release</Configuration>
+			<Platform>x64</Platform>
+		</ProjectConfiguration>
+	</ItemGroup>
+	<PropertyGroup Label="Globals">
+		<ProjectGuid>{6C20DB90-DE20-DEF8-A218-18101451DE10}</ProjectGuid>
+		<RootNamespace>harfbuzz</RootNamespace>
+	</PropertyGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'" Label="Configuration">
+		<ConfigurationType>StaticLibrary</ConfigurationType>
+		<PlatformToolset>"arm-linux-androideabi-$(NDK_TOOLCHAIN_VERSION)"</PlatformToolset>
+		<FastDeploy>false</FastDeploy>
+		<AndroidArch>armv7-a</AndroidArch>
+		<AndroidStlType>gnustl_static</AndroidStlType>
+		<AndroidTargetAPI>android-24</AndroidTargetAPI>
+		<AndroidMinAPI>android-24</AndroidMinAPI>
+		<AndroidNativeAPI>android-24</AndroidNativeAPI>
+		<NdkToolchainVersion>DefaultGcc</NdkToolchainVersion>
+		<AndroidBuildSystem>AntBuild</AndroidBuildSystem>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'" Label="Configuration">
+		<ConfigurationType>StaticLibrary</ConfigurationType>
+		<PlatformToolset>"arm-linux-androideabi-$(NDK_TOOLCHAIN_VERSION)"</PlatformToolset>
+		<FastDeploy>false</FastDeploy>
+		<AndroidArch>armv7-a</AndroidArch>
+		<AndroidStlType>gnustl_static</AndroidStlType>
+		<AndroidTargetAPI>android-24</AndroidTargetAPI>
+		<AndroidMinAPI>android-24</AndroidMinAPI>
+		<AndroidNativeAPI>android-24</AndroidNativeAPI>
+		<NdkToolchainVersion>DefaultGcc</NdkToolchainVersion>
+		<AndroidBuildSystem>AntBuild</AndroidBuildSystem>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Win32'" Label="Configuration">
+		<ConfigurationType>StaticLibrary</ConfigurationType>
+		<PlatformToolset>v140</PlatformToolset>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Win32'" Label="Configuration">
+		<ConfigurationType>StaticLibrary</ConfigurationType>
+		<PlatformToolset>v140</PlatformToolset>
+		<WholeProgramOptimization>true</WholeProgramOptimization>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'" Label="Configuration">
+		<ConfigurationType>StaticLibrary</ConfigurationType>
+		<PlatformToolset>v140</PlatformToolset>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'" Label="Configuration">
+		<ConfigurationType>StaticLibrary</ConfigurationType>
+		<PlatformToolset>v140</PlatformToolset>
+		<WholeProgramOptimization>true</WholeProgramOptimization>
+	</PropertyGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+	<ImportGroup Label="ExtensionSettings">
+	</ImportGroup>
+	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+	</ImportGroup>
+	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+	</ImportGroup>
+	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+	</ImportGroup>
+	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='release|Win32'">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+	</ImportGroup>
+	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+	</ImportGroup>
+	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='release|x64'">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+	</ImportGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">
+		<OutDir>$(ProjectDir)./../../lib/Tegra-Android\</OutDir>
+		<IntDir>./intermediate/harfbuzz/Tegra-Android/debug\</IntDir>
+		<TargetExt>.a</TargetExt>
+		<TargetName>libharfbuzzD</TargetName>
+		<CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+		<CodeAnalysisRules />
+		<CodeAnalysisRuleAssemblies />
+	</PropertyGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">
+		<ClCompile>
+			<FloatingPointModel>Precise</FloatingPointModel>
+			<AdditionalOptions>-funwind-tables -O0 -g -ggdb -fno-omit-frame-pointer -Wno-attributes</AdditionalOptions>
+			<Optimization>Disabled</Optimization>
+			<AdditionalIncludeDirectories>./../../src/harfbuzz/src;./../../src/harfbuzz/config/android;./../../src/harfbuzz/src/hb-ucdn;./../../src/freetype-2.4.9/include;./../../../extensions/include;./../../../extensions/externals/include;./../../../extensions/include/NsFoundation;./../../../extensions/include/NvFoundation;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<PreprocessorDefinitions>HAVE_CONFIG_H;HB_NO_MT;HAVE_OT;HAVE_ICU;android;ANDROID;_LIB;NV_ANDROID;__STDC_LIMIT_MACROS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<WarningLevel>Level3</WarningLevel>
+			<PrecompiledHeader>NotUsing</PrecompiledHeader>
+			<PrecompiledHeaderFile></PrecompiledHeaderFile>
+		</ClCompile>
+		<Lib>
+			<AdditionalOptions> -Wl,--start-group -lc -lm -lgcc -Wl,--end-group</AdditionalOptions>
+			<AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+			<OutputFile>$(OutDir)libharfbuzzD.a</OutputFile>
+			<AdditionalLibraryDirectories>./../../../extensions/externals/lib/Tegra-Android;./../../../extensions/lib/Tegra-Android;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+			<ProgramDatabaseFile>$(OutDir)/libharfbuzzD.a.pdb</ProgramDatabaseFile>
+		</Lib>
+		<ResourceCompile>
+		</ResourceCompile>
+		<ProjectReference>
+			<LinkLibraryDependencies>true</LinkLibraryDependencies>
+		</ProjectReference>
+	</ItemDefinitionGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">
+		<OutDir>$(ProjectDir)./../../lib/Tegra-Android\</OutDir>
+		<IntDir>./intermediate/harfbuzz/Tegra-Android/release\</IntDir>
+		<TargetExt>.a</TargetExt>
+		<TargetName>libharfbuzz</TargetName>
+		<CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+		<CodeAnalysisRules />
+		<CodeAnalysisRuleAssemblies />
+	</PropertyGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">
+		<ClCompile>
+			<FloatingPointModel>Precise</FloatingPointModel>
+			<AdditionalOptions>-funwind-tables -O2 -fno-omit-frame-pointer -Wno-attributes</AdditionalOptions>
+			<Optimization>Disabled</Optimization>
+			<AdditionalIncludeDirectories>./../../src/harfbuzz/src;./../../src/harfbuzz/config/android;./../../src/harfbuzz/src/hb-ucdn;./../../src/freetype-2.4.9/include;./../../../extensions/include;./../../../extensions/externals/include;./../../../extensions/include/NsFoundation;./../../../extensions/include/NvFoundation;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<PreprocessorDefinitions>HAVE_CONFIG_H;HB_NO_MT;HAVE_OT;HAVE_ICU;android;ANDROID;_LIB;NV_ANDROID;__STDC_LIMIT_MACROS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<WarningLevel>Level3</WarningLevel>
+			<PrecompiledHeader>NotUsing</PrecompiledHeader>
+			<PrecompiledHeaderFile></PrecompiledHeaderFile>
+		</ClCompile>
+		<Lib>
+			<AdditionalOptions> -Wl,--start-group -lc -lm -lgcc -Wl,--end-group</AdditionalOptions>
+			<AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+			<OutputFile>$(OutDir)libharfbuzz.a</OutputFile>
+			<AdditionalLibraryDirectories>./../../../extensions/externals/lib/Tegra-Android;./../../../extensions/lib/Tegra-Android;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+			<ProgramDatabaseFile>$(OutDir)/libharfbuzz.a.pdb</ProgramDatabaseFile>
+		</Lib>
+		<ResourceCompile>
+		</ResourceCompile>
+		<ProjectReference>
+			<LinkLibraryDependencies>true</LinkLibraryDependencies>
+		</ProjectReference>
+	</ItemDefinitionGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">
+		<OutDir>./../../lib/vs2015x86\</OutDir>
+		<IntDir>./intermediate/harfbuzz/vs2015x86/debug\</IntDir>
+		<TargetExt>.lib</TargetExt>
+		<TargetName>harfbuzzD</TargetName>
+		<CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+		<CodeAnalysisRules />
+		<CodeAnalysisRuleAssemblies />
+	</PropertyGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">
+		<ClCompile>
+			<CallingConvention>Cdecl</CallingConvention>
+			<EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+			<IntrinsicFunctions>true</IntrinsicFunctions>
+			<SuppressStartupBanner>true</SuppressStartupBanner>
+			<FloatingPointModel>Fast</FloatingPointModel>
+			<AdditionalOptions>/wd4800 /wd4018 /wd4244 /wd4805 /wd4146 /Oy- /EHsc /wd4100 /wd4201 /wd4390 /wd4748 /wd4995 /wd4996 /wd4244 /wd4267 /wd4334</AdditionalOptions>
+			<Optimization>Disabled</Optimization>
+			<AdditionalIncludeDirectories>./../../src/harfbuzz/src;./../../src/harfbuzz/config/win32;./../../src/harfbuzz/src/hb-ucdn;./../../src/freetype-2.4.9/include;./../../../extensions/include;./../../../extensions/externals/include;./../../../extensions/include/NsFoundation;./../../../extensions/include/NvFoundation;./../../../extensions/externals/include/GLFW;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<PreprocessorDefinitions>HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;NV_FOUNDATION_DLL=0;_LIB;_DEBUG;PROFILE;_ITERATOR_DEBUG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<WarningLevel>Level3</WarningLevel>
+			<RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+			<PrecompiledHeader>NotUsing</PrecompiledHeader>
+			<PrecompiledHeaderFile></PrecompiledHeaderFile>
+			<DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+		</ClCompile>
+		<Lib>
+			<AdditionalDependencies>Usp10.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+			<OutputFile>$(OutDir)harfbuzzD.lib</OutputFile>
+			<AdditionalLibraryDirectories>./../../../extensions/externals/lib/vs2015x86;./../../../extensions/lib/vs2015x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+			<ProgramDatabaseFile>$(OutDir)/harfbuzzD.lib.pdb</ProgramDatabaseFile>
+			<TargetMachine>MachineX86</TargetMachine>
+		</Lib>
+		<ResourceCompile>
+		</ResourceCompile>
+		<ProjectReference>
+			<LinkLibraryDependencies>true</LinkLibraryDependencies>
+		</ProjectReference>
+	</ItemDefinitionGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Win32'">
+		<OutDir>./../../lib/vs2015x86\</OutDir>
+		<IntDir>./intermediate/harfbuzz/vs2015x86/release\</IntDir>
+		<TargetExt>.lib</TargetExt>
+		<TargetName>harfbuzz</TargetName>
+		<CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+		<CodeAnalysisRules />
+		<CodeAnalysisRuleAssemblies />
+	</PropertyGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|Win32'">
+		<ClCompile>
+			<EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+			<IntrinsicFunctions>true</IntrinsicFunctions>
+			<FunctionLevelLinking>true</FunctionLevelLinking>
+			<SuppressStartupBanner>true</SuppressStartupBanner>
+			<FloatingPointModel>Fast</FloatingPointModel>
+			<AdditionalOptions>/wd4800 /wd4018 /wd4244 /wd4805 /wd4146 /Oy- /EHsc /wd4100 /wd4201 /wd4390 /wd4748 /wd4995 /wd4996 /wd4244 /wd4267 /wd4334</AdditionalOptions>
+			<Optimization>Full</Optimization>
+			<AdditionalIncludeDirectories>./../../src/harfbuzz/src;./../../src/harfbuzz/config/win32;./../../src/harfbuzz/src/hb-ucdn;./../../src/freetype-2.4.9/include;./../../../extensions/include;./../../../extensions/externals/include;./../../../extensions/include/NsFoundation;./../../../extensions/include/NvFoundation;./../../../extensions/externals/include/GLFW;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<PreprocessorDefinitions>HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;NV_FOUNDATION_DLL=0;_LIB;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<WarningLevel>Level3</WarningLevel>
+			<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+			<PrecompiledHeader>NotUsing</PrecompiledHeader>
+			<PrecompiledHeaderFile></PrecompiledHeaderFile>
+		</ClCompile>
+		<Lib>
+			<AdditionalDependencies>Usp10.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+			<OutputFile>$(OutDir)harfbuzz.lib</OutputFile>
+			<AdditionalLibraryDirectories>./../../../extensions/externals/lib/vs2015x86;./../../../extensions/lib/vs2015x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+			<ProgramDatabaseFile>$(OutDir)/harfbuzz.lib.pdb</ProgramDatabaseFile>
+			<TargetMachine>MachineX86</TargetMachine>
+		</Lib>
+		<ResourceCompile>
+		</ResourceCompile>
+		<ProjectReference>
+			<LinkLibraryDependencies>true</LinkLibraryDependencies>
+		</ProjectReference>
+	</ItemDefinitionGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
+		<OutDir>./../../lib/vs2015x64\</OutDir>
+		<IntDir>./intermediate/harfbuzz/vs2015x64/debug\</IntDir>
+		<TargetExt>.lib</TargetExt>
+		<TargetName>harfbuzzD</TargetName>
+		<CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+		<CodeAnalysisRules />
+		<CodeAnalysisRuleAssemblies />
+	</PropertyGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
+		<ClCompile>
+			<CallingConvention>Cdecl</CallingConvention>
+			<IntrinsicFunctions>true</IntrinsicFunctions>
+			<SuppressStartupBanner>true</SuppressStartupBanner>
+			<FloatingPointModel>Fast</FloatingPointModel>
+			<AdditionalOptions>/wd4800 /wd4018 /wd4244 /wd4805 /wd4146 /Oy- /EHsc /wd4100 /wd4201 /wd4390 /wd4748 /wd4995 /wd4996 /wd4244 /wd4267 /wd4334</AdditionalOptions>
+			<Optimization>Disabled</Optimization>
+			<AdditionalIncludeDirectories>./../../src/harfbuzz/src;./../../src/harfbuzz/config/win32;./../../src/harfbuzz/src/hb-ucdn;./../../src/freetype-2.4.9/include;./../../../extensions/include;./../../../extensions/externals/include;./../../../extensions/include/NsFoundation;./../../../extensions/include/NvFoundation;./../../../extensions/externals/include/GLFW;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<PreprocessorDefinitions>HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;NV_FOUNDATION_DLL=0;_LIB;_DEBUG;PROFILE;_ITERATOR_DEBUG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<WarningLevel>Level3</WarningLevel>
+			<RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+			<PrecompiledHeader>NotUsing</PrecompiledHeader>
+			<PrecompiledHeaderFile></PrecompiledHeaderFile>
+			<DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+		</ClCompile>
+		<Lib>
+			<AdditionalDependencies>Usp10.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+			<OutputFile>$(OutDir)harfbuzzD.lib</OutputFile>
+			<AdditionalLibraryDirectories>./../../../extensions/externals/lib/vs2015x64;./../../../extensions/lib/vs2015x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+			<ProgramDatabaseFile>$(OutDir)/harfbuzzD.lib.pdb</ProgramDatabaseFile>
+			<TargetMachine>MachineX64</TargetMachine>
+		</Lib>
+		<ResourceCompile>
+		</ResourceCompile>
+		<ProjectReference>
+			<LinkLibraryDependencies>true</LinkLibraryDependencies>
+		</ProjectReference>
+	</ItemDefinitionGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'">
+		<OutDir>./../../lib/vs2015x64\</OutDir>
+		<IntDir>./intermediate/harfbuzz/vs2015x64/release\</IntDir>
+		<TargetExt>.lib</TargetExt>
+		<TargetName>harfbuzz</TargetName>
+		<CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+		<CodeAnalysisRules />
+		<CodeAnalysisRuleAssemblies />
+	</PropertyGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'">
+		<ClCompile>
+			<IntrinsicFunctions>true</IntrinsicFunctions>
+			<FunctionLevelLinking>true</FunctionLevelLinking>
+			<SuppressStartupBanner>true</SuppressStartupBanner>
+			<FloatingPointModel>Fast</FloatingPointModel>
+			<AdditionalOptions>/wd4800 /wd4018 /wd4244 /wd4805 /wd4146 /Oy- /EHsc /wd4100 /wd4201 /wd4390 /wd4748 /wd4995 /wd4996 /wd4244 /wd4267 /wd4334</AdditionalOptions>
+			<Optimization>Full</Optimization>
+			<AdditionalIncludeDirectories>./../../src/harfbuzz/src;./../../src/harfbuzz/config/win32;./../../src/harfbuzz/src/hb-ucdn;./../../src/freetype-2.4.9/include;./../../../extensions/include;./../../../extensions/externals/include;./../../../extensions/include/NsFoundation;./../../../extensions/include/NvFoundation;./../../../extensions/externals/include/GLFW;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<PreprocessorDefinitions>HAVE_CONFIG_H;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;NV_FOUNDATION_DLL=0;_LIB;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<WarningLevel>Level3</WarningLevel>
+			<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+			<PrecompiledHeader>NotUsing</PrecompiledHeader>
+			<PrecompiledHeaderFile></PrecompiledHeaderFile>
+		</ClCompile>
+		<Lib>
+			<AdditionalDependencies>Usp10.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+			<OutputFile>$(OutDir)harfbuzz.lib</OutputFile>
+			<AdditionalLibraryDirectories>./../../../extensions/externals/lib/vs2015x64;./../../../extensions/lib/vs2015x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+			<ProgramDatabaseFile>$(OutDir)/harfbuzz.lib.pdb</ProgramDatabaseFile>
+			<TargetMachine>MachineX64</TargetMachine>
+		</Lib>
+		<ResourceCompile>
+		</ResourceCompile>
+		<ProjectReference>
+			<LinkLibraryDependencies>true</LinkLibraryDependencies>
+		</ProjectReference>
+	</ItemDefinitionGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">
+	</PropertyGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\ucdn\ucdn.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+	</ItemGroup>
+	<ItemGroup>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-blob.cc">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-buffer-serialize.cc">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-buffer.cc">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-common.cc">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-face.cc">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-fallback-shape.cc">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-font.cc">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-ft.cc">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-ot-layout.cc">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-ot-map.cc">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-ot-shape-complex-arabic.cc">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-ot-shape-complex-default.cc">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-ot-shape-complex-indic-table.cc">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-ot-shape-complex-indic.cc">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-ot-shape-complex-myanmar.cc">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-ot-shape-complex-sea.cc">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-ot-shape-complex-thai.cc">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-ot-shape-fallback.cc">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-ot-shape-normalize.cc">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-ot-shape.cc">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-ot-tag.cc">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-set.cc">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-shape-plan.cc">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-shape.cc">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-shaper.cc">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-tt-font.cc">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-unicode.cc">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-warning.cc">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-ucdn.cc">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-blob.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-buffer.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-common.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-coretext.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-deprecated.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-face.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-font.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-ft.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-glib.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-gobject-structs.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-gobject.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-graphite2.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-icu.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-ot-layout.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-ot-tag.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-ot.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-set.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-shape-plan.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-shape.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-unicode.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-uniscribe.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-version.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb.h">
+		</ClInclude>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-uniscribe.cc">
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">true</ExcludedFromBuild>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">true</ExcludedFromBuild>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-atomic-private.hh">
+		</AndroidBuild>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-blob.h">
+		</ClInclude>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-buffer-deserialize-json.hh">
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-buffer-deserialize-text.hh">
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-buffer-private.hh">
+		</AndroidBuild>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-buffer.h">
+		</ClInclude>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-cache-private.hh">
+		</AndroidBuild>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-common.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-coretext.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-deprecated.h">
+		</ClInclude>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-face-private.hh">
+		</AndroidBuild>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-face.h">
+		</ClInclude>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-font-private.hh">
+		</AndroidBuild>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-font.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-ft.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-glib.h">
+		</ClInclude>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-gobject-enums.h.tmpl">
+		</AndroidBuild>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-gobject-structs.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-gobject.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-graphite2.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-icu.h">
+		</ClInclude>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-mutex-private.hh">
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-object-private.hh">
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-open-file-private.hh">
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-open-type-private.hh">
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-head-table.hh">
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-hhea-table.hh">
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-hmtx-table.hh">
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-layout-common-private.hh">
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-layout-gdef-table.hh">
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-layout-gpos-table.hh">
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-layout-gsub-table.hh">
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-layout-gsubgpos-private.hh">
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-layout-jstf-table.hh">
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-layout-private.hh">
+		</AndroidBuild>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-ot-layout.h">
+		</ClInclude>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-map-private.hh">
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-maxp-table.hh">
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-name-table.hh">
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-shape-complex-arabic-fallback.hh">
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-shape-complex-arabic-table.hh">
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-shape-complex-indic-machine.hh">
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-shape-complex-indic-private.hh">
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-shape-complex-myanmar-machine.hh">
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-shape-complex-private.hh">
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-shape-complex-sea-machine.hh">
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-shape-fallback-private.hh">
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-shape-normalize-private.hh">
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-shape-private.hh">
+		</AndroidBuild>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-ot-tag.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-ot.h">
+		</ClInclude>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-private.hh">
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-set-private.hh">
+		</AndroidBuild>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-set.h">
+		</ClInclude>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-shape-plan-private.hh">
+		</AndroidBuild>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-shape-plan.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-shape.h">
+		</ClInclude>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-shaper-impl-private.hh">
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-shaper-list.hh">
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-shaper-private.hh">
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-unicode-private.hh">
+		</AndroidBuild>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-unicode.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-uniscribe.h">
+		</ClInclude>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-utf-private.hh">
+		</AndroidBuild>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-version.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb.h">
+		</ClInclude>
+	</ItemGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+	<ImportGroup Label="ExtensionTargets"></ImportGroup>
+</Project>

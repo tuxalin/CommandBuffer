@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup Condition="('$(Platform)'=='Tegra-Android')" Label="NsightTegraProject">
+		<NsightTegraProjectRevisionNumber Label="NsightTegraProject">11</NsightTegraProjectRevisionNumber>
+		</PropertyGroup>
+	<ItemGroup Label="ProjectConfigurations">
+		<ProjectConfiguration Include="debug|Tegra-Android">
+			<Configuration>debug</Configuration>
+			<Platform>Tegra-Android</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="release|Tegra-Android">
+			<Configuration>release</Configuration>
+			<Platform>Tegra-Android</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="debug|Win32">
+			<Configuration>debug</Configuration>
+			<Platform>Win32</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="release|Win32">
+			<Configuration>release</Configuration>
+			<Platform>Win32</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="debug|x64">
+			<Configuration>debug</Configuration>
+			<Platform>x64</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="release|x64">
+			<Configuration>release</Configuration>
+			<Platform>x64</Platform>
+		</ProjectConfiguration>
+	</ItemGroup>
+	<PropertyGroup Label="Globals">
+		<ProjectGuid>{642095FC-E850-EAF3-5BD0-1D3C1A433B44}</ProjectGuid>
+		<RootNamespace>freetype</RootNamespace>
+	</PropertyGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'" Label="Configuration">
+		<ConfigurationType>StaticLibrary</ConfigurationType>
+		<PlatformToolset>"arm-linux-androideabi-$(NDK_TOOLCHAIN_VERSION)"</PlatformToolset>
+		<FastDeploy>false</FastDeploy>
+		<AndroidArch>armv7-a</AndroidArch>
+		<AndroidStlType>gnustl_static</AndroidStlType>
+		<AndroidTargetAPI>android-24</AndroidTargetAPI>
+		<AndroidMinAPI>android-24</AndroidMinAPI>
+		<AndroidNativeAPI>android-24</AndroidNativeAPI>
+		<NdkToolchainVersion>DefaultGcc</NdkToolchainVersion>
+		<AndroidBuildSystem>AntBuild</AndroidBuildSystem>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'" Label="Configuration">
+		<ConfigurationType>StaticLibrary</ConfigurationType>
+		<PlatformToolset>"arm-linux-androideabi-$(NDK_TOOLCHAIN_VERSION)"</PlatformToolset>
+		<FastDeploy>false</FastDeploy>
+		<AndroidArch>armv7-a</AndroidArch>
+		<AndroidStlType>gnustl_static</AndroidStlType>
+		<AndroidTargetAPI>android-24</AndroidTargetAPI>
+		<AndroidMinAPI>android-24</AndroidMinAPI>
+		<AndroidNativeAPI>android-24</AndroidNativeAPI>
+		<NdkToolchainVersion>DefaultGcc</NdkToolchainVersion>
+		<AndroidBuildSystem>AntBuild</AndroidBuildSystem>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Win32'" Label="Configuration">
+		<ConfigurationType>StaticLibrary</ConfigurationType>
+		<PlatformToolset>v120</PlatformToolset>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Win32'" Label="Configuration">
+		<ConfigurationType>StaticLibrary</ConfigurationType>
+		<PlatformToolset>v120</PlatformToolset>
+		<WholeProgramOptimization>true</WholeProgramOptimization>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'" Label="Configuration">
+		<ConfigurationType>StaticLibrary</ConfigurationType>
+		<PlatformToolset>v120</PlatformToolset>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'" Label="Configuration">
+		<ConfigurationType>StaticLibrary</ConfigurationType>
+		<PlatformToolset>v120</PlatformToolset>
+		<WholeProgramOptimization>true</WholeProgramOptimization>
+	</PropertyGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+	<ImportGroup Label="ExtensionSettings">
+	</ImportGroup>
+	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+	</ImportGroup>
+	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+	</ImportGroup>
+	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+	</ImportGroup>
+	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='release|Win32'">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+	</ImportGroup>
+	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+	</ImportGroup>
+	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='release|x64'">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+	</ImportGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">
+		<OutDir>$(ProjectDir)./../../lib/Tegra-Android\</OutDir>
+		<IntDir>./intermediate/freetype/Tegra-Android/debug\</IntDir>
+		<TargetExt>.a</TargetExt>
+		<TargetName>libfreetypeD</TargetName>
+		<CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+		<CodeAnalysisRules />
+		<CodeAnalysisRuleAssemblies />
+	</PropertyGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">
+		<ClCompile>
+			<FloatingPointModel>Precise</FloatingPointModel>
+			<AdditionalOptions>-funwind-tables -O0 -g -ggdb -fno-omit-frame-pointer -Wno-attributes</AdditionalOptions>
+			<Optimization>Disabled</Optimization>
+			<AdditionalIncludeDirectories>./../../src/freetype-2.4.9/include;./../../src/freetype-2.4.9/src;./../../../extensions/include;./../../../extensions/externals/include;./../../../extensions/include/NsFoundation;./../../../extensions/include/NvFoundation;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<PreprocessorDefinitions>FT2_BUILD_LIBRARY;android;ANDROID;_LIB;NV_ANDROID;__STDC_LIMIT_MACROS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<WarningLevel>Level3</WarningLevel>
+			<PrecompiledHeader>NotUsing</PrecompiledHeader>
+			<PrecompiledHeaderFile></PrecompiledHeaderFile>
+		</ClCompile>
+		<Lib>
+			<AdditionalOptions> -Wl,--start-group -lc -lm -lgcc -Wl,--end-group</AdditionalOptions>
+			<AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+			<OutputFile>$(OutDir)libfreetypeD.a</OutputFile>
+			<AdditionalLibraryDirectories>./../../../extensions/externals/lib/Tegra-Android;./../../../extensions/lib/Tegra-Android;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+			<ProgramDatabaseFile>$(OutDir)/libfreetypeD.a.pdb</ProgramDatabaseFile>
+		</Lib>
+		<ResourceCompile>
+		</ResourceCompile>
+		<ProjectReference>
+			<LinkLibraryDependencies>true</LinkLibraryDependencies>
+		</ProjectReference>
+	</ItemDefinitionGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">
+		<OutDir>$(ProjectDir)./../../lib/Tegra-Android\</OutDir>
+		<IntDir>./intermediate/freetype/Tegra-Android/release\</IntDir>
+		<TargetExt>.a</TargetExt>
+		<TargetName>libfreetype</TargetName>
+		<CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+		<CodeAnalysisRules />
+		<CodeAnalysisRuleAssemblies />
+	</PropertyGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">
+		<ClCompile>
+			<FloatingPointModel>Precise</FloatingPointModel>
+			<AdditionalOptions>-funwind-tables -O2 -fno-omit-frame-pointer -Wno-attributes</AdditionalOptions>
+			<Optimization>Disabled</Optimization>
+			<AdditionalIncludeDirectories>./../../src/freetype-2.4.9/include;./../../src/freetype-2.4.9/src;./../../../extensions/include;./../../../extensions/externals/include;./../../../extensions/include/NsFoundation;./../../../extensions/include/NvFoundation;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<PreprocessorDefinitions>FT2_BUILD_LIBRARY;android;ANDROID;_LIB;NV_ANDROID;__STDC_LIMIT_MACROS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<WarningLevel>Level3</WarningLevel>
+			<PrecompiledHeader>NotUsing</PrecompiledHeader>
+			<PrecompiledHeaderFile></PrecompiledHeaderFile>
+		</ClCompile>
+		<Lib>
+			<AdditionalOptions> -Wl,--start-group -lc -lm -lgcc -Wl,--end-group</AdditionalOptions>
+			<AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+			<OutputFile>$(OutDir)libfreetype.a</OutputFile>
+			<AdditionalLibraryDirectories>./../../../extensions/externals/lib/Tegra-Android;./../../../extensions/lib/Tegra-Android;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+			<ProgramDatabaseFile>$(OutDir)/libfreetype.a.pdb</ProgramDatabaseFile>
+		</Lib>
+		<ResourceCompile>
+		</ResourceCompile>
+		<ProjectReference>
+			<LinkLibraryDependencies>true</LinkLibraryDependencies>
+		</ProjectReference>
+	</ItemDefinitionGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">
+		<OutDir>./../../lib/vs2013x86\</OutDir>
+		<IntDir>./intermediate/freetype/vs2013x86/debug\</IntDir>
+		<TargetExt>.lib</TargetExt>
+		<TargetName>freetypeD</TargetName>
+		<CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+		<CodeAnalysisRules />
+		<CodeAnalysisRuleAssemblies />
+	</PropertyGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">
+		<ClCompile>
+			<CallingConvention>Cdecl</CallingConvention>
+			<EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+			<IntrinsicFunctions>true</IntrinsicFunctions>
+			<SuppressStartupBanner>true</SuppressStartupBanner>
+			<FloatingPointModel>Fast</FloatingPointModel>
+			<AdditionalOptions>/Oy- /EHsc /wd4100 /wd4201 /wd4390 /wd4748 /wd4995 /wd4996 /wd4244 /wd4267 /wd4334</AdditionalOptions>
+			<Optimization>Disabled</Optimization>
+			<AdditionalIncludeDirectories>./../../src/freetype-2.4.9/include;./../../src/freetype-2.4.9/src;./../../../extensions/include;./../../../extensions/externals/include;./../../../extensions/include/NsFoundation;./../../../extensions/include/NvFoundation;./../../../extensions/externals/include/GLFW;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<PreprocessorDefinitions>FT2_BUILD_LIBRARY;_CRT_SECURE_NO_WARNINGS;NV_FOUNDATION_DLL=0;_LIB;_DEBUG;PROFILE;_ITERATOR_DEBUG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<WarningLevel>Level3</WarningLevel>
+			<RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+			<PrecompiledHeader>NotUsing</PrecompiledHeader>
+			<PrecompiledHeaderFile></PrecompiledHeaderFile>
+			<DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+		</ClCompile>
+		<Lib>
+			<AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+			<OutputFile>$(OutDir)freetypeD.lib</OutputFile>
+			<AdditionalLibraryDirectories>./../../../extensions/externals/lib/vs2013x86;./../../../extensions/lib/vs2013x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+			<ProgramDatabaseFile>$(OutDir)/freetypeD.lib.pdb</ProgramDatabaseFile>
+			<TargetMachine>MachineX86</TargetMachine>
+		</Lib>
+		<ResourceCompile>
+		</ResourceCompile>
+		<ProjectReference>
+			<LinkLibraryDependencies>true</LinkLibraryDependencies>
+		</ProjectReference>
+	</ItemDefinitionGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Win32'">
+		<OutDir>./../../lib/vs2013x86\</OutDir>
+		<IntDir>./intermediate/freetype/vs2013x86/release\</IntDir>
+		<TargetExt>.lib</TargetExt>
+		<TargetName>freetype</TargetName>
+		<CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+		<CodeAnalysisRules />
+		<CodeAnalysisRuleAssemblies />
+	</PropertyGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|Win32'">
+		<ClCompile>
+			<EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+			<IntrinsicFunctions>true</IntrinsicFunctions>
+			<FunctionLevelLinking>true</FunctionLevelLinking>
+			<SuppressStartupBanner>true</SuppressStartupBanner>
+			<FloatingPointModel>Fast</FloatingPointModel>
+			<AdditionalOptions>/Oy- /EHsc /wd4100 /wd4201 /wd4390 /wd4748 /wd4995 /wd4996 /wd4244 /wd4267 /wd4334</AdditionalOptions>
+			<Optimization>Full</Optimization>
+			<AdditionalIncludeDirectories>./../../src/freetype-2.4.9/include;./../../src/freetype-2.4.9/src;./../../../extensions/include;./../../../extensions/externals/include;./../../../extensions/include/NsFoundation;./../../../extensions/include/NvFoundation;./../../../extensions/externals/include/GLFW;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<PreprocessorDefinitions>FT2_BUILD_LIBRARY;_CRT_SECURE_NO_WARNINGS;NV_FOUNDATION_DLL=0;_LIB;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<WarningLevel>Level3</WarningLevel>
+			<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+			<PrecompiledHeader>NotUsing</PrecompiledHeader>
+			<PrecompiledHeaderFile></PrecompiledHeaderFile>
+		</ClCompile>
+		<Lib>
+			<AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+			<OutputFile>$(OutDir)freetype.lib</OutputFile>
+			<AdditionalLibraryDirectories>./../../../extensions/externals/lib/vs2013x86;./../../../extensions/lib/vs2013x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+			<ProgramDatabaseFile>$(OutDir)/freetype.lib.pdb</ProgramDatabaseFile>
+			<TargetMachine>MachineX86</TargetMachine>
+		</Lib>
+		<ResourceCompile>
+		</ResourceCompile>
+		<ProjectReference>
+			<LinkLibraryDependencies>true</LinkLibraryDependencies>
+		</ProjectReference>
+	</ItemDefinitionGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
+		<OutDir>./../../lib/vs2013x64\</OutDir>
+		<IntDir>./intermediate/freetype/vs2013x64/debug\</IntDir>
+		<TargetExt>.lib</TargetExt>
+		<TargetName>freetypeD</TargetName>
+		<CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+		<CodeAnalysisRules />
+		<CodeAnalysisRuleAssemblies />
+	</PropertyGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
+		<ClCompile>
+			<CallingConvention>Cdecl</CallingConvention>
+			<IntrinsicFunctions>true</IntrinsicFunctions>
+			<SuppressStartupBanner>true</SuppressStartupBanner>
+			<FloatingPointModel>Fast</FloatingPointModel>
+			<AdditionalOptions>/Oy- /EHsc /wd4100 /wd4201 /wd4390 /wd4748 /wd4995 /wd4996 /wd4244 /wd4267 /wd4334</AdditionalOptions>
+			<Optimization>Disabled</Optimization>
+			<AdditionalIncludeDirectories>./../../src/freetype-2.4.9/include;./../../src/freetype-2.4.9/src;./../../../extensions/include;./../../../extensions/externals/include;./../../../extensions/include/NsFoundation;./../../../extensions/include/NvFoundation;./../../../extensions/externals/include/GLFW;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<PreprocessorDefinitions>FT2_BUILD_LIBRARY;NV_FOUNDATION_DLL=0;_LIB;_DEBUG;PROFILE;_ITERATOR_DEBUG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<WarningLevel>Level3</WarningLevel>
+			<RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+			<PrecompiledHeader>NotUsing</PrecompiledHeader>
+			<PrecompiledHeaderFile></PrecompiledHeaderFile>
+			<DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+		</ClCompile>
+		<Lib>
+			<AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+			<OutputFile>$(OutDir)freetypeD.lib</OutputFile>
+			<AdditionalLibraryDirectories>./../../../extensions/externals/lib/vs2013x64;./../../../extensions/lib/vs2013x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+			<ProgramDatabaseFile>$(OutDir)/freetypeD.lib.pdb</ProgramDatabaseFile>
+			<TargetMachine>MachineX64</TargetMachine>
+		</Lib>
+		<ResourceCompile>
+		</ResourceCompile>
+		<ProjectReference>
+			<LinkLibraryDependencies>true</LinkLibraryDependencies>
+		</ProjectReference>
+	</ItemDefinitionGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'">
+		<OutDir>./../../lib/vs2013x64\</OutDir>
+		<IntDir>./intermediate/freetype/vs2013x64/release\</IntDir>
+		<TargetExt>.lib</TargetExt>
+		<TargetName>freetype</TargetName>
+		<CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+		<CodeAnalysisRules />
+		<CodeAnalysisRuleAssemblies />
+	</PropertyGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'">
+		<ClCompile>
+			<IntrinsicFunctions>true</IntrinsicFunctions>
+			<FunctionLevelLinking>true</FunctionLevelLinking>
+			<SuppressStartupBanner>true</SuppressStartupBanner>
+			<FloatingPointModel>Fast</FloatingPointModel>
+			<AdditionalOptions>/Oy- /EHsc /wd4100 /wd4201 /wd4390 /wd4748 /wd4995 /wd4996 /wd4244 /wd4267 /wd4334</AdditionalOptions>
+			<Optimization>Full</Optimization>
+			<AdditionalIncludeDirectories>./../../src/freetype-2.4.9/include;./../../src/freetype-2.4.9/src;./../../../extensions/include;./../../../extensions/externals/include;./../../../extensions/include/NsFoundation;./../../../extensions/include/NvFoundation;./../../../extensions/externals/include/GLFW;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<PreprocessorDefinitions>FT2_BUILD_LIBRARY;NV_FOUNDATION_DLL=0;_LIB;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<WarningLevel>Level3</WarningLevel>
+			<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+			<PrecompiledHeader>NotUsing</PrecompiledHeader>
+			<PrecompiledHeaderFile></PrecompiledHeaderFile>
+		</ClCompile>
+		<Lib>
+			<AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+			<OutputFile>$(OutDir)freetype.lib</OutputFile>
+			<AdditionalLibraryDirectories>./../../../extensions/externals/lib/vs2013x64;./../../../extensions/lib/vs2013x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+			<ProgramDatabaseFile>$(OutDir)/freetype.lib.pdb</ProgramDatabaseFile>
+			<TargetMachine>MachineX64</TargetMachine>
+		</Lib>
+		<ResourceCompile>
+		</ResourceCompile>
+		<ProjectReference>
+			<LinkLibraryDependencies>true</LinkLibraryDependencies>
+		</ProjectReference>
+	</ItemDefinitionGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">
+	</PropertyGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\autofit\autofit.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\bdf\bdf.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\cff\cff.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftbase.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftbitmap.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftdebug.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftfstype.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftgasp.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftglyph.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftinit.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftstroke.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftsystem.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftbbox.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftgxval.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftlcdfil.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftmm.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftotval.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftpatent.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftpfr.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftsynth.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\fttype1.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftwinfnt.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftxf86.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\cache\ftcache.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\gzip\ftgzip.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\lzw\ftlzw.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\smooth\smooth.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\pcf\pcf.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\pfr\pfr.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\psaux\psaux.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\pshinter\pshinter.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\psnames\psmodule.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\raster\raster.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\sfnt\sfnt.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\truetype\truetype.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\type1\type1.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\cid\type1cid.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\type42\type42.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\winfonts\winfnt.c">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'"> %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="..\..\src\freetype-2.4.9\include\freetype\config\ftconfig.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\freetype-2.4.9\include\freetype\config\ftheader.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\freetype-2.4.9\include\freetype\config\ftmodule.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\freetype-2.4.9\include\freetype\config\ftoption.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\freetype-2.4.9\include\freetype\config\ftstdlib.h">
+		</ClInclude>
+	</ItemGroup>
+	<ItemGroup>
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="..\..\src\freetype-2.4.9\include\ft2build.h">
+		</ClInclude>
+	</ItemGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+	<ImportGroup Label="ExtensionTargets"></ImportGroup>
+</Project>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<Filter Include="src-android">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\NvGamepad\android\NvGamepadAndroid.cpp">
+			<Filter>src-android</Filter>
+		</ClCompile>
+		<ClInclude Include="..\..\src\NvGamepad\android\NvGamepadAndroid.h">
+			<Filter>src-android</Filter>
+		</ClInclude>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="include">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="..\..\include\NvGamepad\NvGamepad.h">
+			<Filter>include</Filter>
+		</ClInclude>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src-win">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\NvGamepad\win\NvGamepadXInput.cpp">
+			<Filter>src-win</Filter>
+		</ClCompile>
+		<ClInclude Include="..\..\src\NvGamepad\win\NvGamepadXInput.h">
+			<Filter>src-win</Filter>
+		</ClInclude>
+	</ItemGroup>
+</Project>

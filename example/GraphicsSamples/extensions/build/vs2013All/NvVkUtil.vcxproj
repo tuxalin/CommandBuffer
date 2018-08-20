@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup Condition="('$(Platform)'=='Tegra-Android')" Label="NsightTegraProject">
+		<NsightTegraProjectRevisionNumber Label="NsightTegraProject">11</NsightTegraProjectRevisionNumber>
+		</PropertyGroup>
+	<ItemGroup Label="ProjectConfigurations">
+		<ProjectConfiguration Include="debug|Tegra-Android">
+			<Configuration>debug</Configuration>
+			<Platform>Tegra-Android</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="release|Tegra-Android">
+			<Configuration>release</Configuration>
+			<Platform>Tegra-Android</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="debug|Win32">
+			<Configuration>debug</Configuration>
+			<Platform>Win32</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="release|Win32">
+			<Configuration>release</Configuration>
+			<Platform>Win32</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="debug|x64">
+			<Configuration>debug</Configuration>
+			<Platform>x64</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="release|x64">
+			<Configuration>release</Configuration>
+			<Platform>x64</Platform>
+		</ProjectConfiguration>
+	</ItemGroup>
+	<PropertyGroup Label="Globals">
+		<ProjectGuid>{231F554F-94E0-EF7D-D462-E3C0EE6EE101}</ProjectGuid>
+		<RootNamespace>NvVkUtil</RootNamespace>
+	</PropertyGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'" Label="Configuration">
+		<ConfigurationType>StaticLibrary</ConfigurationType>
+		<PlatformToolset>"arm-linux-androideabi-$(NDK_TOOLCHAIN_VERSION)"</PlatformToolset>
+		<FastDeploy>false</FastDeploy>
+		<AndroidArch>armv7-a</AndroidArch>
+		<AndroidStlType>gnustl_static</AndroidStlType>
+		<AndroidTargetAPI>android-24</AndroidTargetAPI>
+		<AndroidMinAPI>android-24</AndroidMinAPI>
+		<AndroidNativeAPI>android-24</AndroidNativeAPI>
+		<NdkToolchainVersion>DefaultGcc</NdkToolchainVersion>
+		<AndroidBuildSystem>AntBuild</AndroidBuildSystem>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'" Label="Configuration">
+		<ConfigurationType>StaticLibrary</ConfigurationType>
+		<PlatformToolset>"arm-linux-androideabi-$(NDK_TOOLCHAIN_VERSION)"</PlatformToolset>
+		<FastDeploy>false</FastDeploy>
+		<AndroidArch>armv7-a</AndroidArch>
+		<AndroidStlType>gnustl_static</AndroidStlType>
+		<AndroidTargetAPI>android-24</AndroidTargetAPI>
+		<AndroidMinAPI>android-24</AndroidMinAPI>
+		<AndroidNativeAPI>android-24</AndroidNativeAPI>
+		<NdkToolchainVersion>DefaultGcc</NdkToolchainVersion>
+		<AndroidBuildSystem>AntBuild</AndroidBuildSystem>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Win32'" Label="Configuration">
+		<ConfigurationType>StaticLibrary</ConfigurationType>
+		<PlatformToolset>v120</PlatformToolset>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Win32'" Label="Configuration">
+		<ConfigurationType>StaticLibrary</ConfigurationType>
+		<PlatformToolset>v120</PlatformToolset>
+		<WholeProgramOptimization>true</WholeProgramOptimization>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'" Label="Configuration">
+		<ConfigurationType>StaticLibrary</ConfigurationType>
+		<PlatformToolset>v120</PlatformToolset>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'" Label="Configuration">
+		<ConfigurationType>StaticLibrary</ConfigurationType>
+		<PlatformToolset>v120</PlatformToolset>
+		<WholeProgramOptimization>true</WholeProgramOptimization>
+	</PropertyGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+	<ImportGroup Label="ExtensionSettings">
+	</ImportGroup>
+	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+	</ImportGroup>
+	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+	</ImportGroup>
+	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+	</ImportGroup>
+	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='release|Win32'">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+	</ImportGroup>
+	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+	</ImportGroup>
+	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='release|x64'">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+	</ImportGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">
+		<OutDir>$(ProjectDir)./../../lib/Tegra-Android\</OutDir>
+		<IntDir>./intermediate/NvVkUtil/Tegra-Android/debug\</IntDir>
+		<TargetExt>.a</TargetExt>
+		<TargetName>libNvVkUtilD</TargetName>
+		<CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+		<CodeAnalysisRules />
+		<CodeAnalysisRuleAssemblies />
+	</PropertyGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">
+		<ClCompile>
+			<FloatingPointModel>Precise</FloatingPointModel>
+			<AdditionalOptions>-funwind-tables -O0 -g -ggdb -fno-omit-frame-pointer -Wno-attributes</AdditionalOptions>
+			<Optimization>Disabled</Optimization>
+			<AdditionalIncludeDirectories>$(VK_SDK_PATH)/include;./../../src/NvVkUtil;./../../include;./../../externals/include;./../../include/NsFoundation;./../../include/NvFoundation;./../../include/NvVkUtil;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<PreprocessorDefinitions>android;ANDROID;_LIB;NV_ANDROID;__STDC_LIMIT_MACROS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<WarningLevel>Level3</WarningLevel>
+			<PrecompiledHeader>NotUsing</PrecompiledHeader>
+			<PrecompiledHeaderFile></PrecompiledHeaderFile>
+		</ClCompile>
+		<Lib>
+			<AdditionalOptions> -Wl,--start-group -lc -lm -lgcc -Wl,--end-group</AdditionalOptions>
+			<AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+			<OutputFile>$(OutDir)libNvVkUtilD.a</OutputFile>
+			<AdditionalLibraryDirectories>./../../externals/linux-aarch64;./../../externals/lib/Tegra-Android;./../../lib/Tegra-Android;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+			<ProgramDatabaseFile>$(OutDir)/libNvVkUtilD.a.pdb</ProgramDatabaseFile>
+		</Lib>
+		<ResourceCompile>
+		</ResourceCompile>
+		<ProjectReference>
+			<LinkLibraryDependencies>true</LinkLibraryDependencies>
+		</ProjectReference>
+	</ItemDefinitionGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">
+		<OutDir>$(ProjectDir)./../../lib/Tegra-Android\</OutDir>
+		<IntDir>./intermediate/NvVkUtil/Tegra-Android/release\</IntDir>
+		<TargetExt>.a</TargetExt>
+		<TargetName>libNvVkUtil</TargetName>
+		<CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+		<CodeAnalysisRules />
+		<CodeAnalysisRuleAssemblies />
+	</PropertyGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">
+		<ClCompile>
+			<FloatingPointModel>Precise</FloatingPointModel>
+			<AdditionalOptions>-funwind-tables -O2 -fno-omit-frame-pointer -Wno-attributes</AdditionalOptions>
+			<Optimization>Disabled</Optimization>
+			<AdditionalIncludeDirectories>$(VK_SDK_PATH)/include;./../../src/NvVkUtil;./../../include;./../../externals/include;./../../include/NsFoundation;./../../include/NvFoundation;./../../include/NvVkUtil;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<PreprocessorDefinitions>android;ANDROID;_LIB;NV_ANDROID;__STDC_LIMIT_MACROS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<WarningLevel>Level3</WarningLevel>
+			<PrecompiledHeader>NotUsing</PrecompiledHeader>
+			<PrecompiledHeaderFile></PrecompiledHeaderFile>
+		</ClCompile>
+		<Lib>
+			<AdditionalOptions> -Wl,--start-group -lc -lm -lgcc -Wl,--end-group</AdditionalOptions>
+			<AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+			<OutputFile>$(OutDir)libNvVkUtil.a</OutputFile>
+			<AdditionalLibraryDirectories>./../../externals/linux-aarch64;./../../externals/lib/Tegra-Android;./../../lib/Tegra-Android;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+			<ProgramDatabaseFile>$(OutDir)/libNvVkUtil.a.pdb</ProgramDatabaseFile>
+		</Lib>
+		<ResourceCompile>
+		</ResourceCompile>
+		<ProjectReference>
+			<LinkLibraryDependencies>true</LinkLibraryDependencies>
+		</ProjectReference>
+	</ItemDefinitionGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">
+		<OutDir>./../../lib/vs2013x86\</OutDir>
+		<IntDir>./intermediate/NvVkUtil/vs2013x86/debug\</IntDir>
+		<TargetExt>.lib</TargetExt>
+		<TargetName>NvVkUtilD</TargetName>
+		<CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+		<CodeAnalysisRules />
+		<CodeAnalysisRuleAssemblies />
+	</PropertyGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">
+		<ClCompile>
+			<CallingConvention>Cdecl</CallingConvention>
+			<EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+			<IntrinsicFunctions>true</IntrinsicFunctions>
+			<SuppressStartupBanner>true</SuppressStartupBanner>
+			<FloatingPointModel>Fast</FloatingPointModel>
+			<AdditionalOptions>/Oy- /EHsc /wd4100 /wd4201 /wd4390 /wd4748 /wd4995 /wd4996 /wd4244 /wd4267 /wd4334</AdditionalOptions>
+			<Optimization>Disabled</Optimization>
+			<AdditionalIncludeDirectories>$(VK_SDK_PATH)/include;./../../src/NvVkUtil;./../../include;./../../externals/include;./../../include/NsFoundation;./../../include/NvFoundation;./../../externals/include/GLFW;./../../include/NvVkUtil;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<PreprocessorDefinitions>NV_FOUNDATION_DLL=0;_LIB;_DEBUG;PROFILE;_ITERATOR_DEBUG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<WarningLevel>Level3</WarningLevel>
+			<RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+			<PrecompiledHeader>NotUsing</PrecompiledHeader>
+			<PrecompiledHeaderFile></PrecompiledHeaderFile>
+			<DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+		</ClCompile>
+		<Lib>
+			<AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+			<OutputFile>$(OutDir)NvVkUtilD.lib</OutputFile>
+			<AdditionalLibraryDirectories>./../../externals/linux-aarch64;$(VK_SDK_PATH)/Bin32;$(VK_SDK_PATH)/Lib32;./../../externals/lib/vs2013x86;./../../lib/vs2013x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+			<ProgramDatabaseFile>$(OutDir)/NvVkUtilD.lib.pdb</ProgramDatabaseFile>
+			<TargetMachine>MachineX86</TargetMachine>
+		</Lib>
+		<ResourceCompile>
+		</ResourceCompile>
+		<ProjectReference>
+			<LinkLibraryDependencies>true</LinkLibraryDependencies>
+		</ProjectReference>
+	</ItemDefinitionGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Win32'">
+		<OutDir>./../../lib/vs2013x86\</OutDir>
+		<IntDir>./intermediate/NvVkUtil/vs2013x86/release\</IntDir>
+		<TargetExt>.lib</TargetExt>
+		<TargetName>NvVkUtil</TargetName>
+		<CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+		<CodeAnalysisRules />
+		<CodeAnalysisRuleAssemblies />
+	</PropertyGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|Win32'">
+		<ClCompile>
+			<EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+			<IntrinsicFunctions>true</IntrinsicFunctions>
+			<FunctionLevelLinking>true</FunctionLevelLinking>
+			<SuppressStartupBanner>true</SuppressStartupBanner>
+			<FloatingPointModel>Fast</FloatingPointModel>
+			<AdditionalOptions>/Oy- /EHsc /wd4100 /wd4201 /wd4390 /wd4748 /wd4995 /wd4996 /wd4244 /wd4267 /wd4334</AdditionalOptions>
+			<Optimization>Full</Optimization>
+			<AdditionalIncludeDirectories>$(VK_SDK_PATH)/include;./../../src/NvVkUtil;./../../include;./../../externals/include;./../../include/NsFoundation;./../../include/NvFoundation;./../../externals/include/GLFW;./../../include/NvVkUtil;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<PreprocessorDefinitions>NV_FOUNDATION_DLL=0;_LIB;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<WarningLevel>Level3</WarningLevel>
+			<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+			<PrecompiledHeader>NotUsing</PrecompiledHeader>
+			<PrecompiledHeaderFile></PrecompiledHeaderFile>
+		</ClCompile>
+		<Lib>
+			<AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+			<OutputFile>$(OutDir)NvVkUtil.lib</OutputFile>
+			<AdditionalLibraryDirectories>./../../externals/linux-aarch64;$(VK_SDK_PATH)/Bin32;$(VK_SDK_PATH)/Lib32;./../../externals/lib/vs2013x86;./../../lib/vs2013x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+			<ProgramDatabaseFile>$(OutDir)/NvVkUtil.lib.pdb</ProgramDatabaseFile>
+			<TargetMachine>MachineX86</TargetMachine>
+		</Lib>
+		<ResourceCompile>
+		</ResourceCompile>
+		<ProjectReference>
+			<LinkLibraryDependencies>true</LinkLibraryDependencies>
+		</ProjectReference>
+	</ItemDefinitionGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
+		<OutDir>./../../lib/vs2013x64\</OutDir>
+		<IntDir>./intermediate/NvVkUtil/vs2013x64/debug\</IntDir>
+		<TargetExt>.lib</TargetExt>
+		<TargetName>NvVkUtilD</TargetName>
+		<CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+		<CodeAnalysisRules />
+		<CodeAnalysisRuleAssemblies />
+	</PropertyGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
+		<ClCompile>
+			<CallingConvention>Cdecl</CallingConvention>
+			<IntrinsicFunctions>true</IntrinsicFunctions>
+			<SuppressStartupBanner>true</SuppressStartupBanner>
+			<FloatingPointModel>Fast</FloatingPointModel>
+			<AdditionalOptions>/Oy- /EHsc /wd4100 /wd4201 /wd4390 /wd4748 /wd4995 /wd4996 /wd4244 /wd4267 /wd4334</AdditionalOptions>
+			<Optimization>Disabled</Optimization>
+			<AdditionalIncludeDirectories>$(VK_SDK_PATH)/include;./../../src/NvVkUtil;./../../include;./../../externals/include;./../../include/NsFoundation;./../../include/NvFoundation;./../../externals/include/GLFW;./../../include/NvVkUtil;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<PreprocessorDefinitions>NV_FOUNDATION_DLL=0;_LIB;_DEBUG;PROFILE;_ITERATOR_DEBUG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<WarningLevel>Level3</WarningLevel>
+			<RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+			<PrecompiledHeader>NotUsing</PrecompiledHeader>
+			<PrecompiledHeaderFile></PrecompiledHeaderFile>
+			<DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+		</ClCompile>
+		<Lib>
+			<AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+			<OutputFile>$(OutDir)NvVkUtilD.lib</OutputFile>
+			<AdditionalLibraryDirectories>./../../externals/linux-aarch64;$(VK_SDK_PATH)/Bin;$(VK_SDK_PATH)/Lib;./../../externals/lib/vs2013x64;./../../lib/vs2013x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+			<ProgramDatabaseFile>$(OutDir)/NvVkUtilD.lib.pdb</ProgramDatabaseFile>
+			<TargetMachine>MachineX64</TargetMachine>
+		</Lib>
+		<ResourceCompile>
+		</ResourceCompile>
+		<ProjectReference>
+			<LinkLibraryDependencies>true</LinkLibraryDependencies>
+		</ProjectReference>
+	</ItemDefinitionGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'">
+		<OutDir>./../../lib/vs2013x64\</OutDir>
+		<IntDir>./intermediate/NvVkUtil/vs2013x64/release\</IntDir>
+		<TargetExt>.lib</TargetExt>
+		<TargetName>NvVkUtil</TargetName>
+		<CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+		<CodeAnalysisRules />
+		<CodeAnalysisRuleAssemblies />
+	</PropertyGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'">
+		<ClCompile>
+			<IntrinsicFunctions>true</IntrinsicFunctions>
+			<FunctionLevelLinking>true</FunctionLevelLinking>
+			<SuppressStartupBanner>true</SuppressStartupBanner>
+			<FloatingPointModel>Fast</FloatingPointModel>
+			<AdditionalOptions>/Oy- /EHsc /wd4100 /wd4201 /wd4390 /wd4748 /wd4995 /wd4996 /wd4244 /wd4267 /wd4334</AdditionalOptions>
+			<Optimization>Full</Optimization>
+			<AdditionalIncludeDirectories>$(VK_SDK_PATH)/include;./../../src/NvVkUtil;./../../include;./../../externals/include;./../../include/NsFoundation;./../../include/NvFoundation;./../../externals/include/GLFW;./../../include/NvVkUtil;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<PreprocessorDefinitions>NV_FOUNDATION_DLL=0;_LIB;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<WarningLevel>Level3</WarningLevel>
+			<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+			<PrecompiledHeader>NotUsing</PrecompiledHeader>
+			<PrecompiledHeaderFile></PrecompiledHeaderFile>
+		</ClCompile>
+		<Lib>
+			<AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+			<OutputFile>$(OutDir)NvVkUtil.lib</OutputFile>
+			<AdditionalLibraryDirectories>./../../externals/linux-aarch64;$(VK_SDK_PATH)/Bin;$(VK_SDK_PATH)/Lib;./../../externals/lib/vs2013x64;./../../lib/vs2013x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+			<ProgramDatabaseFile>$(OutDir)/NvVkUtil.lib.pdb</ProgramDatabaseFile>
+			<TargetMachine>MachineX64</TargetMachine>
+		</Lib>
+		<ResourceCompile>
+		</ResourceCompile>
+		<ProjectReference>
+			<LinkLibraryDependencies>true</LinkLibraryDependencies>
+		</ProjectReference>
+	</ItemDefinitionGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">
+	</PropertyGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\NvVkUtil\NvAndVkWinUtil.cpp">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvAppContextAndVK.cpp">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvAppContextVK.cpp">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvAppNativeContextVK.cpp">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvAppWrapperContextVK.cpp">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvBitFontVK.cpp">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvGLFWContextVK.cpp">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvMaterialVK.cpp">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvMeshExtVK.cpp">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvModelExtVK.cpp">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvModelVK.cpp">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvPlatformVK.cpp">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvQuadVK.cpp">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvSampleAppVK.cpp">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvUIGraphicFrameVK.cpp">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvUIGraphicVK.cpp">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvUIShadersVK.cpp">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvUITextureRenderVK.cpp">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvUIVK.cpp">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvVkContext.cpp">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvVkRenderTargetImpls.cpp">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvVkUtil\NvVkUtil.cpp">
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">-std="gnu++11" %(AdditionalOptions)</AdditionalOptions>
+		</ClCompile>
+		<ClInclude Include="..\..\src\NvVkUtil\NvAndVkWinUtil.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\NvVkUtil\NvAppContextAndVK.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\NvVkUtil\NvAppNativeContextVK.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\NvVkUtil\NvAppWrapperContextVK.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\NvVkUtil\NvGLFWContextVK.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\NvVkUtil\NvUIShadersVK.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\NvVkUtil\NvUITextureRenderVK.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\NvVkUtil\NvUIVK.h">
+		</ClInclude>
+		<ClInclude Include="..\..\src\NvVkUtil\NvVkRenderTargetImpls.h">
+		</ClInclude>
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="..\..\include\NvVkUtil\NvAppContextVK.h">
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvVkUtil\NvGPUTimerVK.h">
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvVkUtil\NvMaterialVK.h">
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvVkUtil\NvMeshExtVK.h">
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvVkUtil\NvModelExtVK.h">
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvVkUtil\NvModelVK.h">
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvVkUtil\NvPlatformVK.h">
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvVkUtil\NvQuadVK.h">
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvVkUtil\NvSafeCommandBuffer.h">
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvVkUtil\NvSampleAppVK.h">
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvVkUtil\NvSimpleSyncRing.h">
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvVkUtil\NvSimpleUBO.h">
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvVkUtil\NvVkContext.h">
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvVkUtil\NvVkUtil.h">
+		</ClInclude>
+	</ItemGroup>
+	<ItemGroup>
+		<CustomBuild Include="..\..\src\NvVkUtil\src_shaders\font.glslc">
+			<Command Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">..\..\..\BuildTools\spir-v\bin\glsl2spirv.exe -cpp font -o ../../src/NvVkUtil/src_shaders\..\shaders\font ..\..\src\NvVkUtil\src_shaders\font.glslc</Command>
+			<Outputs Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">../../src/NvVkUtil/src_shaders\..\shaders\font.cpp;</Outputs>
+			<Command Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">..\..\..\BuildTools\spir-v\bin\glsl2spirv.exe -cpp font -o ../../src/NvVkUtil/src_shaders\..\shaders\font ..\..\src\NvVkUtil\src_shaders\font.glslc</Command>
+			<Outputs Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">../../src/NvVkUtil/src_shaders\..\shaders\font.cpp;</Outputs>
+			<Command Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">..\..\..\BuildTools\spir-v\bin\glsl2spirv.exe -cpp font -o ../../src/NvVkUtil/src_shaders\..\shaders\font ..\..\src\NvVkUtil\src_shaders\font.glslc</Command>
+			<Outputs Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">../../src/NvVkUtil/src_shaders\..\shaders\font.cpp;</Outputs>
+			<Command Condition="'$(Configuration)|$(Platform)'=='release|Win32'">..\..\..\BuildTools\spir-v\bin\glsl2spirv.exe -cpp font -o ../../src/NvVkUtil/src_shaders\..\shaders\font ..\..\src\NvVkUtil\src_shaders\font.glslc</Command>
+			<Outputs Condition="'$(Configuration)|$(Platform)'=='release|Win32'">../../src/NvVkUtil/src_shaders\..\shaders\font.cpp;</Outputs>
+			<Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">..\..\..\BuildTools\spir-v\bin\glsl2spirv.exe -cpp font -o ../../src/NvVkUtil/src_shaders\..\shaders\font ..\..\src\NvVkUtil\src_shaders\font.glslc</Command>
+			<Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">../../src/NvVkUtil/src_shaders\..\shaders\font.cpp;</Outputs>
+			<Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">..\..\..\BuildTools\spir-v\bin\glsl2spirv.exe -cpp font -o ../../src/NvVkUtil/src_shaders\..\shaders\font ..\..\src\NvVkUtil\src_shaders\font.glslc</Command>
+			<Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">../../src/NvVkUtil/src_shaders\..\shaders\font.cpp;</Outputs>
+		</CustomBuild>
+		<CustomBuild Include="..\..\src\NvVkUtil\src_shaders\fontOutline.glslc">
+			<Command Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">..\..\..\BuildTools\spir-v\bin\glsl2spirv.exe -cpp fontOutline -o ../../src/NvVkUtil/src_shaders\..\shaders\fontOutline ..\..\src\NvVkUtil\src_shaders\fontOutline.glslc</Command>
+			<Outputs Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">../../src/NvVkUtil/src_shaders\..\shaders\fontOutline.cpp;</Outputs>
+			<Command Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">..\..\..\BuildTools\spir-v\bin\glsl2spirv.exe -cpp fontOutline -o ../../src/NvVkUtil/src_shaders\..\shaders\fontOutline ..\..\src\NvVkUtil\src_shaders\fontOutline.glslc</Command>
+			<Outputs Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">../../src/NvVkUtil/src_shaders\..\shaders\fontOutline.cpp;</Outputs>
+			<Command Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">..\..\..\BuildTools\spir-v\bin\glsl2spirv.exe -cpp fontOutline -o ../../src/NvVkUtil/src_shaders\..\shaders\fontOutline ..\..\src\NvVkUtil\src_shaders\fontOutline.glslc</Command>
+			<Outputs Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">../../src/NvVkUtil/src_shaders\..\shaders\fontOutline.cpp;</Outputs>
+			<Command Condition="'$(Configuration)|$(Platform)'=='release|Win32'">..\..\..\BuildTools\spir-v\bin\glsl2spirv.exe -cpp fontOutline -o ../../src/NvVkUtil/src_shaders\..\shaders\fontOutline ..\..\src\NvVkUtil\src_shaders\fontOutline.glslc</Command>
+			<Outputs Condition="'$(Configuration)|$(Platform)'=='release|Win32'">../../src/NvVkUtil/src_shaders\..\shaders\fontOutline.cpp;</Outputs>
+			<Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">..\..\..\BuildTools\spir-v\bin\glsl2spirv.exe -cpp fontOutline -o ../../src/NvVkUtil/src_shaders\..\shaders\fontOutline ..\..\src\NvVkUtil\src_shaders\fontOutline.glslc</Command>
+			<Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">../../src/NvVkUtil/src_shaders\..\shaders\fontOutline.cpp;</Outputs>
+			<Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">..\..\..\BuildTools\spir-v\bin\glsl2spirv.exe -cpp fontOutline -o ../../src/NvVkUtil/src_shaders\..\shaders\fontOutline ..\..\src\NvVkUtil\src_shaders\fontOutline.glslc</Command>
+			<Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">../../src/NvVkUtil/src_shaders\..\shaders\fontOutline.cpp;</Outputs>
+		</CustomBuild>
+		<CustomBuild Include="..\..\src\NvVkUtil\src_shaders\graphic.glslc">
+			<Command Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">..\..\..\BuildTools\spir-v\bin\glsl2spirv.exe -cpp graphic -o ../../src/NvVkUtil/src_shaders\..\shaders\graphic ..\..\src\NvVkUtil\src_shaders\graphic.glslc</Command>
+			<Outputs Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">../../src/NvVkUtil/src_shaders\..\shaders\graphic.cpp;</Outputs>
+			<Command Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">..\..\..\BuildTools\spir-v\bin\glsl2spirv.exe -cpp graphic -o ../../src/NvVkUtil/src_shaders\..\shaders\graphic ..\..\src\NvVkUtil\src_shaders\graphic.glslc</Command>
+			<Outputs Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">../../src/NvVkUtil/src_shaders\..\shaders\graphic.cpp;</Outputs>
+			<Command Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">..\..\..\BuildTools\spir-v\bin\glsl2spirv.exe -cpp graphic -o ../../src/NvVkUtil/src_shaders\..\shaders\graphic ..\..\src\NvVkUtil\src_shaders\graphic.glslc</Command>
+			<Outputs Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">../../src/NvVkUtil/src_shaders\..\shaders\graphic.cpp;</Outputs>
+			<Command Condition="'$(Configuration)|$(Platform)'=='release|Win32'">..\..\..\BuildTools\spir-v\bin\glsl2spirv.exe -cpp graphic -o ../../src/NvVkUtil/src_shaders\..\shaders\graphic ..\..\src\NvVkUtil\src_shaders\graphic.glslc</Command>
+			<Outputs Condition="'$(Configuration)|$(Platform)'=='release|Win32'">../../src/NvVkUtil/src_shaders\..\shaders\graphic.cpp;</Outputs>
+			<Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">..\..\..\BuildTools\spir-v\bin\glsl2spirv.exe -cpp graphic -o ../../src/NvVkUtil/src_shaders\..\shaders\graphic ..\..\src\NvVkUtil\src_shaders\graphic.glslc</Command>
+			<Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">../../src/NvVkUtil/src_shaders\..\shaders\graphic.cpp;</Outputs>
+			<Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">..\..\..\BuildTools\spir-v\bin\glsl2spirv.exe -cpp graphic -o ../../src/NvVkUtil/src_shaders\..\shaders\graphic ..\..\src\NvVkUtil\src_shaders\graphic.glslc</Command>
+			<Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">../../src/NvVkUtil/src_shaders\..\shaders\graphic.cpp;</Outputs>
+		</CustomBuild>
+		<CustomBuild Include="..\..\src\NvVkUtil\src_shaders\graphicFrame.glslc">
+			<Command Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">..\..\..\BuildTools\spir-v\bin\glsl2spirv.exe -cpp graphicFrame -o ../../src/NvVkUtil/src_shaders\..\shaders\graphicFrame ..\..\src\NvVkUtil\src_shaders\graphicFrame.glslc</Command>
+			<Outputs Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">../../src/NvVkUtil/src_shaders\..\shaders\graphicFrame.cpp;</Outputs>
+			<Command Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">..\..\..\BuildTools\spir-v\bin\glsl2spirv.exe -cpp graphicFrame -o ../../src/NvVkUtil/src_shaders\..\shaders\graphicFrame ..\..\src\NvVkUtil\src_shaders\graphicFrame.glslc</Command>
+			<Outputs Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">../../src/NvVkUtil/src_shaders\..\shaders\graphicFrame.cpp;</Outputs>
+			<Command Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">..\..\..\BuildTools\spir-v\bin\glsl2spirv.exe -cpp graphicFrame -o ../../src/NvVkUtil/src_shaders\..\shaders\graphicFrame ..\..\src\NvVkUtil\src_shaders\graphicFrame.glslc</Command>
+			<Outputs Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">../../src/NvVkUtil/src_shaders\..\shaders\graphicFrame.cpp;</Outputs>
+			<Command Condition="'$(Configuration)|$(Platform)'=='release|Win32'">..\..\..\BuildTools\spir-v\bin\glsl2spirv.exe -cpp graphicFrame -o ../../src/NvVkUtil/src_shaders\..\shaders\graphicFrame ..\..\src\NvVkUtil\src_shaders\graphicFrame.glslc</Command>
+			<Outputs Condition="'$(Configuration)|$(Platform)'=='release|Win32'">../../src/NvVkUtil/src_shaders\..\shaders\graphicFrame.cpp;</Outputs>
+			<Command Condition="'$(Configuration)|$(Platform)'=='debug|x64'">..\..\..\BuildTools\spir-v\bin\glsl2spirv.exe -cpp graphicFrame -o ../../src/NvVkUtil/src_shaders\..\shaders\graphicFrame ..\..\src\NvVkUtil\src_shaders\graphicFrame.glslc</Command>
+			<Outputs Condition="'$(Configuration)|$(Platform)'=='debug|x64'">../../src/NvVkUtil/src_shaders\..\shaders\graphicFrame.cpp;</Outputs>
+			<Command Condition="'$(Configuration)|$(Platform)'=='release|x64'">..\..\..\BuildTools\spir-v\bin\glsl2spirv.exe -cpp graphicFrame -o ../../src/NvVkUtil/src_shaders\..\shaders\graphicFrame ..\..\src\NvVkUtil\src_shaders\graphicFrame.glslc</Command>
+			<Outputs Condition="'$(Configuration)|$(Platform)'=='release|x64'">../../src/NvVkUtil/src_shaders\..\shaders\graphicFrame.cpp;</Outputs>
+		</CustomBuild>
+	</ItemGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+	<ImportGroup Label="ExtensionTargets"></ImportGroup>
+</Project>

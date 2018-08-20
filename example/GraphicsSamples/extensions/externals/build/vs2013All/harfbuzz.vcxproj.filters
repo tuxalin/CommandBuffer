@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<Filter Include="src">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src\..">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src\..\..">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src\..\..\ucdn">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\ucdn\ucdn.c">
+			<Filter>src\..\..\ucdn</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+	</ItemGroup>
+	<ItemGroup>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-blob.cc">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-buffer-serialize.cc">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-buffer.cc">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-common.cc">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-face.cc">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-fallback-shape.cc">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-font.cc">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-ft.cc">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-ot-layout.cc">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-ot-map.cc">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-ot-shape-complex-arabic.cc">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-ot-shape-complex-default.cc">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-ot-shape-complex-indic-table.cc">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-ot-shape-complex-indic.cc">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-ot-shape-complex-myanmar.cc">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-ot-shape-complex-sea.cc">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-ot-shape-complex-thai.cc">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-ot-shape-fallback.cc">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-ot-shape-normalize.cc">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-ot-shape.cc">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-ot-tag.cc">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-set.cc">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-shape-plan.cc">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-shape.cc">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-shaper.cc">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-tt-font.cc">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-unicode.cc">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-warning.cc">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-ucdn.cc">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-blob.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-buffer.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-common.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-coretext.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-deprecated.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-face.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-font.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-ft.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-glib.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-gobject-structs.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-gobject.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-graphite2.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-icu.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-ot-layout.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-ot-tag.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-ot.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-set.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-shape-plan.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-shape.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-unicode.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-uniscribe.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-version.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClCompile Include="..\..\src\harfbuzz\src\hb-uniscribe.cc">
+			<Filter>src</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="include">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-atomic-private.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-blob.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-buffer-deserialize-json.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-buffer-deserialize-text.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-buffer-private.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-buffer.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-cache-private.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-common.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-coretext.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-deprecated.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-face-private.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-face.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-font-private.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-font.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-ft.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-glib.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-gobject-enums.h.tmpl">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-gobject-structs.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-gobject.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-graphite2.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-icu.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-mutex-private.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-object-private.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-open-file-private.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-open-type-private.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-head-table.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-hhea-table.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-hmtx-table.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-layout-common-private.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-layout-gdef-table.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-layout-gpos-table.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-layout-gsub-table.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-layout-gsubgpos-private.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-layout-jstf-table.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-layout-private.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-ot-layout.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-map-private.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-maxp-table.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-name-table.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-shape-complex-arabic-fallback.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-shape-complex-arabic-table.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-shape-complex-indic-machine.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-shape-complex-indic-private.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-shape-complex-myanmar-machine.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-shape-complex-private.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-shape-complex-sea-machine.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-shape-fallback-private.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-shape-normalize-private.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-ot-shape-private.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-ot-tag.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-ot.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-private.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-set-private.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-set.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-shape-plan-private.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-shape-plan.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-shape.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-shaper-impl-private.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-shaper-list.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-shaper-private.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-unicode-private.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-unicode.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-uniscribe.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<AndroidBuild Include="..\..\src\harfbuzz\src\hb-utf-private.hh">
+			<Filter>include</Filter>
+		</AndroidBuild>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb-version.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\harfbuzz\src\hb.h">
+			<Filter>include</Filter>
+		</ClInclude>
+	</ItemGroup>
+</Project>

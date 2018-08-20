@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<Filter Include="src">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src\autofit">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\autofit\autofit.c">
+			<Filter>src\autofit</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src\bdf">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\bdf\bdf.c">
+			<Filter>src\bdf</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src\cff">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\cff\cff.c">
+			<Filter>src\cff</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src\base">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftbase.c">
+			<Filter>src\base</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftbitmap.c">
+			<Filter>src\base</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftdebug.c">
+			<Filter>src\base</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftfstype.c">
+			<Filter>src\base</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftgasp.c">
+			<Filter>src\base</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftglyph.c">
+			<Filter>src\base</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftinit.c">
+			<Filter>src\base</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftstroke.c">
+			<Filter>src\base</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftsystem.c">
+			<Filter>src\base</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftbbox.c">
+			<Filter>src\base</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftgxval.c">
+			<Filter>src\base</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftlcdfil.c">
+			<Filter>src\base</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftmm.c">
+			<Filter>src\base</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftotval.c">
+			<Filter>src\base</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftpatent.c">
+			<Filter>src\base</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftpfr.c">
+			<Filter>src\base</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftsynth.c">
+			<Filter>src\base</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\fttype1.c">
+			<Filter>src\base</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftwinfnt.c">
+			<Filter>src\base</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\base\ftxf86.c">
+			<Filter>src\base</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src\cache">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\cache\ftcache.c">
+			<Filter>src\cache</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src\gzip">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\gzip\ftgzip.c">
+			<Filter>src\gzip</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src\lzw">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\lzw\ftlzw.c">
+			<Filter>src\lzw</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src\smooth">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\smooth\smooth.c">
+			<Filter>src\smooth</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src\pcf">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\pcf\pcf.c">
+			<Filter>src\pcf</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src\pfr">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\pfr\pfr.c">
+			<Filter>src\pfr</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src\psaux">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\psaux\psaux.c">
+			<Filter>src\psaux</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src\pshinter">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\pshinter\pshinter.c">
+			<Filter>src\pshinter</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src\psnames">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\psnames\psmodule.c">
+			<Filter>src\psnames</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src\raster">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\raster\raster.c">
+			<Filter>src\raster</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src\sfnt">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\sfnt\sfnt.c">
+			<Filter>src\sfnt</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src\truetype">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\truetype\truetype.c">
+			<Filter>src\truetype</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src\type1">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\type1\type1.c">
+			<Filter>src\type1</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src\cid">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\cid\type1cid.c">
+			<Filter>src\cid</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src\type42">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\type42\type42.c">
+			<Filter>src\type42</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src\winfonts">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\freetype-2.4.9\src\winfonts\winfnt.c">
+			<Filter>src\winfonts</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="include">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="include\freetype">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="include\freetype\config">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="..\..\src\freetype-2.4.9\include\freetype\config\ftconfig.h">
+			<Filter>include\freetype\config</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\freetype-2.4.9\include\freetype\config\ftheader.h">
+			<Filter>include\freetype\config</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\freetype-2.4.9\include\freetype\config\ftmodule.h">
+			<Filter>include\freetype\config</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\freetype-2.4.9\include\freetype\config\ftoption.h">
+			<Filter>include\freetype\config</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\freetype-2.4.9\include\freetype\config\ftstdlib.h">
+			<Filter>include\freetype\config</Filter>
+		</ClInclude>
+	</ItemGroup>
+	<ItemGroup>
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="..\..\src\freetype-2.4.9\include\ft2build.h">
+			<Filter>include</Filter>
+		</ClInclude>
+	</ItemGroup>
+</Project>

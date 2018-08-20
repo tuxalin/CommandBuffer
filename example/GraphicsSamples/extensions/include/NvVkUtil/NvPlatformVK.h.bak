@@ -1,0 +1,32 @@
+// TAGRELEASE: PUBLIC
+
+/// \file
+/// Platform-independent VK header.
+
+#ifndef NV_PLATFORM_VK_H
+#define NV_PLATFORM_VK_H
+
+#include <NvSimpleTypes.h>
+
+#if USE_VULKAN_SDK
+
+    #include <vulkan/vulkan.h>
+    
+    #include <vulkan/vk_ext_debug_report.h>
+
+    #include <NvVkUtil/vulkannv.h>
+
+    extern PFN_vkQueuePresentNV pfn_vkQueuePresentNV;
+    static inline void vkQueuePresentNV(VkQueue queue, VkImage image)
+    {
+        pfn_vkQueuePresentNV(queue, image);
+    }
+#else
+    #include <NvVkUtil/vulkan.h>
+    #include "vkfnptrinline.h"
+#endif
+
+
+
+
+#endif

@@ -1,0 +1,9 @@
+example/GraphicsSamples/extensions/build/vs2015All/intermediate/
+example/GraphicsSamples/extensions/externals/build/vs2015All/intermediate/
+example/ThreadedRenderingGL/intermediate/
+example/GraphicsSamples/extensions/externals/lib/vs2015x64/cg4cppD.lib
+example/GraphicsSamples/extensions/externals/lib/vs2015x64/freetypeD.lib
+example/GraphicsSamples/extensions/externals/lib/vs2015x64/HalfD.lib
+example/GraphicsSamples/extensions/externals/lib/vs2015x64/harfbuzzD.lib
+example/GraphicsSamples/extensions/lib/
+example/ThreadedRenderingGL/.vs/

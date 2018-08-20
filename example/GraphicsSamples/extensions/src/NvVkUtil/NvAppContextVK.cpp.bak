@@ -1,0 +1,472 @@
+// TAGRELEASE: PUBLIC
+#include "NvVkUtil/NvPlatformVK.h"
+#include "NvAppContextVK.h"
+#include "NV/NvLogs.h"
+#include <NvAssert.h>
+
+#include <vector>
+#include <string>
+#include <set>
+#include <algorithm>
+
+using std::vector;
+using std::string;
+using std::set;
+
+bool useLoaderDebug()
+{
+#ifdef NDEBUG
+    return false;
+#else
+    return true;
+#endif
+
+}
+
+bool useDebugReport()
+{
+#ifdef NDEBUG
+    return false;
+#else
+    return true;
+#endif
+
+}
+
+bool useValidation()
+{
+    // TODO, put this elsewhere
+#ifdef NDEBUG
+    return false;
+#else
+    return true;
+#endif
+}
+
+std::vector<VkLayerProperties> GetInstanceLayerProperties()
+{
+	VkResult result = VK_ERROR_INITIALIZATION_FAILED;
+
+	uint32_t count = 0;
+	result = vkEnumerateInstanceLayerProperties(&count, NULL);
+	CHECK_VK_RESULT();
+
+	std::vector<VkLayerProperties> layers(count);
+
+	result = vkEnumerateInstanceLayerProperties(&count, layers.data());
+	CHECK_VK_RESULT();
+	return layers;
+}
+
+
+std::vector<VkExtensionProperties> GetInstanceExtensionProperties()
+{
+	VkResult result = VK_ERROR_INITIALIZATION_FAILED;
+
+	uint32_t count = 0;
+	result = vkEnumerateInstanceExtensionProperties(NULL, &count, NULL);
+	CHECK_VK_RESULT();
+
+	std::vector<VkExtensionProperties> extensions(count);
+
+	result = vkEnumerateInstanceExtensionProperties(NULL, &count, extensions.data());
+	CHECK_VK_RESULT();
+	return extensions;
+}
+
+std::vector<VkExtensionProperties> GetPhysicalDeviceExtensionProperties(VkPhysicalDevice _physicalDevice)
+{
+	VkResult result = VK_ERROR_INITIALIZATION_FAILED;
+
+	uint32_t count = 0;
+	result = vkEnumerateDeviceExtensionProperties(_physicalDevice, NULL, &count, NULL);
+	CHECK_VK_RESULT();
+
+	std::vector<VkExtensionProperties> extensions(count);
+
+	result = vkEnumerateDeviceExtensionProperties(_physicalDevice, NULL, &count, extensions.data());
+	CHECK_VK_RESULT();
+	return extensions;
+}
+
+std::vector<VkLayerProperties> GetPhysicalDeviceLayerProperties(VkPhysicalDevice _physicalDevice)
+{
+	VkResult result = VK_ERROR_INITIALIZATION_FAILED;
+
+	uint32_t count = 0;
+	result = vkEnumerateDeviceLayerProperties(_physicalDevice, &count, NULL);
+	CHECK_VK_RESULT();
+
+	std::vector<VkLayerProperties> layers(count);
+
+	result = vkEnumerateDeviceLayerProperties(_physicalDevice, &count, layers.data());
+	CHECK_VK_RESULT();
+	return layers;
+}
+
+
+void logLayersAndExtensions(const char* type, const vector<VkExtensionProperties> &extentionsProperties, const vector<string> &extensionsToEnable, const vector<VkLayerProperties> &layerProperties, const vector<string> &layersToEnable, const char* layerEnvVar)
+{
+    LOGI("supported %s extensions:", type);
+    for (size_t i = 0; i < extentionsProperties.size(); ++i)
+    {
+        LOGI("\t[%u] '%s' specVersion '%u'", i, extentionsProperties[i].extensionName, extentionsProperties[i].specVersion);
+    }
+
+    LOGI("enabled %s extensions:", type);
+    for (size_t i = 0; i < extensionsToEnable.size(); ++i)
+    {
+        LOGI("\t[%u] '%s'", i, extensionsToEnable[i].c_str());
+    }
+
+    LOGI("supported %s layers:", type);
+    for (size_t i = 0; i < layerProperties.size(); ++i)
+    {
+        LOGI("\t[%u] '%s' specVersion '%u' '%s' implementationVersion '%u'", i, layerProperties[i].layerName, layerProperties[i].specVersion, layerProperties[i].description, layerProperties[i].implementationVersion);
+    }
+    
+    LOGI("enabled %s layers:", type);
+    for (size_t i = 0; i < layersToEnable.size(); ++i)
+    {
+        LOGI("\t[%u] '%s'", i, layersToEnable[i].c_str());
+    }
+
+    char* layers = getenv(layerEnvVar);
+    LOGI("implicit %s layers: '%s' = '%s'", type, layerEnvVar, layers ? layers : "not set");
+
+}
+
+std::vector<std::string> requestedLayers(bool instance)
+{
+	vector<string> layers;
+    if (useValidation())
+    {
+        //layers.push_back("VK_LAYER_LUNARG_api_dump");
+        
+        //layers.push_back("VK_LAYER_LUNARG_param_checker");
+        //layers.push_back("VK_LAYER_LUNARG_draw_state");
+
+        layers.push_back("VK_LAYER_LUNARG_image");
+        //layers.push_back("VK_LAYER_LUNARG_mem_tracker");
+        //layers.push_back("VK_LAYER_LUNARG_object_tracker");
+        //layers.push_back("VK_LAYER_LUNARG_threading");
+        //layers.push_back("VK_LAYER_LUNARG_device_limits");
+        //layers.push_back("VK_LAYER_LUNARG_swapchain");
+    }
+    return layers;
+}
+
+
+std::vector<std::string> requestedExtensions(bool instance)
+{
+	vector<string> extensions;
+	if (instance)
+	{
+
+	}
+	else
+	{
+
+	}
+
+    if (useDebugReport())
+    {
+#if VK_EXT_debug_report
+        extensions.push_back(VK_EXT_DEBUG_REPORT_EXTENSION_NAME);
+#endif
+    }
+	return extensions;
+}
+
+std::vector<std::string> filterLayers(const std::vector<VkLayerProperties>& supportedLayers, const std::vector<std::string>& layersToEnable)
+{
+	vector<string> supportedLayerNames;
+
+	for (size_t i = 0; i < layersToEnable.size(); ++i)
+	{
+		for (size_t j = 0; j < supportedLayers.size(); ++j)
+		{
+			if (layersToEnable[i] == supportedLayers[j].layerName)
+			{
+				supportedLayerNames.push_back(layersToEnable[i]);
+				break;
+			}
+		}
+	}
+	return supportedLayerNames;
+}
+
+std::vector<std::string> filterExtensions(const std::vector<VkExtensionProperties>& supportedExtensions, const std::vector<std::string>& extensionsToEnable)
+{
+	vector<string> supportedExtensionNames;
+
+	for (size_t i = 0; i < extensionsToEnable.size(); ++i)
+	{
+		for (size_t j = 0; j < supportedExtensions.size(); ++j)
+		{
+			if (extensionsToEnable[i] == supportedExtensions[j].extensionName)
+			{
+				supportedExtensionNames.push_back(extensionsToEnable[i]);
+				break;
+			}
+		}
+	}
+	return supportedExtensionNames;
+}
+
+
+#if VK_EXT_debug_report
+
+VkBool32 VKAPI_CALL vulkanDebugReportCallback(
+    VkDebugReportFlagsEXT                       flags,
+    VkDebugReportObjectTypeEXT                  objectType,
+    uint64_t                                    object,
+    size_t                                      location,
+    int32_t                                     messageCode,
+    const char*                                 pLayerPrefix,
+    const char*                                 pMessage,
+    void*                                 pUserData
+)
+{
+	const char* messageCodeString = "UNKNOWN";
+	bool isError = false;
+    if (flags & VK_DEBUG_REPORT_INFO_BIT_EXT)
+	{
+		messageCodeString = "INFO";
+	}
+    else if (flags & VK_DEBUG_REPORT_WARN_BIT_EXT)
+	{
+		messageCodeString = "WARN";
+	}
+    else if (flags & VK_DEBUG_REPORT_PERF_WARN_BIT_EXT)
+	{
+		messageCodeString = "PERF";
+	}
+    else if (flags & VK_DEBUG_REPORT_ERROR_BIT_EXT)
+	{
+		messageCodeString = "ERROR";
+		isError = true;
+	}
+    else if (flags & VK_DEBUG_REPORT_DEBUG_BIT_EXT)
+	{
+		messageCodeString = "DEBUG";
+	}
+
+    std::string message(pMessage);
+    message.resize(message.length() * 2 + 100);
+
+    sprintf(&message[0], "%s: [%s] Code %d : %s", messageCodeString, pLayerPrefix, messageCode, pMessage);
+
+
+	// this is from tri.c/cube.c
+    if (flags & VK_DEBUG_REPORT_PERF_WARN_BIT_EXT)
+	{
+		// We know that we're submitting queues without fences, ignore this warning
+		if (strstr(pMessage, "vkQueueSubmit parameter, VkFence fence, is null pointer")){
+			return false;
+		}
+	}
+
+	if (isError)
+	{
+		LOGE(message.c_str());
+	}
+	else
+	{
+        LOGI(message.c_str());
+	}
+	
+
+    return false;
+}
+#endif
+
+bool NvAppContextVK::initializeDevice(PFN_vkGetProcAddressNV getProc, const std::string& appTitle)
+{
+	if (!NvVkUtilInit(getProc))
+		return false;
+
+	VkResult result;
+
+	VkApplicationInfo applicationInfo = { VK_STRUCTURE_TYPE_APPLICATION_INFO };
+	applicationInfo.pApplicationName = appTitle.c_str();
+	applicationInfo.applicationVersion = 1;
+	applicationInfo.pEngineName = "GameWorks SDK Sample";
+	applicationInfo.engineVersion = 1;
+	applicationInfo.apiVersion = VK_API_VERSION;
+
+    if (useLoaderDebug())
+    {
+        putenv("VK_LOADER_DEBUG=all");
+    }
+
+	// instance layers and extensions
+	const vector<VkLayerProperties> instanceLayerProperties = GetInstanceLayerProperties();
+	const vector<VkExtensionProperties> instanceExtentionsProperties = GetInstanceExtensionProperties();
+
+	const vector<string> instanceLayersToEnable = filterLayers(instanceLayerProperties, requestedLayers(true));
+
+	vector<const char*> instanceLayerNames;
+	for (size_t i = 0; i < instanceLayersToEnable.size(); ++i)
+		instanceLayerNames.push_back(instanceLayersToEnable[i].c_str());
+
+	const vector<string> instanceExtensionsToEnable = filterExtensions(instanceExtentionsProperties, requestedExtensions(true));
+
+	vector<const char*> instanceExtensionNames;
+	for (size_t i = 0; i < instanceExtensionsToEnable.size(); ++i)
+		instanceExtensionNames.push_back(instanceExtensionsToEnable[i].c_str());
+
+
+	VkInstanceCreateInfo instanceCreateInfo = { VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO };
+	instanceCreateInfo.pApplicationInfo = &applicationInfo;
+
+	instanceCreateInfo.enabledExtensionCount = instanceExtensionNames.size();
+	instanceCreateInfo.ppEnabledExtensionNames = instanceExtensionNames.data();
+
+	instanceCreateInfo.enabledLayerCount = instanceLayerNames.size();
+	instanceCreateInfo.ppEnabledLayerNames = instanceLayerNames.data();
+
+    
+    logLayersAndExtensions("instance", instanceExtentionsProperties, instanceExtensionsToEnable, instanceLayerProperties, instanceLayersToEnable, "VK_INSTANCE_LAYERS");
+	result = vkCreateInstance(&instanceCreateInfo, NULL, &_instance);
+    CHECK_VK_RESULT();
+
+
+    #if VK_EXT_debug_report
+
+    if (std::find(instanceExtensionsToEnable.begin(), instanceExtensionsToEnable.end(), VK_EXT_DEBUG_REPORT_EXTENSION_NAME) != instanceExtensionsToEnable.end())
+    {
+        VkDebugReportCallbackCreateInfoEXT dbgCreateInfo;
+        dbgCreateInfo.sType = VK_STRUCTURE_TYPE_DEBUG_REPORT_CREATE_INFO_EXT;
+        dbgCreateInfo.pNext = NULL;
+        dbgCreateInfo.pfnCallback = vulkanDebugReportCallback;
+        dbgCreateInfo.pUserData = NULL;
+        dbgCreateInfo.flags = VK_DEBUG_REPORT_ERROR_BIT_EXT | VK_DEBUG_REPORT_PERF_WARN_BIT_EXT | VK_DEBUG_REPORT_INFO_BIT_EXT | VK_DEBUG_REPORT_DEBUG_BIT_EXT | VK_DEBUG_REPORT_PERF_WARN_BIT_EXT;
+
+        ext_vkCreateDebugReportCallbackEXT = (PFN_vkCreateDebugReportCallbackEXT)vkGetInstanceProcAddr(_instance, "vkCreateDebugReportCallbackEXT");
+        ext_vkDestroyDebugReportCallbackEXT = (PFN_vkDestroyDebugReportCallbackEXT)vkGetInstanceProcAddr(_instance, "vkDestroyDebugReportCallbackEXT");
+        if (!ext_vkCreateDebugReportCallbackEXT) {
+            LOGE("GetProcAddr: Unable to find vkDbgCreateMsgCallback\n");
+        }
+        if (!ext_vkDestroyDebugReportCallbackEXT) {
+            LOGE("GetProcAddr: Unable to find vkDbgDestroyMsgCallback\n");
+        }
+        result = ext_vkCreateDebugReportCallbackEXT(
+            _instance,
+            &dbgCreateInfo,
+            NULL,
+            &msg_callback
+            );
+        switch (result)
+        {
+        case VK_SUCCESS:
+            LOGI("dbgCreateMsgCallback: registered\n");
+            break;
+        case VK_ERROR_OUT_OF_HOST_MEMORY:
+            LOGE("dbgCreateMsgCallback: out of host memory\n");
+            break;
+        default:
+            LOGE("dbgCreateMsgCallback: unknown failure\n");
+            break;
+        }
+    }
+	#endif
+	
+
+	uint32_t gpuCount = 1;
+
+	result = vkEnumeratePhysicalDevices(_instance, &gpuCount, &_physicalDevice);
+	CHECK_VK_RESULT();
+
+	VkDeviceQueueCreateInfo queueCreateInfo;
+	memset(&queueCreateInfo, 0, sizeof(queueCreateInfo));
+	queueCreateInfo.queueFamilyIndex = 0;
+	queueCreateInfo.queueCount = 1;
+
+	VkDeviceCreateInfo deviceCreateInfo = { VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO };
+	deviceCreateInfo.queueCreateInfoCount = 1;
+	deviceCreateInfo.pQueueCreateInfos = &queueCreateInfo;
+
+	// physical device layers and extensions
+	const vector<VkLayerProperties> physicalDeviceLayerProperties = GetPhysicalDeviceLayerProperties(_physicalDevice);
+	const vector<VkExtensionProperties> physicalDeviceExtentionsProperties = GetPhysicalDeviceExtensionProperties(_physicalDevice);
+
+	const vector<string> physicalDeviceLayersToEnable = filterLayers(physicalDeviceLayerProperties, requestedLayers(false));
+
+	vector<const char*> physicalDeviceLayerNames;
+	for (size_t i = 0; i < physicalDeviceLayersToEnable.size(); ++i)
+		physicalDeviceLayerNames.push_back(physicalDeviceLayersToEnable[i].c_str());
+
+	const vector<string> physicalDeviceExtensionsToEnable = filterExtensions(physicalDeviceExtentionsProperties, requestedExtensions(false));
+
+	vector<const char*> physicalDeviceExtensionNames;
+	for (size_t i = 0; i < physicalDeviceExtensionsToEnable.size(); ++i)
+		physicalDeviceExtensionNames.push_back(physicalDeviceExtensionsToEnable[i].c_str());
+
+	deviceCreateInfo.enabledExtensionCount = physicalDeviceExtensionNames.size();
+	deviceCreateInfo.ppEnabledExtensionNames = physicalDeviceExtensionNames.data();
+
+	deviceCreateInfo.enabledLayerCount = physicalDeviceLayerNames.size();
+    deviceCreateInfo.ppEnabledLayerNames = physicalDeviceLayerNames.data();
+
+    // device features
+    {
+        vkGetPhysicalDeviceFeatures(_physicalDevice, &_physicalDeviceFeatures);
+
+        _physicalDeviceFeaturesEnabled = _physicalDeviceFeatures;
+        _physicalDeviceFeaturesEnabled.robustBufferAccess = 0;
+
+        deviceCreateInfo.pEnabledFeatures = &_physicalDeviceFeaturesEnabled;
+    }
+
+    logLayersAndExtensions("device", physicalDeviceExtentionsProperties, physicalDeviceExtensionsToEnable, physicalDeviceLayerProperties, physicalDeviceLayersToEnable, "VK_DEVICE_LAYERS");
+
+	result = vkCreateDevice(_physicalDevice, &deviceCreateInfo, NULL, &_device);
+	CHECK_VK_RESULT();
+
+	vkGetDeviceQueue(_device, 0, 0, &_queue);
+	CHECK_VK_RESULT();
+
+
+	vkGetPhysicalDeviceProperties(_physicalDevice, &_physicalDeviceProperties);
+	CHECK_VK_RESULT();
+
+
+	vkGetPhysicalDeviceMemoryProperties(_physicalDevice, &_physicalDeviceMemoryProperties);
+	CHECK_VK_RESULT();
+
+    _physicalDeviceLimits = _physicalDeviceProperties.limits;
+
+    {
+        LOGI("Vulkan GPU '%s': 'apiversion '%u' driver version '%u'\n", _physicalDeviceProperties.deviceName, _physicalDeviceProperties.apiVersion, _physicalDeviceProperties.driverVersion);
+    }
+	uint32_t queueCount = 4;
+
+	vkGetPhysicalDeviceQueueFamilyProperties(_physicalDevice, &queueCount, &_queueProperties);
+	CHECK_VK_RESULT();
+	// temp cmd pool
+	{
+		VkCommandPoolCreateInfo cmdPoolInfo = { VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO };
+		cmdPoolInfo.queueFamilyIndex = 0;
+		result = vkCreateCommandPool(_device, &cmdPoolInfo, NULL, &mTempCmdPool);
+		if (result != VK_SUCCESS)
+			return false;
+	}
+
+	mStaging.init(this);
+
+	// fences
+	for (int i = 0; i < MAX_BUFFERED_FRAMES; i++) {
+		VkFenceCreateInfo info = { VK_STRUCTURE_TYPE_FENCE_CREATE_INFO };
+		info.flags = 0;
+		result = vkCreateFence(_device, &info, NULL, &mFrames[i].mFence);
+		if (result != VK_SUCCESS)
+			return false;
+
+		mFrames[i].mMainCmdBuffer = createCmdBuffer(mTempCmdPool, true);
+	}
+
+	mCurrFrameIndex = 0;
+
+	return true;
+}

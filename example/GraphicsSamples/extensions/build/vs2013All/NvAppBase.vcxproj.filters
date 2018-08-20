@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<Filter Include="src">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\NvAppBase\NvAppBase.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvAppBase\NvFoundationInit.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvAppBase\NvFramerateCounter.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvAppBase\NvInputHandler_CameraFly.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvAppBase\NvInputTransformer.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvAppBase\NvSampleApp.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClInclude Include="..\..\src\NvAppBase\NvFoundationInit.h">
+			<Filter>src</Filter>
+		</ClInclude>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src-android">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\NvAppBase\android\NvAndroidNativeAppGlue.c">
+			<Filter>src-android</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvAppBase\android\EngineAndroid.cpp">
+			<Filter>src-android</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvAppBase\android\MainAndroid.cpp">
+			<Filter>src-android</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvAppBase\android\NvAndroidWinUtil.cpp">
+			<Filter>src-android</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvAppBase\android\NvFBOPool.cpp">
+			<Filter>src-android</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvAppBase\android\NvThreadAnd.cpp">
+			<Filter>src-android</Filter>
+		</ClCompile>
+		<ClInclude Include="..\..\src\NvAppBase\android\EngineAndroid.h">
+			<Filter>src-android</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\NvAppBase\android\NvAndroidNativeAppGlue.h">
+			<Filter>src-android</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\NvAppBase\android\NvAndroidWinUtil.h">
+			<Filter>src-android</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\NvAppBase\android\NvEGLAppContext.h">
+			<Filter>src-android</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\NvAppBase\android\NvFBOPool.h">
+			<Filter>src-android</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\NvAppBase\android\NvThreadAnd.h">
+			<Filter>src-android</Filter>
+		</ClInclude>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src-gl">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\NvAppBase\gl\NvAppContextGL.cpp">
+			<Filter>src-gl</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvAppBase\gl\NvSampleAppGL.cpp">
+			<Filter>src-gl</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="include">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="..\..\include\NvAppBase\NvAppBase.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvAppBase\NvAppContext.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvAppBase\NvCPUTimer.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvAppBase\NvFramerateCounter.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvAppBase\NvInputHandler.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvAppBase\NvInputHandler_CameraFly.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvAppBase\NvInputTransformer.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvAppBase\NvKeyboard.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvAppBase\NvPlatformContext.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvAppBase\NvSampleApp.h">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvAppBase\NvThread.h">
+			<Filter>include</Filter>
+		</ClInclude>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="include-gl">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="..\..\include\NvAppBase\gl\NvAppContextGL.h">
+			<Filter>include-gl</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\NvAppBase\gl\NvSampleAppGL.h">
+			<Filter>include-gl</Filter>
+		</ClInclude>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src-win">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\NvAppBase\win\MainWin32.cpp">
+			<Filter>src-win</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\NvAppBase\win\NvThreadWin.cpp">
+			<Filter>src-win</Filter>
+		</ClCompile>
+		<ClInclude Include="..\..\src\NvAppBase\win\NvThreadWin.h">
+			<Filter>src-win</Filter>
+		</ClInclude>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src-glfw">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\NvAppBase\glfw\InputCallbacksGLFW.cpp">
+			<Filter>src-glfw</Filter>
+		</ClCompile>
+		<ClInclude Include="..\..\src\NvAppBase\glfw\NvGLFWContext.h">
+			<Filter>src-glfw</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\NvAppBase\glfw\NvGLFWPlatformContext.h">
+			<Filter>src-glfw</Filter>
+		</ClInclude>
+	</ItemGroup>
+</Project>

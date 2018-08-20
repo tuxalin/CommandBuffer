@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<Filter Include="src">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\src\cg4cpp\abs.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\acos.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\all.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\any.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\asin.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\atan.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\atan2.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\ceil.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\clamp.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\cos.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\cosh.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\cross.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\degrees.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\determinant.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\distance.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\dot.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\exp.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\exp2.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\faceforward.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\floatToIntBits.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\floatToRawIntBits.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\floor.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\fmod.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\frac.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\fresnel.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\frexp.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\intBitsToFloat.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\inverse.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\iostream.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\isfinite.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\isinf.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\isnan.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\ldexp.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\length.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\lerp.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\lit.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\log.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\log10.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\log2.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\max.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\min.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\modf.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\mul.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\normalize.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\pow.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\radians.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\reflect.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\refract.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\round.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\rsqrt.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\saturate.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\sign.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\sin.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\sincos.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\sinh.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\smoothstep.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\sqrt.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\step.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\tan.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\tanh.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\transpose.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\trunc.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\upper1x1.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\upper1x2.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\upper1x3.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\upper1x4.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\upper2x1.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\upper2x2.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\upper2x3.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\upper2x4.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\upper3x1.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\upper3x2.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\upper3x3.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\upper3x4.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\upper4x1.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\upper4x2.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\upper4x3.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\src\cg4cpp\upper4x4.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClInclude Include="..\..\src\cg4cpp\sampler2D_state.hpp">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\src\cg4cpp\sampler_state.hpp">
+			<Filter>src</Filter>
+		</ClInclude>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="include">
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="..\..\include\Cg\abs.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\acos.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\all.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\any.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\asin.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\assert.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\atan.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\atan2.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\ceil.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\clamp.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\cos.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\cosh.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\cross.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\degrees.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\determinant.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\distance.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\dot.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\dotv1.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\double.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\exp.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\exp2.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\faceforward.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\fixed.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\floatToIntBits.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\floatToRawIntBits.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\floor.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\fmod.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\frac.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\frexp.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\half.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\inout.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\intBitsToFloat.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\inverse.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\iostream.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\isfinite.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\isinf.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\isnan.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\length.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\lerp.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\log.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\log10.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\log2.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\matrix.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\max.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\min.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\mul.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\mulv0.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\mulv1.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\normalize.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\pow.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\radians.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\round.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\rsqrt.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\sampler.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\sampler1D.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\sampler1DARRAY.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\sampler2D.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\sampler2DARRAY.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\sampler3D.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\samplerBUF.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\samplerCUBE.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\samplerRECT.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\saturate.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\sign.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\sin.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\sinh.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\smoothstep.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\sqrt.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\stdlib.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\step.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\tan.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\tanh.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\transpose.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\trunc.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\upper1x1.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\upper1x2.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\upper1x3.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\upper1x4.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\upper2x1.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\upper2x2.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\upper2x3.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\upper2x4.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\upper3x1.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\upper3x2.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\upper3x3.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\upper3x4.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\upper4x1.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\upper4x2.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\upper4x3.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\upper4x4.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\include\Cg\vector.hpp">
+			<Filter>include</Filter>
+		</ClInclude>
+	</ItemGroup>
+</Project>
