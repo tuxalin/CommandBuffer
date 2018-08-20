@@ -113,7 +113,7 @@ It shows more advanced usage of how to create and use reference/shared commands,
 
 The implementation is mainly based on Stefan Reinalter's blog post at Molecular Matters, about a 'Stateless, layered, multi-threaded rendering' which I highly recommend reading.  
 
-Based on:
+References:
 - [Stateless, layered, multi-threaded rendering](https://blog.molecular-matters.com/2014/11/06/stateless-layered-multi-threaded-rendering-part-1/) by Stefan Reinalter
 - [Order your graphics draw calls around!](http://realtimecollisiondetection.net/blog/?p=86) by Christer Ericson
 

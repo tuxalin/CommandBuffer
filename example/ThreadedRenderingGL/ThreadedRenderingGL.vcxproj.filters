@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="glsl_shaders">
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="NvInstancedModelExtGL.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="NvSharedVBOGL_MappedSubRanges.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="NvSharedVBOGL_Orphaning.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="NvSharedVBOGL_Pooled.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="School.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadedRenderingGL.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexFormatBinder.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="NvInstancedModelExtGL.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="NvSharedVBOGL.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="NvSharedVBOGL_MappedSubRanges.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="NvSharedVBOGL_Orphaning.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="NvSharedVBOGL_Pooled.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="School.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="SchoolStateManager.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadedRenderingGL.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexFormatBinder.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\CommandBuffer.h" />
+    <ClInclude Include="..\..\CommandKeys.h" />
+    <ClInclude Include="..\..\CommandPacket.h" />
+    <ClInclude Include="..\..\config.h" />
+    <ClInclude Include="Commands.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\RenderContext.h" />
+    <ClInclude Include="..\..\MemoryUtil.h" />
+    <ClInclude Include="..\..\LinearAllocator.h" />
+    <ClInclude Include="..\..\command_internal.h" />
+    <ClInclude Include="..\..\command_debug.h" />
+  </ItemGroup>
+</Project>

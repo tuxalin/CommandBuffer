@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="('$(Platform)'=='Tegra-Android')" Label="NsightTegraProject">
+    <NsightTegraProjectRevisionNumber Label="NsightTegraProject">11</NsightTegraProjectRevisionNumber>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="debug|Tegra-Android">
+      <Configuration>debug</Configuration>
+      <Platform>Tegra-Android</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="release|Tegra-Android">
+      <Configuration>release</Configuration>
+      <Platform>Tegra-Android</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="debug|Win32">
+      <Configuration>debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="release|Win32">
+      <Configuration>release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="debug|x64">
+      <Configuration>debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="release|x64">
+      <Configuration>release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{52BC552D-308E-2371-C184-AE2D39138182}</ProjectGuid>
+    <RootNamespace>ThreadedRenderingGL</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>"arm-linux-androideabi-$(NDK_TOOLCHAIN_VERSION)"</PlatformToolset>
+    <FastDeploy>false</FastDeploy>
+    <AndroidArch>armv7-a</AndroidArch>
+    <AndroidStlType>gnustl_static</AndroidStlType>
+    <AndroidTargetAPI>android-24</AndroidTargetAPI>
+    <AndroidMinAPI>android-24</AndroidMinAPI>
+    <AndroidNativeAPI>android-24</AndroidNativeAPI>
+    <NdkToolchainVersion>DefaultGcc</NdkToolchainVersion>
+    <AndroidBuildSystem>AntBuild</AndroidBuildSystem>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>"arm-linux-androideabi-$(NDK_TOOLCHAIN_VERSION)"</PlatformToolset>
+    <FastDeploy>false</FastDeploy>
+    <AndroidArch>armv7-a</AndroidArch>
+    <AndroidStlType>gnustl_static</AndroidStlType>
+    <AndroidTargetAPI>android-24</AndroidTargetAPI>
+    <AndroidMinAPI>android-24</AndroidMinAPI>
+    <AndroidNativeAPI>android-24</AndroidNativeAPI>
+    <NdkToolchainVersion>DefaultGcc</NdkToolchainVersion>
+    <AndroidBuildSystem>AntBuild</AndroidBuildSystem>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">
+    <OutDir>$(ProjectDir)./bin/Tegra-Android\</OutDir>
+    <IntDir>./intermediate/ThreadedRenderingGL/Tegra-Android/debug\</IntDir>
+    <TargetExt>.so</TargetExt>
+    <TargetName>libThreadedRenderingGL</TargetName>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules />
+    <CodeAnalysisRuleAssemblies />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">
+    <ClCompile>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <AdditionalOptions>-funwind-tables -O0 -g -ggdb -fno-omit-frame-pointer -Wno-attributes</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>./;./../GraphicsSamples/extensions/include;./../GraphicsSamples/extensions/externals/include;./../GraphicsSamples/extensions/include/NsFoundation;./../GraphicsSamples/extensions/include/NvFoundation;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>android;ANDROID;_LIB;NV_ANDROID;__STDC_LIMIT_MACROS;GW_APP_NAME="ThreadedRenderingGL";GL_API_LEVEL_GL4;USE_REGAL=1;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions> -Wl,--start-group -lc -lm -lgcc -lgnustl_static -lEGL -landroid -lm -lGLESv3 -lsupc++ -lgcc -lRegalW_static -Wl,--end-group</AdditionalOptions>
+      <AdditionalDependencies>gnustl_static;EGL;android;m;GLESv3;supc++;gcc;RegalW_static;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)libThreadedRenderingGL.so</OutputFile>
+      <AdditionalLibraryDirectories>./../GraphicsSamples/extensions/externals/lib/Tegra-Android;./../GraphicsSamples/extensions/lib/Tegra-Android;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ProgramDatabaseFile>$(OutDir)/libThreadedRenderingGL.so.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
+    </Link>
+    <AntBuild>
+      <AntBuildPath>$(ProjectDir)./</AntBuildPath>
+      <JavaSourceDir>./../GraphicsSamples/extensions/src/NvAppBase/java;src</JavaSourceDir>
+      <AntBuildType>Debug</AntBuildType>
+      <AntLibraryName>$(TargetName)</AntLibraryName>
+    </AntBuild>
+    <ResourceCompile>
+    </ResourceCompile>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">
+    <OutDir>$(ProjectDir)./GraphicsSamples/bin/Tegra-Android\</OutDir>
+    <IntDir>./intermediate/ThreadedRenderingGL/Tegra-Android/release\</IntDir>
+    <TargetExt>.so</TargetExt>
+    <TargetName>libThreadedRenderingGL</TargetName>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules />
+    <CodeAnalysisRuleAssemblies />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">
+    <ClCompile>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <AdditionalOptions>-funwind-tables -O2 -fno-omit-frame-pointer -Wno-attributes</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>./;./../GraphicsSamples/extensions/include;./../GraphicsSamples/extensions/externals/include;./../GraphicsSamples/extensions/include/NsFoundation;./../GraphicsSamples/extensions/include/NvFoundation;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>android;ANDROID;_LIB;NV_ANDROID;__STDC_LIMIT_MACROS;GW_APP_NAME="ThreadedRenderingGL";GL_API_LEVEL_GL4;USE_REGAL=1;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions> -Wl,--start-group -lc -lm -lgcc -lgnustl_static -lEGL -landroid -lm -lGLESv3 -lsupc++ -lgcc -lRegalW_static -Wl,--end-group</AdditionalOptions>
+      <AdditionalDependencies>gnustl_static;EGL;android;m;GLESv3;supc++;gcc;RegalW_static;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)libThreadedRenderingGL.so</OutputFile>
+      <AdditionalLibraryDirectories>./../GraphicsSamples/extensions/externals/lib/Tegra-Android;./../GraphicsSamples/extensions/lib/Tegra-Android;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ProgramDatabaseFile>$(OutDir)/libThreadedRenderingGL.so.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
+    </Link>
+    <AntBuild>
+      <AntBuildPath>$(ProjectDir)./</AntBuildPath>
+      <JavaSourceDir>./../GraphicsSamples/extensions/src/NvAppBase/java;src</JavaSourceDir>
+      <AntBuildType>Debug</AntBuildType>
+      <AntLibraryName>$(TargetName)</AntLibraryName>
+    </AntBuild>
+    <ResourceCompile>
+    </ResourceCompile>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">
+    <OutDir>./bin/vs2015x86\</OutDir>
+    <IntDir>./intermediate/ThreadedRenderingGL/vs2015x86/debug\</IntDir>
+    <TargetExt>.exe</TargetExt>
+    <TargetName>ThreadedRenderingGLD</TargetName>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules />
+    <CodeAnalysisRuleAssemblies />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">
+    <ClCompile>
+      <CallingConvention>Cdecl</CallingConvention>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <AdditionalOptions>/Oy- /EHsc /wd4100 /wd4201 /wd4390 /wd4748 /wd4995 /wd4996 /wd4244 /wd4267 /wd4334</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../../.;./../GraphicsSamples/extensions/include;./../GraphicsSamples/extensions/externals/include;./../GraphicsSamples/extensions/include/NsFoundation;./../GraphicsSamples/extensions/include/NvFoundation;./../GraphicsSamples/extensions/externals/include/GLFW;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NV_FOUNDATION_DLL=0;GW_APP_NAME="ThreadedRenderingGL";_DEBUG;PROFILE;_ITERATOR_DEBUG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level3</WarningLevel>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions>/DEBUG /MACHINE:x86 /LARGEADDRESSAWARE /NOLOGO /OPT:REF /OPT:ICF /INCREMENTAL:NO</AdditionalOptions>
+      <AdditionalDependencies>xinput9_1_0.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;opengl32.lib;glew32sd.lib;glfw3d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)ThreadedRenderingGLD.exe</OutputFile>
+      <AdditionalLibraryDirectories>./../GraphicsSamples/extensions/externals/lib/vs2015x86;./../GraphicsSamples/extensions/lib/vs2015x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ProgramDatabaseFile>$(OutDir)/ThreadedRenderingGLD.exe.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <ResourceCompile>
+    </ResourceCompile>
+    <ProjectReference>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Win32'">
+    <OutDir>./bin/vs2015x86\</OutDir>
+    <IntDir>./intermediate/ThreadedRenderingGL/vs2015x86/release\</IntDir>
+    <TargetExt>.exe</TargetExt>
+    <TargetName>ThreadedRenderingGL</TargetName>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules />
+    <CodeAnalysisRuleAssemblies />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|Win32'">
+    <ClCompile>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <AdditionalOptions>/Oy- /EHsc /wd4100 /wd4201 /wd4390 /wd4748 /wd4995 /wd4996 /wd4244 /wd4267 /wd4334</AdditionalOptions>
+      <Optimization>Full</Optimization>
+      <AdditionalIncludeDirectories>./;./../GraphicsSamples/extensions/include;./../GraphicsSamples/extensions/externals/include;./../GraphicsSamples/extensions/include/NsFoundation;./../GraphicsSamples/extensions/include/NvFoundation;./../GraphicsSamples/extensions/externals/include/GLFW;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NV_FOUNDATION_DLL=0;GW_APP_NAME="ThreadedRenderingGL";NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level3</WarningLevel>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions>/DEBUG /MACHINE:x86 /LARGEADDRESSAWARE /NOLOGO /OPT:REF /OPT:ICF /INCREMENTAL:NO</AdditionalOptions>
+      <AdditionalDependencies>xinput9_1_0.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;opengl32.lib;glew32s.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)ThreadedRenderingGL.exe</OutputFile>
+      <AdditionalLibraryDirectories>./../GraphicsSamples/extensions/externals/lib/vs2015x86;./../GraphicsSamples/extensions/lib/vs2015x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ProgramDatabaseFile>$(OutDir)/ThreadedRenderingGL.exe.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <ResourceCompile>
+    </ResourceCompile>
+    <ProjectReference>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
+    <OutDir>./bin/vs2015x64\</OutDir>
+    <IntDir>./intermediate/ThreadedRenderingGL/vs2015x64/debug\</IntDir>
+    <TargetExt>.exe</TargetExt>
+    <TargetName>ThreadedRenderingGLD</TargetName>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules />
+    <CodeAnalysisRuleAssemblies />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|x64'">
+    <ClCompile>
+      <CallingConvention>Cdecl</CallingConvention>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <AdditionalOptions>/Oy- /EHsc /wd4100 /wd4201 /wd4390 /wd4748 /wd4995 /wd4996 /wd4244 /wd4267 /wd4334</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../../;./../GraphicsSamples/extensions/include;./../GraphicsSamples/extensions/externals/include;./../GraphicsSamples/extensions/include/NsFoundation;./../GraphicsSamples/extensions/include/NvFoundation;./../GraphicsSamples/extensions/externals/include/GLFW;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NV_FOUNDATION_DLL=0;GW_APP_NAME="ThreadedRenderingGL";_DEBUG;PROFILE;_ITERATOR_DEBUG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level3</WarningLevel>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions>/DEBUG /MACHINE:x64 /LARGEADDRESSAWARE /NOLOGO /OPT:REF /OPT:ICF /INCREMENTAL:NO</AdditionalOptions>
+      <AdditionalDependencies>xinput9_1_0.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;opengl32.lib;glew32sd.lib;glfw3d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)ThreadedRenderingGLD.exe</OutputFile>
+      <AdditionalLibraryDirectories>./../GraphicsSamples/extensions/externals/lib/vs2015x64;./../GraphicsSamples/extensions/lib/vs2015x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ProgramDatabaseFile>$(OutDir)/ThreadedRenderingGLD.exe.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <ResourceCompile>
+    </ResourceCompile>
+    <ProjectReference>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'">
+    <OutDir>./bin/vs2015x64\</OutDir>
+    <IntDir>./intermediate/ThreadedRenderingGL/vs2015x64/release\</IntDir>
+    <TargetExt>.exe</TargetExt>
+    <TargetName>ThreadedRenderingGL</TargetName>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules />
+    <CodeAnalysisRuleAssemblies />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|x64'">
+    <ClCompile>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <AdditionalOptions>/Oy- /EHsc /wd4100 /wd4201 /wd4390 /wd4748 /wd4995 /wd4996 /wd4244 /wd4267 /wd4334</AdditionalOptions>
+      <Optimization>Full</Optimization>
+      <AdditionalIncludeDirectories>./;./../GraphicsSamples/extensions/include;./../GraphicsSamples/extensions/externals/include;./../GraphicsSamples/extensions/include/NsFoundation;./../GraphicsSamples/extensions/include/NvFoundation;./../GraphicsSamples/extensions/externals/include/GLFW;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NV_FOUNDATION_DLL=0;GW_APP_NAME="ThreadedRenderingGL";NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level3</WarningLevel>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions>/DEBUG /MACHINE:x64 /LARGEADDRESSAWARE /NOLOGO /OPT:REF /OPT:ICF /INCREMENTAL:NO</AdditionalOptions>
+      <AdditionalDependencies>xinput9_1_0.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;opengl32.lib;glew32s.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)ThreadedRenderingGL.exe</OutputFile>
+      <AdditionalLibraryDirectories>./../GraphicsSamples/extensions/externals/lib/vs2015x64;./../GraphicsSamples/extensions/lib/vs2015x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ProgramDatabaseFile>$(OutDir)/ThreadedRenderingGL.exe.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <ResourceCompile>
+    </ResourceCompile>
+    <ProjectReference>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'">
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Tegra-Android'">
+  </PropertyGroup>
+  <ItemGroup>
+    <AndroidBuild Include=".\assets\src_shaders\groundplane_FS.glsl">
+    </AndroidBuild>
+    <AndroidBuild Include=".\assets\src_shaders\groundplane_VS.glsl">
+    </AndroidBuild>
+    <AndroidBuild Include=".\assets\src_shaders\skyboxcolor_FS.glsl">
+    </AndroidBuild>
+    <AndroidBuild Include=".\assets\src_shaders\skyboxcolor_VS.glsl">
+    </AndroidBuild>
+    <AndroidBuild Include=".\assets\src_shaders\staticfish_FS.glsl">
+    </AndroidBuild>
+    <AndroidBuild Include=".\assets\src_shaders\staticfish_VS.glsl">
+    </AndroidBuild>
+  </ItemGroup>
+  <ItemGroup Condition="('$(Platform)'=='Tegra-Android')or('$(Platform)'=='Win32')or('$(Platform)'=='x64')">
+    <ProjectReference Include="./../GraphicsSamples/extensions/build/vs2015All/NsFoundation.vcxproj">
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup Condition="('$(Platform)'=='Tegra-Android')or('$(Platform)'=='Win32')or('$(Platform)'=='x64')">
+    <ProjectReference Include="./../GraphicsSamples/extensions/build/vs2015All/NvAppBase.vcxproj">
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup Condition="('$(Platform)'=='Tegra-Android')or('$(Platform)'=='Win32')or('$(Platform)'=='x64')">
+    <ProjectReference Include="./../GraphicsSamples/extensions/build/vs2015All/NvAssetLoader.vcxproj">
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup Condition="('$(Platform)'=='Tegra-Android')or('$(Platform)'=='Win32')or('$(Platform)'=='x64')">
+    <ProjectReference Include="./../GraphicsSamples/extensions/build/vs2015All/NvModel.vcxproj">
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup Condition="('$(Platform)'=='Tegra-Android')or('$(Platform)'=='Win32')or('$(Platform)'=='x64')">
+    <ProjectReference Include="./../GraphicsSamples/extensions/build/vs2015All/NvGLUtils.vcxproj">
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup Condition="('$(Platform)'=='Tegra-Android')or('$(Platform)'=='Win32')or('$(Platform)'=='x64')">
+    <ProjectReference Include="./../GraphicsSamples/extensions/build/vs2015All/NvGamepad.vcxproj">
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup Condition="('$(Platform)'=='Tegra-Android')or('$(Platform)'=='Win32')or('$(Platform)'=='x64')">
+    <ProjectReference Include="./../GraphicsSamples/extensions/build/vs2015All/NvImage.vcxproj">
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup Condition="('$(Platform)'=='Tegra-Android')or('$(Platform)'=='Win32')or('$(Platform)'=='x64')">
+    <ProjectReference Include="./../GraphicsSamples/extensions/build/vs2015All/NvUI.vcxproj">
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup Condition="('$(Platform)'=='Tegra-Android')or('$(Platform)'=='Win32')or('$(Platform)'=='x64')">
+    <ProjectReference Include="./../GraphicsSamples/extensions/externals/build/vs2015All/Half.vcxproj">
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup Condition="('$(Platform)'=='Tegra-Android')or('$(Platform)'=='Win32')or('$(Platform)'=='x64')">
+    <ProjectReference Include="./../GraphicsSamples/extensions/build/vs2015All/NvEGLUtil.vcxproj">
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Commands.cpp" />
+    <ClCompile Include="NvInstancedModelExtGL.cpp" />
+    <ClCompile Include="NvSharedVBOGL_MappedSubRanges.cpp" />
+    <ClCompile Include="NvSharedVBOGL_Orphaning.cpp" />
+    <ClCompile Include="NvSharedVBOGL_Pooled.cpp" />
+    <ClCompile Include="School.cpp" />
+    <ClCompile Include="ThreadedRenderingGL.cpp" />
+    <ClCompile Include="VertexFormatBinder.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\CommandBuffer.h" />
+    <ClInclude Include="..\..\CommandKeys.h" />
+    <ClInclude Include="..\..\CommandPacket.h" />
+    <ClInclude Include="..\..\command_debug.h" />
+    <ClInclude Include="..\..\command_internal.h" />
+    <ClInclude Include="..\..\config.h" />
+    <ClInclude Include="..\..\RenderContext.h" />
+    <ClInclude Include="..\..\LinearAllocator.h" />
+    <ClInclude Include="..\..\MemoryUtil.h" />
+    <ClInclude Include="Commands.h" />
+    <ClInclude Include="NvInstancedModelExtGL.h" />
+    <ClInclude Include="NvSharedVBOGL.h" />
+    <ClInclude Include="NvSharedVBOGL_MappedSubRanges.h" />
+    <ClInclude Include="NvSharedVBOGL_Orphaning.h" />
+    <ClInclude Include="NvSharedVBOGL_Pooled.h" />
+    <ClInclude Include="School.h" />
+    <ClInclude Include="SchoolStateManager.h" />
+    <ClInclude Include="ThreadedRenderingGL.h" />
+    <ClInclude Include="VertexFormatBinder.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
