@@ -65,9 +65,9 @@ namespace cb
 
 	public:
 		cb::RenderContext::function_t dispatchFunction;
-		void*                        commandData;
-		void*                        auxilaryData;  // optional
-		CommandPacket*               nextCommand;
+		void*                         commandData;
+		void*                         auxilaryData;  // optional
+		CommandPacket*                nextCommand;
 	};
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

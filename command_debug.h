@@ -9,6 +9,7 @@
 #if CB_DEBUG_TAG_COMMANDS
 
 #include <algorithm>
+#include <cassert>
 #include <string>
 #if CB_DEBUG_COMMANDS_PRINT
 #include <sstream>
@@ -76,3 +77,4 @@ namespace cb
 #define CB_DEBUG_COMMAND_SET_MSG(cmd, msg)
 
 #endif  // #ifdef CB_DEBUG_TAG_COMMANDS
+

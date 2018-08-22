@@ -284,7 +284,7 @@ namespace cb
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	const char* toString(cb::ViewLayerType type)
+	inline const char* toString(cb::ViewLayerType type)
 	{
 		switch (type)
 		{
@@ -300,7 +300,7 @@ namespace cb
 		}
 	}
 
-	const char* toString(cb::TranslucencyType type)
+	inline const char* toString(cb::TranslucencyType type)
 	{
 		switch (type)
 		{

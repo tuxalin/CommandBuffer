@@ -69,7 +69,8 @@ namespace cb
 		/// Sorts the created commands based on their key priority.
 		void sort();
 		/// Submits the sorted commands to the GPU.
-		void submit(cb::RenderContext* rc);
+		/// @param clearBuffer - clear all created commands from the buffer.
+		void submit(cb::RenderContext* rc, bool clearBuffer = true);
 
 		/// Creates a new command in the command buffer.
 		///@param auxilarySize Size of auxiliary memory required by the command.
@@ -204,7 +205,7 @@ namespace cb
 	}
 
 	COMMAND_TEMPLATE
-		void COMMAND_QUAL::submit(cb::RenderContext* rc)
+		void COMMAND_QUAL::submit(cb::RenderContext* rc, bool clearBuffer /*= true*/)
 	{
 		// dispatches commands
 #if CB_DEBUG_COMMANDS_PRINT
@@ -242,7 +243,8 @@ namespace cb
 		}
 
 		// safe to dealloc all
-		clear();
+		if (clearBuffer)
+			clear();
 	}
 
 	COMMAND_TEMPLATE
