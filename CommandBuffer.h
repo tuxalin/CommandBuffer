@@ -47,6 +47,14 @@ namespace cb
 		}
 	};
 
+	/// Utility to create global functions for commands with execute member method.
+	template<class CommandClass>
+	void makeExecuteFunction(const void* data, cb::RenderContext* rc)
+	{
+		auto& cmd = *reinterpret_cast<const CommandClass*>(data);
+		cmd.execute();
+	}
+
 	/// The command buffer is composed of more CommandPackets and their corresponding keys.
 	template <typename KeyType = cb::DrawKey, class KeyDecoderClass = DefaultKeyDecoder, class MaterialBinderClass = DefaultMaterialBinder>
 	class CommandBuffer
@@ -59,6 +67,9 @@ namespace cb
 
 		explicit CommandBuffer(uint32_t commandCount = 5000, uint32_t commandKBytes = 512);
 		explicit CommandBuffer(const MaterialBinderClass& materialBinder);
+
+		MaterialBinderClass& materialBinder();
+		const MaterialBinderClass& materialBinder() const;
 
 		/// Returns the count of the commands in the buffer.
 		size_t count() const;
@@ -182,6 +193,18 @@ namespace cb
 		assert(m_currentIndex.is_lock_free());
 
 		m_commands.resize(kDefaultCommandCount);
+	}
+
+	COMMAND_TEMPLATE
+		MaterialBinderClass& COMMAND_QUAL::materialBinder()
+	{
+		return m_materialBinder;
+	}
+
+	COMMAND_TEMPLATE
+		const MaterialBinderClass& COMMAND_QUAL::materialBinder() const
+	{
+		return m_materialBinder;
 	}
 
 	COMMAND_TEMPLATE
