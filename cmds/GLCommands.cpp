@@ -1,6 +1,8 @@
 
 #include "GLCommands.h"
 
+#include <cassert>
+
 #ifndef USE_GLEW
 #define GL_GLEXT_PROTOTYPES
 #include <gl/glext.h>

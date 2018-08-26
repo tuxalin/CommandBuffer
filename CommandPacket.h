@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <cstdint>
+
 #include "RenderContext.h"
 #include "command_debug.h"
 #include "command_internal.h"
