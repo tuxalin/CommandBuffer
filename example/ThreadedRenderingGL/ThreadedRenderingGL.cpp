@@ -421,6 +421,7 @@ void ThreadedRenderingGL::helperJobFunction()
 			cmd->skyboxSandTex = m_skyboxSandTex;
 			CB_DEBUG_COMMAND_SET_MSG(cmd, "Draw Ground");
 		}
+		updateStats();
 
 		signalWorkComplete(1);
 	}
@@ -1770,12 +1771,6 @@ void ThreadedRenderingGL::draw(void)
 	{
 		CPU_TIMER_SCOPE(CPU_TIMER_MAIN_CMD_BUILD);
 		GPU_TIMER_SCOPE();
-		if (m_animPaused)
-		{
-			// we can simply use the previous recorded commands as nothing has changed
-			m_geometryCommands.submit(nullptr, false);
-		}
-		else
 		{
 			m_geometryCommands.sort();
 			// nothing to pass as GL doesn't have any contexts
@@ -1787,7 +1782,6 @@ void ThreadedRenderingGL::draw(void)
 	LOGI("END OF FRAME");
 	LOGI("################################################################\n");
 #endif
-	updateStats();
 }
 
 //-----------------------------------------------------------------------------
