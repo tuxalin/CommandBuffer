@@ -21,7 +21,7 @@ namespace cb
 	{
 		struct packet_debug
 		{
-			static const int kSize = 256;
+			static const int kSize = 128;
 
 			void setTag(const std::string& str)
 			{

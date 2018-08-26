@@ -10,6 +10,7 @@ Useful to reduce state switches(i.e. materials, shaders), depth sorting(for tran
 - configurable key type for sorting commands(opaque, transparent, depth sorting)
 - easy to use and configurable draw key via bitfields
 - debug utilities, tag commands
+- basic GL commands(see GLCommands.h)
 - lightweight, header only
 - C++11 support
 	
@@ -107,7 +108,7 @@ NOTE. Since matrices is a POD you can use data copy commands which will automati
 ## Example
 
 Check the [example](example/) folder which shows how to use the CommandBuffers in a real use case, it was done by adapdting NVIDIA's Gameworks GL Threading example. 
-It shows more advanced usage of how to create and use reference/shared commands, pod hints, creating a material binder, prioritize custom commands, dispatch and have multiple command buffers for a deferred renderer.
+It shows more advanced usage of how to create and use reference/shared commands, commands recording, pod hints, creating a material binder, prioritize custom commands, dispatch and have multiple command buffers for a deferred renderer.
 
 ## Contributing
 

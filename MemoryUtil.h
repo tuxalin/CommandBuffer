@@ -12,7 +12,7 @@ namespace cb
 {
 	namespace mem
 	{
-		/// @brief Computes the element count of a C array, eg:
+		/// @brief Computes the element count of a C array.
 		/// @example int a[10];
 		/// mem::size(a); == 10
 		template <typename T, size_t N>
@@ -69,8 +69,9 @@ namespace cb
 
 		inline uint8_t* alignForward(uint8_t* address, uint32_t alignment)
 		{
-			return (uint8_t*)((reinterpret_cast<uintptr_t>(address) + static_cast<uintptr_t>(alignment - 1)) &
-				static_cast<uintptr_t>(~(alignment - 1)));
+			const uint32_t a = alignment - 1;
+			const uint32_t na = ~a;
+			return (uint8_t*)((reinterpret_cast<uintptr_t>(address) + static_cast<uintptr_t>(a)) & static_cast<uintptr_t>(na));
 		}
 
 		inline uint32_t alignForwardPadding(const uint8_t* address, uint32_t alignment)

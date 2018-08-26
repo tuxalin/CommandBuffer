@@ -74,10 +74,10 @@ namespace cb
 		/// Returns the count of the commands in the buffer.
 		/// @param countChainCommands - will also count chained commands
 		size_t count(bool countChainCommands = false) const;
-		/// Returns the consumed memory of the commands in the buffer, in KBs.
+		/// Returns the consumed memory of the commands in the buffer, in bytes.
 		size_t allocations() const;
 		///@warning Should never resize when dispatching commands in progress, only before.
-		void resize(uint32_t commandCount, uint32_t commandBytes);
+		void resize(uint32_t commandCount, uint32_t commandKBs);
 		/// Sorts the created commands based on their key priority.
 		void sort();
 		/// Submits the sorted commands to the GPU.
@@ -231,7 +231,7 @@ namespace cb
 	COMMAND_TEMPLATE
 		size_t COMMAND_QUAL::allocations() const
 	{
-		return m_allocator.size() / 1024;
+		return m_allocator.size();
 	}
 
 	COMMAND_TEMPLATE
