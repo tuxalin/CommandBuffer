@@ -72,7 +72,8 @@ namespace cb
 		const MaterialBinderClass& materialBinder() const;
 
 		/// Returns the count of the commands in the buffer.
-		size_t count() const;
+		/// @param countChainCommands - will also count chained commands
+		size_t count(bool countChainCommands = false) const;
 		/// Returns the consumed memory of the commands in the buffer, in KBs.
 		size_t allocations() const;
 		///@warning Should never resize when dispatching commands in progress, only before.
@@ -208,9 +209,23 @@ namespace cb
 	}
 
 	COMMAND_TEMPLATE
-		size_t COMMAND_QUAL::count() const
+		size_t COMMAND_QUAL::count(bool countChainCommands /*= false*/) const
 	{
-		return m_currentIndex;
+		if (!countChainCommands)
+			return m_currentIndex;
+
+		size_t res = 0;
+		const auto end = m_commands.begin() + (int)m_currentIndex.load(std::memory_order_acquire);
+		for (auto it = m_commands.begin(); it != end; ++it)
+		{
+			const CommandPacket* packet = it->cmd;
+			do
+			{
+				++res;
+				packet = packet->nextCommand;
+			} while (packet != NULL);
+		}
+		return res;
 	}
 
 	COMMAND_TEMPLATE
@@ -234,9 +249,8 @@ namespace cb
 #if CB_DEBUG_COMMANDS_PRINT
 		(*m_logger)("\n\n++++ Submit ++++\n\n");
 #endif
-		const typename std::vector<CommandPair>::const_iterator end =
-			m_commands.begin() + (int)m_currentIndex.load(std::memory_order_acquire);
-		for (typename std::vector<CommandPair>::const_iterator it = m_commands.begin(); it != end; ++it)
+		const auto end = m_commands.begin() + (int)m_currentIndex.load(std::memory_order_acquire);
+		for (auto it = m_commands.begin(); it != end; ++it)
 		{
 			const key_t& key = it->key;
 

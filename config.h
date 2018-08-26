@@ -6,9 +6,9 @@
 /// Tag commands with message for debugging purposes.
 #define CB_DEBUG_TAG_COMMANDS 0
 
-/// Print the commands in the standard output.
+/// Print the commands in the standard output(or custom logger).
 #if CB_DEBUG_TAG_COMMANDS
-#define CB_DEBUG_COMMANDS_PRINT 1
+#define CB_DEBUG_COMMANDS_PRINT 0
 #endif
 
 #ifdef _MSC_VER
