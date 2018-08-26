@@ -50,8 +50,7 @@
 #include <deque>
 #include <vector>
 
-#include "CommandBuffer.h"
-#include "CommandKeys.h"
+#include "Buffers.h"
 
 #define CPU_TIMER_SCOPE(TIMER_ID) NvCPUTimerScope cpuTimer(&m_CPUTimers[TIMER_ID])
 #define GPU_TIMER_SCOPE() NvGPUTimerScope gpuTimer(&m_GPUTimer)
@@ -461,6 +460,7 @@ private:
 
 	typedef std::vector<School*> SchoolSet;
 	SchoolSet m_schools;
+	std::vector<uint32_t> m_schoolsDrawCount;
 	uint32_t m_activeSchools;
 
 	// Scene wide and background shared textures
@@ -567,6 +567,8 @@ private:
 
 	// Stats variables
 	uint32_t m_drawCallCount;
+	uint32_t m_commandCount;
+	float m_commandAllocations;
 
 	enum { STATS_FRAMES = 5 };
 	NvCPUTimer m_CPUTimers[CPU_TIMER_COUNT];
@@ -631,6 +633,7 @@ private:
 
 		uint32_t activeSchools;
 		SchoolStateManager* schoolStateMgr;
+		Nv::MaterialBinder* materialBinder;
 		GLuint projUBO_Id;
 		ProjUBO projUBO_Data;
 		GLuint lightingUBO_Id;
@@ -640,6 +643,7 @@ private:
 		{
 			auto& cmd = *reinterpret_cast<const BeginFrameCommand*>(data);
 			cmd.schoolStateMgr->BeginFrame(cmd.activeSchools);
+			cmd.materialBinder->reset();
 
 			glBindBuffer(GL_UNIFORM_BUFFER, cmd.projUBO_Id);
 			glBufferData(GL_UNIFORM_BUFFER, sizeof(ProjUBO), &cmd.projUBO_Data, GL_STREAM_DRAW);
@@ -649,6 +653,9 @@ private:
 			glBindBuffer(GL_UNIFORM_BUFFER, 0);
 
 			glClear(GL_DEPTH_BUFFER_BIT);
+
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		}
 	};
 
@@ -658,10 +665,15 @@ private:
 
 		GLsync* fences;
 		uint32_t currentFenceIndex;
+		bool fenceSync;
 
 		static void execute(const void* data, cb::RenderContext* rc)
 		{
 			auto& cmd = *reinterpret_cast<const EndFrameCommand*>(data);
+
+			if (!cmd.fenceSync)
+				return;
+
 			// We've completed rendering, so create our per-frame fence, if we're using them.
 			if (nullptr != cmd.fences)
 			{
@@ -678,7 +690,7 @@ private:
 		}
 	};
 
-	cb::CommandBuffer<cb::DrawKey> m_geometryCommands;
+	GeometryCommandBuffer m_geometryCommands;
 
 };
 #endif // ThreadedRenderingGL_H_

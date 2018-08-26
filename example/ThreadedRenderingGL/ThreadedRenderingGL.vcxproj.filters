@@ -33,6 +33,7 @@
     <ClCompile Include="Commands.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\cmds\GLCommands.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NvInstancedModelExtGL.h">
@@ -74,5 +75,9 @@
     <ClInclude Include="..\..\LinearAllocator.h" />
     <ClInclude Include="..\..\command_internal.h" />
     <ClInclude Include="..\..\command_debug.h" />
+    <ClInclude Include="..\..\cmds\GLCommands.h" />
+    <ClInclude Include="Buffers.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

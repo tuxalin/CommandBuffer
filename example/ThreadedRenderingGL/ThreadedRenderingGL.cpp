@@ -230,6 +230,31 @@ void ThreadedRenderingGL::animateJobFunction(uint32_t threadIndex)
 					// Updating in GL is just animating.  We cannot update our instance data in another thread.
 					CPU_TIMER_SCOPE(CPU_TIMER_THREAD_BASE_ANIMATE + threadIndex);
 					m_schools[i]->Animate(getClampedFrameTime(), &m_schoolStateMgr, m_avoidance);
+					// Dispatch vbo update commands
+					m_schools[i]->Update(m_geometryCommands);
+					// Dispatch render commands
+					m_schoolsDrawCount[i] = m_schools[i]->Render(m_uiBatchSize, m_geometryCommands);
+
+					//TODO: add pool support
+					// 		if (nullptr != m_pVBOPool)
+					// 		{
+					// 			if (!m_animPaused || m_bForceSchoolUpdate)
+					// 			{
+					// 				m_pVBOPool->EndUpdate();
+					// 			}
+					// 			{
+					// 				for (uint32_t schoolIndex = 0; schoolIndex < m_activeSchools; ++schoolIndex)
+					// 				{
+					// 					School* pSchool = m_schools[schoolIndex];
+					// 					{
+					// 						CPU_TIMER_SCOPE(CPU_TIMER_MAIN_CMD_BUILD);
+					// 						GPU_TIMER_SCOPE();
+					// 						m_drawCallCount += pSchool->Render(m_uiBatchSize);
+					// 					}
+					// 				}
+					// 			}
+					// 			m_pVBOPool->DoneRendering();
+					// 		}
 				}
 			}
 
@@ -255,6 +280,10 @@ void ThreadedRenderingGL::animateJobFunction(uint32_t threadIndex)
 				{
 					CPU_TIMER_SCOPE(CPU_TIMER_THREAD_BASE_ANIMATE + threadIndex);
 					job.school->Animate(getClampedFrameTime(), &m_schoolStateMgr, m_avoidance);
+					// Dispatch vbo update commands
+					job.school->Update(m_geometryCommands);
+					// Dispatch render commands
+					m_schoolsDrawCount[i] = job.school->Render(m_uiBatchSize, m_geometryCommands);
 				}
 
 				schoolsDone++;
@@ -325,6 +354,7 @@ void ThreadedRenderingGL::helperJobFunction()
 #endif
 		updateSchoolTankSizes();
 
+		// NOTE. could create enums with priorities for better management
 		{
 			const auto key = cb::DrawKey::makeCustom(cb::ViewLayerType::eHighest, 2);
 			auto* cmd = m_geometryCommands.addCommand<BeginFrameCommand>(key);
@@ -341,6 +371,7 @@ void ThreadedRenderingGL::helperJobFunction()
 			cmd->lightingUBO_Data = m_lightingUBO_Data;
 			cmd->lightingUBO_Data.m_causticOffset = m_currentTime * m_causticSpeed;
 			cmd->lightingUBO_Data.m_causticTiling = m_causticTiling;
+			cmd->materialBinder = &m_geometryCommands.materialBinder();
 			CB_DEBUG_COMMAND_TAG(cmd);
 
 			if ((nullptr != m_pVBOPool) && (!m_animPaused || m_bForceSchoolUpdate))
@@ -357,8 +388,16 @@ void ThreadedRenderingGL::helperJobFunction()
 				CB_DEBUG_COMMAND_TAG(vboCmd);
 			}
 		}
+		{
+			const auto key = cb::DrawKey(0); // lowest priority
+			auto* cmd = m_geometryCommands.addCommand<EndFrameCommand>(key);
+			cmd->fences = m_fences;
+			cmd->currentFenceIndex = m_currentFenceIndex;
+			cmd->fenceSync = true;
+			CB_DEBUG_COMMAND_TAG(cmd);
+		}
 
-		// note could also use depth for sorting or even chaining
+		// NOTE. could also use depth for sorting or even chaining but are using priority instead
 		{
 			const auto key = cb::DrawKey::makeCustom(cb::ViewLayerType::eSkybox, 0);
 			auto* cmd = m_geometryCommands.addCommand<cmds::DrawSkyboxCommand>(key);
@@ -434,7 +473,7 @@ ThreadedRenderingGL::ThreadedRenderingGL() :
 	m_startingCameraPitchYaw(0.0f, 0.0f),
 	m_maxSchools(MAX_SCHOOL_COUNT),
 	m_schoolStateMgr(m_maxSchools),
-	m_ESVBOPolicy(Nv::VBO_POOLED_PERSISTENT),
+	m_ESVBOPolicy(Nv::VBO_SUBRANGE),
 	m_currentVBOPolicy(Nv::VBO_INVALID),
 	m_pVBOPool(nullptr),
 	m_activeSchools(0),
@@ -493,7 +532,7 @@ ThreadedRenderingGL::ThreadedRenderingGL() :
 	m_frameID(0)
 {
 	cb::DrawKey::sanityChecks();
-
+	m_geometryCommands.resize(10000, 3 * 1024);
 #if STRESS_TEST
 	// Full complexity for the stress test
 	neighborSkip = 5;
@@ -725,6 +764,9 @@ uint32_t ThreadedRenderingGL::setNumSchools(uint32_t numSchools)
 		// We need to increase the size of our array of schools and initialize the new ones
 		uint32_t schoolIndex = m_schools.size();
 		m_schools.resize(numSchools);
+		m_schoolsDrawCount.resize(numSchools);
+
+		m_geometryCommands.materialBinder().materials.resize(numSchools + 1);
 
 		int32_t newSchools = numSchools - schoolIndex;
 
@@ -761,6 +803,17 @@ uint32_t ThreadedRenderingGL::setNumSchools(uint32_t numSchools)
 				{
 					return 0;
 				}
+
+				int materialId = schoolIndex + 1; // first material is reserved
+				pSchool->SetMaterial(cb::TranslucencyType::eOpaque, materialId);
+				auto& mat = m_geometryCommands.materialBinder().materials[materialId];
+				mat.name = "Fish school:";
+				mat.name += std::to_string(schoolIndex);
+				mat.shader = m_shader_Fish;
+
+				auto ubo = pSchool->GetUniformBuffer();
+				mat.ubo = ubo.first;
+				mat.location = ubo.second;
 				m_schools[schoolIndex] = pSchool;
 			}
 		}
@@ -1659,9 +1712,6 @@ void ThreadedRenderingGL::draw(void)
 		}
 #endif
 
-		m_doneCount = 0;
-		m_drawCallCount = 0;
-
 #ifndef USE_STATIC_THREAD_WORK
 		// If each thread will request a new school to update after
 		// it has completed its current one, we need to populate
@@ -1685,6 +1735,7 @@ void ThreadedRenderingGL::draw(void)
 		m_NeedsUpdateQueueLock->unlockMutex();
 #endif
 
+		m_doneCount = 0;
 		// Work is ready to begin.  Signal the threads that we're
 		// ready for them to start updating schools
 		m_frameStartLock->lockMutex();
@@ -1707,79 +1758,29 @@ void ThreadedRenderingGL::draw(void)
 		m_doneCountLock->unlockMutex();
 	}
 
+	m_drawCallCount = 0;
+	for (uint32_t schoolIndex = 0; schoolIndex < m_activeSchools; ++schoolIndex)
+	{
+		m_drawCallCount += m_schoolsDrawCount[schoolIndex];
+	}
+	m_commandCount = m_geometryCommands.count(true);
+	m_commandAllocations = m_geometryCommands.allocations() / 1024.f;
+
 	// Rendering
 	{
 		CPU_TIMER_SCOPE(CPU_TIMER_MAIN_CMD_BUILD);
 		GPU_TIMER_SCOPE();
-		m_geometryCommands.sort();
-		// nothing to pass as GL doesn't have any contexts
-		m_geometryCommands.submit(nullptr);
-	}
-	{
-		// Able to cheat somewhat here, since we know that all fish will use the same shader to render
+		if (m_animPaused)
 		{
-			m_shader_Fish->enable();
-		}
-
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-		if (nullptr != m_pVBOPool)
-		{
-			if (!m_animPaused || m_bForceSchoolUpdate)
-			{
-				m_pVBOPool->EndUpdate();
-			}
-			{
-				for (uint32_t schoolIndex = 0; schoolIndex < m_activeSchools; ++schoolIndex)
-				{
-					School* pSchool = m_schools[schoolIndex];
-					{
-						CPU_TIMER_SCOPE(CPU_TIMER_MAIN_CMD_BUILD);
-						GPU_TIMER_SCOPE();
-						m_drawCallCount += pSchool->Render(m_uiBatchSize);
-					}
-				}
-			}
-			m_pVBOPool->DoneRendering();
+			// we can simply use the previous recorded commands as nothing has changed
+			m_geometryCommands.submit(nullptr, false);
 		}
 		else
 		{
-			for (uint32_t schoolIndex = 0; schoolIndex < m_activeSchools; ++schoolIndex)
-			{
-				School* pSchool = m_schools[schoolIndex];
-				{
-					CPU_TIMER_SCOPE(CPU_TIMER_MAIN_COPYVBO);
-					if (!m_animPaused || m_bForceSchoolUpdate)
-					{
-						pSchool->Update();
-					}
-				}
-				{
-					CPU_TIMER_SCOPE(CPU_TIMER_MAIN_CMD_BUILD);
-					GPU_TIMER_SCOPE();
-					m_drawCallCount += pSchool->Render(m_uiBatchSize);
-				}
-			}
+			m_geometryCommands.sort();
+			// nothing to pass as GL doesn't have any contexts
+			m_geometryCommands.submit(nullptr);
 		}
-		{
-			m_shader_Fish->disable();
-		}
-		m_bForceSchoolUpdate = false;
-	}
-
-	// We've completed rendering, so create our per-frame fence, if we're using them.
-	if (nullptr != m_fences)
-	{
-		m_fences[m_currentFenceIndex] = glFenceSync(GL_SYNC_GPU_COMMANDS_COMPLETE, 0);
-	}
-	else
-	{
-		// HACK!
-		// Trigger some kind of driver optimization that ups our frame rate.  For 
-		// some reason, if fences aren't used at all, the driver seems to sync somewhere.
-		// by simply creating a throw away fence, we speed things up.
-		glFenceSync(GL_SYNC_GPU_COMMANDS_COMPLETE, 0);
 	}
 
 #if FISH_DEBUG
@@ -2081,10 +2082,13 @@ void ThreadedRenderingGL::buildSimpleStatsString(char* buffer, int32_t size)
 		"Draw Calls/sec: %s\n"
 		NvBF_COLORSTR_WHITE
 		NVBF_STYLESTR_NORMAL
-		"CPU Thd0: %5.1fms\n"
-		"ThdID, Time\n",
+		"Draw Commands: %d - %.1f\n"
+		NvBF_COLORSTR_WHITE
+		NVBF_STYLESTR_NORMAL
+		"CPU Thd0: %5.1fms\n",
 		fishCountStr,
 		drawCallRateStr,
+		m_commandCount, m_commandAllocations,
 		m_meanCPUMainCmd + m_meanCPUMainCopyVBO);
 
 	for (uint32_t i = 0; i < activeThreadCount(); ++i) {

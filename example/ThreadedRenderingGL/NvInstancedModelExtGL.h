@@ -38,6 +38,8 @@
 #include "NvSharedVBOGL.h"
 #include <map>
 
+#include "Buffers.h"
+
 namespace Nv
 {
 	class VertexFormatBinder;
@@ -124,8 +126,61 @@ namespace Nv
 		/// \param[in] texcoordHandle the vertex attribute array index that represents UVs in the current shader
 		/// \param[in] tangentHandle the vertex attribute array index that represents tangents in the current shader
 		/// \return Returns the number of draw calls used to render this model
-		uint32_t Render(GLint positionHandle, GLint normalHandle = -1, GLint texcoordHandle = -1, GLint tangentHandle = -1);
+		uint32_t Render(GeometryCommandBuffer& geometryCommands, GLint positionHandle, GLint normalHandle = -1, GLint texcoordHandle = -1, GLint tangentHandle = -1);
 
+		cb::DrawKey& DrawKey() { return m_drawKey; }
+
+	private:
+		struct RenderNonInstanced
+		{
+			static const cb::RenderContext::function_t kDispatchFunction;
+
+			NvModelExtGL* pSourceModel;
+			GLint positionHandle, normalHandle, texcoordHandle, tangentHandle;
+
+			void execute() const
+			{
+				pSourceModel->DrawElements(1, positionHandle, normalHandle, texcoordHandle, tangentHandle);
+			}
+		};
+
+		struct RenderInstanced
+		{
+			static const cb::RenderContext::function_t kDispatchFunction;
+
+			VertexFormatBinder* pInstancingVertexBinder;
+			NvSharedVBOGL*  pInstanceDataStream;
+			NvModelExtGL* pSourceModel;
+			GLint positionHandle, normalHandle, texcoordHandle, tangentHandle;
+			uint32_t instanceCount;
+
+			void execute() const;
+		};
+
+		struct RenderInstancedUpdate
+		{
+			static const cb::RenderContext::function_t kDispatchFunction;
+
+			VertexFormatBinder* pInstancingVertexBinder;
+			NvSharedVBOGL*  pInstanceDataStream;
+			NvModelExtGL* pSourceModel;
+			GLint positionHandle, normalHandle, texcoordHandle, tangentHandle;
+			uint32_t instanceCount;
+			uint32_t offset;
+
+			void execute() const;
+		};
+
+		struct UpdateVertexBinder
+		{
+			static const cb::RenderContext::function_t kDispatchFunction;
+
+			VertexFormatBinder* pInstancingVertexBinder;
+			NvSharedVBOGL*  pInstanceDataStream;
+			bool activate;
+
+			void execute() const;
+		};
 	private:
 		/// \privatesection
 		// NvInstancedModelExtGL may only be created through the factory
@@ -133,9 +188,7 @@ namespace Nv
 		NvInstancedModelExtGL(uint32_t instanceCount, NvModelExtGL* pSourceModel = nullptr);
 
 		// Helper methods for rendering.  See Render() for parameter descriptions
-		uint32_t RenderNonInstanced(GLint positionHandle, GLint normalHandle = -1, GLint texcoordHandle = -1, GLint tangentHandle = -1);
-		uint32_t RenderInstanced(GLint positionHandle, GLint normalHandle = -1, GLint texcoordHandle = -1, GLint tangentHandle = -1);
-		uint32_t RenderBatched(GLint positionHandle, GLint normalHandle = -1, GLint texcoordHandle = -1, GLint tangentHandle = -1);
+		uint32_t RenderBatched(GeometryCommandBuffer& geometryCommands, GLint positionHandle, GLint normalHandle = -1, GLint texcoordHandle = -1, GLint tangentHandle = -1);
 
 		// Vertex data to use as the instancing data stream along with the vertex format
 		// binder that defines the layout used
@@ -150,6 +203,11 @@ namespace Nv
 
 		// Number of instances to render per draw call
 		uint32_t m_batchSize;
+
+		cb::DrawKey m_drawKey;
+
+		template<class CommandClass>
+		friend void cb::makeExecuteFunction(const void* data, cb::RenderContext* rc);
 	};
 }
 #endif // NvInstancedModelExtGL_H_

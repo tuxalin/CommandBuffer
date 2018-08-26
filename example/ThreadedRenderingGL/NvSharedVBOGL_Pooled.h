@@ -83,9 +83,6 @@ namespace Nv
 		/// Unmaps our VBO and clears the data pointer if necessary
 		virtual void EndUpdate();
 
-		/// Notifies the VBO that we are done rendering for this frame
-		virtual void DoneRendering();
-
 		/// Returns the pointer to the currently active buffer in the shared VBO
 		/// \return Pointer to the current writable range of the vertex buffer
 		virtual uint8_t* GetData();
@@ -180,9 +177,6 @@ namespace Nv
 		/// No unmapping is needed for a pooled sub-range.  We just clear the
 		/// pointer to our mapped range.
 		virtual void EndUpdate() { m_vboData = nullptr; }
-
-		/// No fencing or other synchronization is required for the sub-range.
-		virtual void DoneRendering() {}
 
 		/// Returns the pointer to the currently active buffer in the shared VBO
 		/// \return Pointer to the current writeable range of the vertex buffer

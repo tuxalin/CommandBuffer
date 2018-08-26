@@ -8,7 +8,7 @@
 
 namespace cmds
 {
-	void WaitFenceCommand::execute(const void* data, cb::RenderContext* rc)
+	void waitFenceCommand(const void* data, cb::RenderContext* rc)
 	{
 		auto& cmd = *reinterpret_cast<const WaitFenceCommand*>(data);
 
@@ -42,7 +42,7 @@ namespace cmds
 		*cmd.currentFenceIndex = nextFenceIndex;
 	}
 
-	void VboPoolUpateCommand::execute(const void* data, cb::RenderContext* rc)
+	void vboPoolUpateCommand(const void* data, cb::RenderContext* rc)
 	{
 		auto& cmd = *reinterpret_cast<const VboPoolUpateCommand*>(data);
 		if (cmd.begin)
@@ -55,7 +55,7 @@ namespace cmds
 		}
 	}
 
-	void DrawSkyboxCommand::execute(const void* data, cb::RenderContext* rc)
+	void drawSkyboxCommand(const void* data, cb::RenderContext* rc)
 	{
 		auto& cmd = *reinterpret_cast<const DrawSkyboxCommand*>(data);
 
@@ -75,7 +75,7 @@ namespace cmds
 		glEnable(GL_DEPTH_TEST);
 	}
 
-	void DrawGroundCommand::execute(const void* data, cb::RenderContext* rc)
+	void drawGroundCommand(const void* data, cb::RenderContext* rc)
 	{
 		// vertex positions in NDC tex-coords
 		static const float groundplaneQuadData[] =
@@ -119,8 +119,28 @@ namespace cmds
 		glDisableVertexAttribArray(1);
 	}
 
-	const cb::RenderContext::function_t WaitFenceCommand::kDispatchFunction = &WaitFenceCommand::execute;
-	const cb::RenderContext::function_t VboPoolUpateCommand::kDispatchFunction = &VboPoolUpateCommand::execute;
-	const cb::RenderContext::function_t DrawSkyboxCommand::kDispatchFunction = &DrawSkyboxCommand::execute;
-	const cb::RenderContext::function_t DrawGroundCommand::kDispatchFunction = &DrawGroundCommand::execute;
+	void vboUpdate(const void* data, cb::RenderContext* rc)
+	{
+		auto& cmd = *reinterpret_cast<const VboUpdate*>(data);
+
+		if (!cmd.vbo->BeginUpdate())
+		{
+			return;
+		}
+
+		uint8_t* dst = cmd.vbo->GetData();
+		if (nullptr == dst)
+		{
+			cmd.vbo->EndUpdate();
+			return;
+		}
+		memcpy(dst, cmd.data, cmd.size);
+		cmd.vbo->EndUpdate();
+	}
+
+	const cb::RenderContext::function_t WaitFenceCommand::kDispatchFunction = &waitFenceCommand;
+	const cb::RenderContext::function_t VboPoolUpateCommand::kDispatchFunction = &vboPoolUpateCommand;
+	const cb::RenderContext::function_t DrawSkyboxCommand::kDispatchFunction = &drawSkyboxCommand;
+	const cb::RenderContext::function_t DrawGroundCommand::kDispatchFunction = &drawGroundCommand;
+	const cb::RenderContext::function_t VboUpdate::kDispatchFunction = &vboUpdate;
 }

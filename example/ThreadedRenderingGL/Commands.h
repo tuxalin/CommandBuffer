@@ -10,6 +10,7 @@ class NvGLSLProgram;
 namespace Nv
 {
 	class NvSharedVBOGLPool;
+	class NvSharedVBOGL;
 }
 
 ///@brief These are the commands that can be issued to the command buffer.
@@ -23,8 +24,6 @@ namespace cmds
 		uint32_t numDrawAheadFrames;
 		GLsync* fences;
 		uint32_t* currentFenceIndex;
-
-		static void execute(const void* data, cb::RenderContext* rc);
 	};
 
 	struct VboPoolUpateCommand
@@ -33,8 +32,6 @@ namespace cmds
 
 		Nv::NvSharedVBOGLPool* vboPool;
 		bool begin;
-
-		static void execute(const void* data, cb::RenderContext* rc);
 	};
 
 	//  Draws the skybox with lighting in color and depth
@@ -47,8 +44,6 @@ namespace cmds
 		GLuint sandTex;
 		GLuint gradientTex;
 		NvGLSLProgram* shader;
-
-		static void execute(const void* data, cb::RenderContext* rc);
 	};
 
 	//  Draws the ground plane with caustics
@@ -64,8 +59,15 @@ namespace cmds
 		GLuint caustic2Tex;
 		GLuint skyboxSandTex;
 		NvGLSLProgram* shader;
+	};
 
-		static void execute(const void* data, cb::RenderContext* rc);
+	struct VboUpdate
+	{
+		static const cb::RenderContext::function_t kDispatchFunction;
+
+		Nv::NvSharedVBOGL* vbo;
+		const void* data;
+		size_t size;
 	};
 
 }  // namespace cmd

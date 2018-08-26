@@ -35,6 +35,7 @@
 #include "NV/NvQuaternion.h"
 #include "SchoolStateManager.h"
 
+#include "Commands.h"
 #include "NvInstancedModelExtGL.h"
 
 Nv::VertexFormatBinder* School::ms_pInstancingVertexBinder = nullptr;
@@ -655,51 +656,48 @@ void School::Animate(float frameTime, SchoolStateManager* pStateManager, bool av
 	// If we are using a pooled VBO, then it is already mapped, so we can go ahead and copy into it in this thread
 	if ((m_currentVBOPolicy == Nv::VBO_POOLED) || (m_currentVBOPolicy == Nv::VBO_POOLED_PERSISTENT))
 	{
-		UpdateInstanceDataBuffer();
+		//todo: add support
+		//UpdateInstanceDataBuffer();
 	}
 }
 
-void School::Update()
+void School::Update(GeometryCommandBuffer& geometryCommands)
 {
-	UpdateInstanceDataBuffer();
+	cb::DrawKey key = cb::DrawKey::makeCustom(cb::ViewLayerType::eHighest, 10);
+
+	size_t size = sizeof(FishInstanceData) * m_instancesActive;
+	auto& cmd = *geometryCommands.addCommand<cmds::VboUpdate>(key);
+	cmd.vbo = m_pInstanceData;
+	cmd.size = size;
+	// no need to copy data as it will be read only on the main thread, since the animation threads are waiting for work
+	cmd.data = &m_fishInstanceStates[0];
+	CB_DEBUG_COMMAND_TAG_MSG(cmd, "Update fish data");
 }
 
-void School::UpdateInstanceDataBuffer()
+void School::UpdateInstanceDataBuffer(cb::CommandBuffer<cb::DrawKey>& geometryCommands)
 {
-	if (!m_pInstanceData->BeginUpdate())
-	{
-		return;
-	}
-
-	FishInstanceData* pCurrInstance =
-		(FishInstanceData*)m_pInstanceData->GetData();
-	if (nullptr == pCurrInstance)
-	{
-		m_pInstanceData->EndUpdate();
-		return;
-	}
-	memcpy(pCurrInstance, &m_fishInstanceStates[0], sizeof(FishInstanceData) * m_instancesActive);
-	m_pInstanceData->EndUpdate();
+	//todo: add support
 }
 
-uint32_t School::Render(uint32_t batchSize)
+uint32_t School::Render(uint32_t batchSize, GeometryCommandBuffer& geometryCommands)
 {
 	uint32_t drawCallCount = 0;
-
 	if (nullptr == m_pInstancedModel)
 	{
 		return drawCallCount;
 	}
 
-	// Activate our Uniform buffers
-	glBindBufferBase(GL_UNIFORM_BUFFER, m_schoolUBO_Location, m_schoolUBO_Id);
-
 	m_pInstancedModel->SetBatchSize(batchSize);
-	drawCallCount += m_pInstancedModel->Render(0, 1, 2);
-	m_pInstanceData->DoneRendering();
+	drawCallCount += m_pInstancedModel->Render(geometryCommands, 0, 1, 2);
+
 	return drawCallCount;
 }
 
+void School::SetMaterial(cb::TranslucencyType translucency, uint32_t materialId)
+{
+	m_pInstancedModel->DrawKey().setViewLayer(cb::ViewLayerType::e3D, translucency);
+	m_pInstancedModel->DrawKey().setMaterial(materialId);
+}
 void School::FindNewGoal()
 {
 	m_schoolGoal = ScaledRandomVector(m_flockParams.m_spawnZoneMax

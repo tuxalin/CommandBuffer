@@ -415,6 +415,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\cmds\GLCommands.cpp" />
     <ClCompile Include="Commands.cpp" />
     <ClCompile Include="NvInstancedModelExtGL.cpp" />
     <ClCompile Include="NvSharedVBOGL_MappedSubRanges.cpp" />
@@ -425,6 +426,7 @@
     <ClCompile Include="VertexFormatBinder.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\cmds\GLCommands.h" />
     <ClInclude Include="..\..\CommandBuffer.h" />
     <ClInclude Include="..\..\CommandKeys.h" />
     <ClInclude Include="..\..\CommandPacket.h" />
@@ -434,6 +436,7 @@
     <ClInclude Include="..\..\RenderContext.h" />
     <ClInclude Include="..\..\LinearAllocator.h" />
     <ClInclude Include="..\..\MemoryUtil.h" />
+    <ClInclude Include="Buffers.h" />
     <ClInclude Include="Commands.h" />
     <ClInclude Include="NvInstancedModelExtGL.h" />
     <ClInclude Include="NvSharedVBOGL.h" />

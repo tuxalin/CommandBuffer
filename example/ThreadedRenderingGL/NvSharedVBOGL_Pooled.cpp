@@ -184,10 +184,6 @@ namespace Nv
 		}
 	}
 
-	void NvSharedVBOGL_Pooled::DoneRendering()
-	{
-	}
-
 	uint8_t* NvSharedVBOGL_Pooled::GetData()
 	{
 		if (nullptr == m_vboData)

@@ -31,8 +31,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NvGLUtils", "..\GraphicsSam
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NvImage", "..\GraphicsSamples\extensions\build\vs2015All\NvImage.vcxproj", "{A717928C-B4E4-0DBA-1F9B-2044B1B2A6F9}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cg4cpp", "..\GraphicsSamples\extensions\externals\build\vs2015All\cg4cpp.vcxproj", "{4112EB99-6B21-D171-D292-424A65BE95A6}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "freetype", "..\GraphicsSamples\extensions\externals\build\vs2015All\freetype.vcxproj", "{642095FC-E850-EAF3-5BD0-1D3C1A433B44}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Half", "..\GraphicsSamples\extensions\externals\build\vs2015All\Half.vcxproj", "{7B07CE8A-72CE-1F32-5039-88C256EA7899}"
@@ -157,18 +155,6 @@ Global
 		{A717928C-B4E4-0DBA-1F9B-2044B1B2A6F9}.release|Win32.Build.0 = release|Win32
 		{A717928C-B4E4-0DBA-1F9B-2044B1B2A6F9}.release|x64.ActiveCfg = release|x64
 		{A717928C-B4E4-0DBA-1F9B-2044B1B2A6F9}.release|x64.Build.0 = release|x64
-		{4112EB99-6B21-D171-D292-424A65BE95A6}.debug|Tegra-Android.ActiveCfg = debug|Tegra-Android
-		{4112EB99-6B21-D171-D292-424A65BE95A6}.debug|Tegra-Android.Build.0 = debug|Tegra-Android
-		{4112EB99-6B21-D171-D292-424A65BE95A6}.debug|Win32.ActiveCfg = debug|Win32
-		{4112EB99-6B21-D171-D292-424A65BE95A6}.debug|Win32.Build.0 = debug|Win32
-		{4112EB99-6B21-D171-D292-424A65BE95A6}.debug|x64.ActiveCfg = debug|x64
-		{4112EB99-6B21-D171-D292-424A65BE95A6}.debug|x64.Build.0 = debug|x64
-		{4112EB99-6B21-D171-D292-424A65BE95A6}.release|Tegra-Android.ActiveCfg = release|Tegra-Android
-		{4112EB99-6B21-D171-D292-424A65BE95A6}.release|Tegra-Android.Build.0 = release|Tegra-Android
-		{4112EB99-6B21-D171-D292-424A65BE95A6}.release|Win32.ActiveCfg = release|Win32
-		{4112EB99-6B21-D171-D292-424A65BE95A6}.release|Win32.Build.0 = release|Win32
-		{4112EB99-6B21-D171-D292-424A65BE95A6}.release|x64.ActiveCfg = release|x64
-		{4112EB99-6B21-D171-D292-424A65BE95A6}.release|x64.Build.0 = release|x64
 		{642095FC-E850-EAF3-5BD0-1D3C1A433B44}.debug|Tegra-Android.ActiveCfg = debug|Tegra-Android
 		{642095FC-E850-EAF3-5BD0-1D3C1A433B44}.debug|Tegra-Android.Build.0 = debug|Tegra-Android
 		{642095FC-E850-EAF3-5BD0-1D3C1A433B44}.debug|Win32.ActiveCfg = debug|Win32

@@ -43,6 +43,8 @@
 #include "NvSharedVBOGL_Orphaning.h"
 #include "NvSharedVBOGL_Pooled.h"
 
+#include "Buffers.h"
+
 namespace Nv
 {
 	class NvInstancedModelExtGL;
@@ -278,12 +280,12 @@ public:
 
 	/// Updates the instance data buffer with the current state of the flocking 
 	/// simulation.
-	void Update();
+	void Update(GeometryCommandBuffer& geometryCommands);
 
 	/// Render the school using GL commands and structures
 	/// \param batchSize Number of instances rendered per draw call
 	/// \return Returns the number of draw calls invoked during the Render call
-	uint32_t Render(uint32_t batchSize);
+	uint32_t Render(uint32_t batchSize, GeometryCommandBuffer& geometryCommands);
 
 	/// Set the values used by the flocking simulation that drives the school
 	/// \param params A SchoolFlockingParams object initialized with the
@@ -323,10 +325,14 @@ public:
 	/// Calculates a new goal for the school, abandoning any previously set goal location.
 	void FindNewGoal();
 
+	std::pair<GLuint, GLuint> GetUniformBuffer() const { return std::make_pair(m_schoolUBO_Id, m_schoolUBO_Location); }
+
+	void SetMaterial(cb::TranslucencyType translucency, uint32_t materialId);
+
 private:
 	/// Updates the current instance data buffer with the current states of
 	/// each fish in the school in preparation for rendering.
-	void UpdateInstanceDataBuffer();
+	void UpdateInstanceDataBuffer(cb::CommandBuffer<cb::DrawKey>& geometryCommands);
 
 	static Nv::VertexFormatBinder* ms_pInstancingVertexBinder;
 
