@@ -40,78 +40,76 @@ namespace Nv
 {
 	/// \file
 	/// SharedVBO that implements a ring-buffer of VBOs to be synchronized with
-    /// GPU frames so that a data pointer may be retrieved each frame and used
-    /// to fill in the vertex buffer for that frame's rendering. The shared VBO 
-    /// may have n buffers, allowing up to n frames worth of updates before 
-    /// attempting to update the buffer will need to wait until the GPU has 
-    /// finished consuming one of the buffers.
+	/// GPU frames so that a data pointer may be retrieved each frame and used
+	/// to fill in the vertex buffer for that frame's rendering. The shared VBO 
+	/// may have n buffers, allowing up to n frames worth of updates before 
+	/// attempting to update the buffer will need to wait until the GPU has 
+	/// finished consuming one of the buffers.
 	class NvSharedVBOGL_MappedSubRanges : public NvSharedVBOGL
 	{
 	public:
-        NvSharedVBOGL_MappedSubRanges();
-        virtual ~NvSharedVBOGL_MappedSubRanges(){}
+		NvSharedVBOGL_MappedSubRanges();
+		virtual ~NvSharedVBOGL_MappedSubRanges() {}
 
-        /// Initializes the VBO wrapper and sets its size
-        /// \param dataSize Size, in bytes, of the buffer object
-        /// \param numBuffers Number of copies of the buffer to create.  This
-        ///                   is the size of the ring buffer, and the number of
-        ///                   frames that can be rendered before the caller may 
-        ///                   need to wait for a frame to complete before
-        ///                   calling BeginUpdate().
-        /// \param bPersistent Flag to indicate whether the VBO should be persistently mapped
-        /// \return True if the buffer was initialized, false if an error occurred
-        virtual bool Initialize(uint32_t dataSize, uint32_t numBuffers, bool bPersistent);
+		/// Initializes the VBO wrapper and sets its size
+		/// \param dataSize Size, in bytes, of the buffer object
+		/// \param numBuffers Number of copies of the buffer to create.  This
+		///                   is the size of the ring buffer, and the number of
+		///                   frames that can be rendered before the caller may 
+		///                   need to wait for a frame to complete before
+		///                   calling BeginUpdate().
+		/// \param bPersistent Flag to indicate whether the VBO should be persistently mapped
+		/// \return True if the buffer was initialized, false if an error occurred
+		virtual bool Initialize(uint32_t dataSize, uint32_t numBuffers, bool bPersistent);
 
 		/// Releases all resources associated with the VBO
-        virtual void Finish();
+		virtual void Finish();
 
 		/// Maps our data pointer and assures us that the available data
 		/// pointer can be modified without affecting any in-flight rendering
 		/// \return True if the update could begin
-        virtual bool BeginUpdate();
+		virtual bool BeginUpdate();
 
-        /// Signals the VBO wrapper that the caller is done updating the data and
-        /// the VBO is ready for rendering
-        virtual void EndUpdate();
-
-        /// Signals the VBO wrapper that the caller is done rendering with the VBO.
-        virtual void DoneRendering();
+		/// Signals the VBO wrapper that the caller is done updating the data and
+		/// the VBO is ready for rendering
+		virtual void EndUpdate();
 
 		/// Returns the pointer to the currently active buffer in the shared VBO
 		/// \return Pointer to the current writeable range of the vertex buffer
-        virtual uint8_t* GetData();
+		virtual uint8_t* GetData();
 
 		/// Returns the size of each of the vertex buffers in the shared VBO
 		/// \return Number of bytes per vertex buffer in the shared VBO
-        virtual uint32_t GetDataSize() const { return m_dataSize; }
+		virtual uint32_t GetDataSize() const { return m_dataSize; }
 
-        /// Returns the offset to the currently active section of the VBO
-        /// \return Offset, in bytes, from the beginning of the VBO to the currently
-        ///         active frame's section
-        virtual uint32_t GetDynamicOffset() { return m_index * m_dataSize; }
+		/// Returns the offset to the currently active section of the VBO
+		/// \return Offset, in bytes, from the beginning of the VBO to the currently
+		///         active frame's section
+		virtual uint32_t GetDynamicOffset() { return m_index * m_dataSize; }
 
-        /// Returns the GL "Name" of the currently active VBO
-        virtual GLuint GetBuffer() { return m_vbo; }
+		/// Returns the GL "Name" of the currently active VBO
+		virtual GLuint GetBuffer() { return m_vbo; }
 
 	private:
-        // Index of the currently active buffer section within the larger UBO
+		// Index of the currently active buffer section within the larger UBO
 		uint32_t    m_index;
-        
-        // Number of buffer sections within the larger UBO
+
+		// Number of buffer sections within the larger UBO
 		uint32_t    m_numBuffers;
-		
-        // Size, in bytes, rounded up to a multiple of 4, of the VBO buffers
+
+		// Size, in bytes, rounded up to a multiple of 4, of the VBO buffers
 		uint32_t    m_bufferSize;
-        
-        // GL "Name" of the VBO 
+
+		// GL "Name" of the VBO 
 		GLuint		m_vbo;
 
-        // Currently mapped pointer to the active buffer section's data
+		// Currently mapped pointer to the active buffer section's data
 		uint8_t*    m_vboData;
 
-        // Flag indicating whether the buffer section should be mapped/unmapped
-        // each frame or mapped once when created and kept mapped until destroyed
-        bool        m_bPersistent;
-    };
+		// Flag indicating whether the buffer section should be mapped/unmapped
+		// each frame or mapped once when created and kept mapped until destroyed
+		bool        m_bPersistent;
+	};
 }
 #endif // NVSHAREDVBO_GL_MAPPEDSUBRANGES_H_
+

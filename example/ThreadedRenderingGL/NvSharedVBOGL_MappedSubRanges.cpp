@@ -36,141 +36,137 @@
 
 namespace Nv
 {
-    NvSharedVBOGL_MappedSubRanges::NvSharedVBOGL_MappedSubRanges()
-        : m_index(0)
-        , m_numBuffers(0)
-        , m_bufferSize(0)
-        , m_vboData(nullptr)
-        , m_bPersistent(false)
-    {}
+	NvSharedVBOGL_MappedSubRanges::NvSharedVBOGL_MappedSubRanges()
+		: m_index(0)
+		, m_numBuffers(0)
+		, m_bufferSize(0)
+		, m_vboData(nullptr)
+		, m_bPersistent(false)
+	{}
 
-    bool NvSharedVBOGL_MappedSubRanges::Initialize(uint32_t dataSize, uint32_t numBuffers, bool bPersistent)
-    {
-        // Initialize all of the basic bookkeeping
-        m_numBuffers = numBuffers;
-        m_index = 0;
+	bool NvSharedVBOGL_MappedSubRanges::Initialize(uint32_t dataSize, uint32_t numBuffers, bool bPersistent)
+	{
+		// Initialize all of the basic bookkeeping
+		m_numBuffers = numBuffers;
+		m_index = 0;
 
-        // Round the data/buffer size up to multiples of 4 bytes
-        m_dataSize = (dataSize + 3) & 0xFFFFFFFC;
+		// Round the data/buffer size up to multiples of 4 bytes
+		m_dataSize = (dataSize + 3) & 0xFFFFFFFC;
 
-        m_bufferSize = m_dataSize * m_numBuffers;
-        m_bPersistent = bPersistent;
+		m_bufferSize = m_dataSize * m_numBuffers;
+		m_bPersistent = bPersistent;
 
-        // Create the vertex buffer
-        glGenBuffers(1, &m_vbo);
-        glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+		// Create the vertex buffer
+		glGenBuffers(1, &m_vbo);
+		glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
 
-        // Create the VBO buffer and map it if we're using persistent mapping
-        if (m_bPersistent)
-        {
-            // We have to use glBufferStorage to use the persistent/coherent bits 
-            GLbitfield flags = GL_MAP_WRITE_BIT | GL_MAP_PERSISTENT_BIT | GL_MAP_COHERENT_BIT;
-            glBufferStorage(GL_ARRAY_BUFFER, m_bufferSize, 0, flags);
-            m_vboData = static_cast<uint8_t*>(glMapBufferRange(GL_ARRAY_BUFFER, 0, m_bufferSize, flags));
-            glBindBuffer(GL_ARRAY_BUFFER, 0);
-            if (nullptr == m_vboData)
-            {
-                return false;
-            }
-        }
-        else
-        {
-            glBufferData(GL_ARRAY_BUFFER, m_bufferSize, 0, GL_STREAM_DRAW);
-            glBindBuffer(GL_ARRAY_BUFFER, 0);
-        }
-        return true;
-    }
+		// Create the VBO buffer and map it if we're using persistent mapping
+		if (m_bPersistent)
+		{
+			// We have to use glBufferStorage to use the persistent/coherent bits 
+			GLbitfield flags = GL_MAP_WRITE_BIT | GL_MAP_PERSISTENT_BIT | GL_MAP_COHERENT_BIT;
+			glBufferStorage(GL_ARRAY_BUFFER, m_bufferSize, 0, flags);
+			m_vboData = static_cast<uint8_t*>(glMapBufferRange(GL_ARRAY_BUFFER, 0, m_bufferSize, flags));
+			glBindBuffer(GL_ARRAY_BUFFER, 0);
+			if (nullptr == m_vboData)
+			{
+				return false;
+			}
+		}
+		else
+		{
+			glBufferData(GL_ARRAY_BUFFER, m_bufferSize, 0, GL_STREAM_DRAW);
+			glBindBuffer(GL_ARRAY_BUFFER, 0);
+		}
+		return true;
+	}
 
-    void NvSharedVBOGL_MappedSubRanges::Finish()
-    {
-        if (0 != m_vbo)
-        {
-            if (nullptr != m_vboData)
-            {
-                // Bind our VBO so that we can unmap it
-                glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-                glUnmapBuffer(GL_ARRAY_BUFFER);
-                glBindBuffer(GL_ARRAY_BUFFER, 0);
-                m_vboData = nullptr;
-            }            
-            glDeleteBuffers(1, &m_vbo);
-            m_vbo = 0;
-        }
-    }
+	void NvSharedVBOGL_MappedSubRanges::Finish()
+	{
+		if (0 != m_vbo)
+		{
+			if (nullptr != m_vboData)
+			{
+				// Bind our VBO so that we can unmap it
+				glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+				glUnmapBuffer(GL_ARRAY_BUFFER);
+				glBindBuffer(GL_ARRAY_BUFFER, 0);
+				m_vboData = nullptr;
+			}
+			glDeleteBuffers(1, &m_vbo);
+			m_vbo = 0;
+		}
+	}
 
-    bool NvSharedVBOGL_MappedSubRanges::BeginUpdate()
-    {
-        // Next buffer in the cycle
-        uint32_t  nextIndex = (m_index + 1) % m_numBuffers;
-        if (!m_bPersistent)
-        {
-            if (0 == m_vbo)
-            {
-                return false;
-            }
-            // Map our buffer, discarding the previous contents of the range that we're
-            // mapping and marking it as unsynchronized, since we'll be managing 
-            // that via fences in the main app
-            glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-            GLbitfield flags = GL_MAP_WRITE_BIT |
-                GL_MAP_INVALIDATE_RANGE_BIT |
-                GL_MAP_UNSYNCHRONIZED_BIT;
-            GLvoid* pBuff = glMapBufferRange(GL_ARRAY_BUFFER, m_dataSize * nextIndex, m_dataSize, flags);
-            m_vboData = static_cast<uint8_t*>(pBuff);
-            glBindBuffer(GL_ARRAY_BUFFER, 0);
-            if (nullptr == m_vboData)
-            {
-                return false;
-            }
-        }
-        m_index = nextIndex;
+	bool NvSharedVBOGL_MappedSubRanges::BeginUpdate()
+	{
+		// Next buffer in the cycle
+		uint32_t  nextIndex = (m_index + 1) % m_numBuffers;
+		if (!m_bPersistent)
+		{
+			if (0 == m_vbo)
+			{
+				return false;
+			}
+			// Map our buffer, discarding the previous contents of the range that we're
+			// mapping and marking it as unsynchronized, since we'll be managing 
+			// that via fences in the main app
+			glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+			GLbitfield flags = GL_MAP_WRITE_BIT |
+				GL_MAP_INVALIDATE_RANGE_BIT |
+				GL_MAP_UNSYNCHRONIZED_BIT;
+			GLvoid* pBuff = glMapBufferRange(GL_ARRAY_BUFFER, m_dataSize * nextIndex, m_dataSize, flags);
+			m_vboData = static_cast<uint8_t*>(pBuff);
+			glBindBuffer(GL_ARRAY_BUFFER, 0);
+			if (nullptr == m_vboData)
+			{
+				return false;
+			}
+		}
+		m_index = nextIndex;
 
-        return true;
-    }
+		return true;
+	}
 
-    void NvSharedVBOGL_MappedSubRanges::EndUpdate()
-    {
-        // If we are persistently mapped, then we don't need
-        // to do anything in here as we don't unmap it each frame.
-        if (m_bPersistent)
-        {
-            return;
-        }
+	void NvSharedVBOGL_MappedSubRanges::EndUpdate()
+	{
+		// If we are persistently mapped, then we don't need
+		// to do anything in here as we don't unmap it each frame.
+		if (m_bPersistent)
+		{
+			return;
+		}
 
-        if (nullptr != m_vboData)
-        {
-            if (0 != m_vbo)
-            {
-                glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-                glUnmapBuffer(GL_ARRAY_BUFFER);
-                glBindBuffer(GL_ARRAY_BUFFER, 0);
-            }
-            m_vboData = nullptr;
-        }
-    }
+		if (nullptr != m_vboData)
+		{
+			if (0 != m_vbo)
+			{
+				glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+				glUnmapBuffer(GL_ARRAY_BUFFER);
+				glBindBuffer(GL_ARRAY_BUFFER, 0);
+			}
+			m_vboData = nullptr;
+		}
+	}
 
-    void NvSharedVBOGL_MappedSubRanges::DoneRendering()
-    {
-    }
-
-    uint8_t* NvSharedVBOGL_MappedSubRanges::GetData()
-    {
-        if (nullptr == m_vboData)
-        {
-            return nullptr;
-        }
-        if (m_bPersistent)
-        {
-            // m_vboData always points to the beginning of the buffer, so we must
-            // account for the offset of the currently used section
-            return m_vboData + (m_index * m_dataSize);
-        }
-        else
-        {
-            // m_vboData always points to the beginning of the currently mapped
-            // range of the buffer, so no additional offset is used
-            return m_vboData;
-        }
-    }
+	uint8_t* NvSharedVBOGL_MappedSubRanges::GetData()
+	{
+		if (nullptr == m_vboData)
+		{
+			return nullptr;
+		}
+		if (m_bPersistent)
+		{
+			// m_vboData always points to the beginning of the buffer, so we must
+			// account for the offset of the currently used section
+			return m_vboData + (m_index * m_dataSize);
+		}
+		else
+		{
+			// m_vboData always points to the beginning of the currently mapped
+			// range of the buffer, so no additional offset is used
+			return m_vboData;
+		}
+	}
 
 }

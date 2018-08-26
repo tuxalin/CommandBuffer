@@ -40,51 +40,49 @@ namespace Nv
 {
 	/// \file
 	/// SharedVBO that implements a single VBO which is orphaned each
-    /// time a new frame begins
+	/// time a new frame begins
 	class NvSharedVBOGL_Orphaning : public NvSharedVBOGL
 	{
 	public:
-        NvSharedVBOGL_Orphaning();
-        virtual ~NvSharedVBOGL_Orphaning(){}
+		NvSharedVBOGL_Orphaning();
+		virtual ~NvSharedVBOGL_Orphaning() {}
 
-        /// Initializes the VBO wrapper and sets its size
-        /// \param dataSize Size, in bytes, of the buffer object
-        /// \param numBuffers Unused for this implementation, as the buffer
-        ///                   is orphaned each frame and a new one allocated.
-        /// \param bPersistent Flag to indicate whether the VBO should be persistently mapped
-        /// \return True if the buffer was initialized, false if an error occurred
-        virtual bool Initialize(uint32_t dataSize, uint32_t numBuffers, bool bPersistent);
+		/// Initializes the VBO wrapper and sets its size
+		/// \param dataSize Size, in bytes, of the buffer object
+		/// \param numBuffers Unused for this implementation, as the buffer
+		///                   is orphaned each frame and a new one allocated.
+		/// \param bPersistent Flag to indicate whether the VBO should be persistently mapped
+		/// \return True if the buffer was initialized, false if an error occurred
+		virtual bool Initialize(uint32_t dataSize, uint32_t numBuffers, bool bPersistent);
 
 		/// Waits for the queue that the shared VBO is bound to to finish
-        virtual void Finish();
+		virtual void Finish();
 
-        /// Orphans our previous VBO and requests a new one, then updates our 
-        /// data pointer by mapping the new VBO
-        /// \return True if the update could begin
-        virtual bool BeginUpdate();
+		/// Orphans our previous VBO and requests a new one, then updates our 
+		/// data pointer by mapping the new VBO
+		/// \return True if the update could begin
+		virtual bool BeginUpdate();
 
-        /// Unmaps our VBO and clears the data pointer
-        virtual void EndUpdate();
-
-        /// Does nothing in this implementation
-        virtual void DoneRendering();
+		/// Unmaps our VBO and clears the data pointer
+		virtual void EndUpdate();
 
 		/// Returns the pointer to the currently active buffer
 		/// \return Pointer to the current writeable memory of the vertex buffer
-        virtual uint8_t* GetData() { return m_vboData; }
+		virtual uint8_t* GetData() { return m_vboData; }
 
-        /// We always use the whole VBO in this implementation, so the
-        // offset is always 0
-        virtual uint32_t GetDynamicOffset() { return 0; }
+		/// We always use the whole VBO in this implementation, so the
+		// offset is always 0
+		virtual uint32_t GetDynamicOffset() { return 0; }
 
-        /// Returns the GL "Name" of the currently active VBO
-        virtual GLuint GetBuffer() { return m_vbo; }
+		/// Returns the GL "Name" of the currently active VBO
+		virtual GLuint GetBuffer() { return m_vbo; }
 
 	private:
 		GLuint		m_vbo;      // GL Name of the Vertex Buffer Object
 		uint8_t*    m_vboData;  // Pointer to the memory representing the buffer, 
-                                // if it is currently mapped (between calls 
-                                // to BeginUpdate()/EndUpdate())
+								// if it is currently mapped (between calls 
+								// to BeginUpdate()/EndUpdate())
 	};
 }
 #endif // NVSHAREDVBO_GL_ORPHANING_H_
+
