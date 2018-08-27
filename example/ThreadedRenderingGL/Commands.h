@@ -26,7 +26,7 @@ namespace cmds
 		uint32_t* currentFenceIndex;
 	};
 
-	struct VboPoolUpateCommand
+	struct VboPoolUpdateCommand
 	{
 		static const cb::RenderContext::function_t kDispatchFunction;
 

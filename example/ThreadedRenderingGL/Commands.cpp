@@ -42,9 +42,9 @@ namespace cmds
 		*cmd.currentFenceIndex = nextFenceIndex;
 	}
 
-	void vboPoolUpateCommand(const void* data, cb::RenderContext* rc)
+	void vboPoolUpdateCommand(const void* data, cb::RenderContext* rc)
 	{
-		auto& cmd = *reinterpret_cast<const VboPoolUpateCommand*>(data);
+		auto& cmd = *reinterpret_cast<const VboPoolUpdateCommand*>(data);
 		if (cmd.begin)
 		{
 			cmd.vboPool->BeginUpdate();
@@ -139,7 +139,7 @@ namespace cmds
 	}
 
 	const cb::RenderContext::function_t WaitFenceCommand::kDispatchFunction = &waitFenceCommand;
-	const cb::RenderContext::function_t VboPoolUpateCommand::kDispatchFunction = &vboPoolUpateCommand;
+	const cb::RenderContext::function_t VboPoolUpdateCommand::kDispatchFunction = &vboPoolUpdateCommand;
 	const cb::RenderContext::function_t DrawSkyboxCommand::kDispatchFunction = &drawSkyboxCommand;
 	const cb::RenderContext::function_t DrawGroundCommand::kDispatchFunction = &drawGroundCommand;
 	const cb::RenderContext::function_t VboUpdate::kDispatchFunction = &vboUpdate;

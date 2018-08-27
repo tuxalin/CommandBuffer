@@ -656,8 +656,7 @@ void School::Animate(float frameTime, SchoolStateManager* pStateManager, bool av
 	// If we are using a pooled VBO, then it is already mapped, so we can go ahead and copy into it in this thread
 	if ((m_currentVBOPolicy == Nv::VBO_POOLED) || (m_currentVBOPolicy == Nv::VBO_POOLED_PERSISTENT))
 	{
-		//todo: add support
-		//UpdateInstanceDataBuffer();
+		UpdateInstanceDataBuffer();
 	}
 }
 
@@ -674,9 +673,22 @@ void School::Update(GeometryCommandBuffer& geometryCommands)
 	CB_DEBUG_COMMAND_TAG_MSG(cmd, "Update fish data");
 }
 
-void School::UpdateInstanceDataBuffer(cb::CommandBuffer<cb::DrawKey>& geometryCommands)
+void School::UpdateInstanceDataBuffer()
 {
-	//todo: add support
+	if (!m_pInstanceData->BeginUpdate())
+	{
+		return;
+	}
+
+	FishInstanceData* pCurrInstance =
+		(FishInstanceData*)m_pInstanceData->GetData();
+	if (nullptr == pCurrInstance)
+	{
+		m_pInstanceData->EndUpdate();
+		return;
+	}
+	memcpy(pCurrInstance, &m_fishInstanceStates[0], sizeof(FishInstanceData) * m_instancesActive);
+	m_pInstanceData->EndUpdate();
 }
 
 uint32_t School::Render(uint32_t batchSize, GeometryCommandBuffer& geometryCommands)

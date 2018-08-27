@@ -234,27 +234,6 @@ void ThreadedRenderingGL::animateJobFunction(uint32_t threadIndex)
 					m_schools[i]->Update(m_geometryCommands);
 					// Dispatch render commands
 					m_schoolsDrawCount[i] = m_schools[i]->Render(m_uiBatchSize, m_geometryCommands);
-
-					//TODO: add pool support
-					// 		if (nullptr != m_pVBOPool)
-					// 		{
-					// 			if (!m_animPaused || m_bForceSchoolUpdate)
-					// 			{
-					// 				m_pVBOPool->EndUpdate();
-					// 			}
-					// 			{
-					// 				for (uint32_t schoolIndex = 0; schoolIndex < m_activeSchools; ++schoolIndex)
-					// 				{
-					// 					School* pSchool = m_schools[schoolIndex];
-					// 					{
-					// 						CPU_TIMER_SCOPE(CPU_TIMER_MAIN_CMD_BUILD);
-					// 						GPU_TIMER_SCOPE();
-					// 						m_drawCallCount += pSchool->Render(m_uiBatchSize);
-					// 					}
-					// 				}
-					// 			}
-					// 			m_pVBOPool->DoneRendering();
-					// 		}
 				}
 			}
 
@@ -358,9 +337,6 @@ void ThreadedRenderingGL::helperJobFunction()
 		{
 			const auto key = cb::DrawKey::makeCustom(cb::ViewLayerType::eHighest, 2);
 			auto* cmd = m_geometryCommands.addCommand<BeginFrameCommand>(key);
-			cmd->activeSchools = m_activeSchools;
-			cmd->schoolStateMgr = &m_schoolStateMgr;
-
 			// Get the current view matrix (according to user input through mouse,
 			// gamepad, etc.)
 			cmd->projUBO_Id = m_projUBO_Id;
@@ -373,20 +349,6 @@ void ThreadedRenderingGL::helperJobFunction()
 			cmd->lightingUBO_Data.m_causticTiling = m_causticTiling;
 			cmd->materialBinder = &m_geometryCommands.materialBinder();
 			CB_DEBUG_COMMAND_TAG(cmd);
-
-			if ((nullptr != m_pVBOPool) && (!m_animPaused || m_bForceSchoolUpdate))
-			{
-				// For the pooled VBO policy, we have to surround any schools' updates with
-				// a BeginUpdate/EndUpdate for the master VBO pool.  This ensures that the
-				// schools' sub-ranges are mapped and valid when the school's update is called.
-				// We also need to iterate over all of the schools twice, once to update and once
-				// to render, as we must Unmap the large, shared VBO before we can do any
-				// rendering with it.
-				auto* vboCmd = m_geometryCommands.appendCommand<cmds::VboPoolUpateCommand>(cmd);
-				vboCmd->vboPool = m_pVBOPool;
-				vboCmd->begin = true;
-				CB_DEBUG_COMMAND_TAG(vboCmd);
-			}
 		}
 		{
 			const auto key = cb::DrawKey(0); // lowest priority
@@ -421,6 +383,16 @@ void ThreadedRenderingGL::helperJobFunction()
 			cmd->skyboxSandTex = m_skyboxSandTex;
 			CB_DEBUG_COMMAND_SET_MSG(cmd, "Draw Ground");
 		}
+
+		if (nullptr != m_pVBOPool)
+		{
+			cb::DrawKey key = cb::DrawKey::makeCustom(cb::ViewLayerType::eHighest, 10);
+			auto& cmd = *m_geometryCommands.addCommand<cmds::VboPoolUpdateCommand>(key);
+			cmd.vboPool = m_pVBOPool;
+			cmd.begin = false;
+			CB_DEBUG_COMMAND_TAG(cmd);
+		}
+
 		updateStats();
 
 		signalWorkComplete(1);
@@ -1094,7 +1066,7 @@ void ThreadedRenderingGL::initUI(void)
 	m_logoNVIDIA = initLogoTexture("textures/LogoNVIDIA.dds");
 	m_logoGLES = initLogoTexture("textures/LogoGLES.dds");
 	m_logoGL = initLogoTexture("textures/LogoGL.dds");
-}
+	}
 
 NvUIGraphic* ThreadedRenderingGL::initLogoTexture(const char* pTexFilename)
 {
@@ -1736,6 +1708,21 @@ void ThreadedRenderingGL::draw(void)
 		m_NeedsUpdateQueueLock->unlockMutex();
 #endif
 
+		//NOTE. Could create a special command queue for handling VBO updates/async streaming
+		{
+			m_schoolStateMgr.BeginFrame(m_activeSchools);
+			if ((nullptr != m_pVBOPool) && (!m_animPaused || m_bForceSchoolUpdate))
+			{
+				// For the pooled VBO policy, we have to surround any schools' updates with
+				// a BeginUpdate/EndUpdate for the master VBO pool.  This ensures that the
+				// schools' sub-ranges are mapped and valid when the school's update is called.
+				// We also need to iterate over all of the schools twice, once to update and once
+				// to render, as we must Unmap the large, shared VBO before we can do any
+				// rendering with it.
+				m_pVBOPool->BeginUpdate();
+			}
+		}
+
 		m_doneCount = 0;
 		// Work is ready to begin.  Signal the threads that we're
 		// ready for them to start updating schools
@@ -1769,13 +1756,13 @@ void ThreadedRenderingGL::draw(void)
 
 	// Rendering
 	{
+		m_geometryCommands.sort();
+
 		CPU_TIMER_SCOPE(CPU_TIMER_MAIN_CMD_BUILD);
 		GPU_TIMER_SCOPE();
-		{
-			m_geometryCommands.sort();
-			// nothing to pass as GL doesn't have any contexts
-			m_geometryCommands.submit(nullptr);
-		}
+
+		// nothing to pass as GL doesn't have any contexts
+		m_geometryCommands.submit(nullptr);
 	}
 
 #if FISH_DEBUG

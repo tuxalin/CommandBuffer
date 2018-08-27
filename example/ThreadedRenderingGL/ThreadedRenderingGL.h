@@ -631,8 +631,6 @@ private:
 		// hint that we dont care about ctr/dtr
 		typedef void pod_hint_tag;
 
-		uint32_t activeSchools;
-		SchoolStateManager* schoolStateMgr;
 		Nv::MaterialBinder* materialBinder;
 		GLuint projUBO_Id;
 		ProjUBO projUBO_Data;
@@ -642,7 +640,6 @@ private:
 		static void execute(const void* data, cb::RenderContext* rc)
 		{
 			auto& cmd = *reinterpret_cast<const BeginFrameCommand*>(data);
-			cmd.schoolStateMgr->BeginFrame(cmd.activeSchools);
 			cmd.materialBinder->reset();
 
 			glBindBuffer(GL_UNIFORM_BUFFER, cmd.projUBO_Id);

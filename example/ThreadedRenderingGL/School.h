@@ -332,7 +332,7 @@ public:
 private:
 	/// Updates the current instance data buffer with the current states of
 	/// each fish in the school in preparation for rendering.
-	void UpdateInstanceDataBuffer(cb::CommandBuffer<cb::DrawKey>& geometryCommands);
+	void UpdateInstanceDataBuffer();
 
 	static Nv::VertexFormatBinder* ms_pInstancingVertexBinder;
 
