@@ -496,7 +496,13 @@ private:
 	// Main app needs to hold this so that VBOs can be rebuilt if they 
 	// no longer reflect the correct number of schools/fish or if the 
 	// VBO policy changes
-	bool m_bForceSchoolUpdate;
+	enum class ForceUpdateMode
+	{
+		eNone,
+		eForceUpdate,
+		eForceDispatch
+	};
+	ForceUpdateMode m_forceUpdateMode;
 
 	// UI trackers
 	bool m_bUIDirty;

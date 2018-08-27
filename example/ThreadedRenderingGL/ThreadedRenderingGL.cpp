@@ -221,7 +221,7 @@ void ThreadedRenderingGL::animateJobFunction(uint32_t threadIndex)
 			// thread utilization should not be significantly impacted.
 
 			schoolsDone = me.m_schoolCount;
-			if (!m_animPaused || m_bForceSchoolUpdate)
+			if (!m_animPaused || m_forceUpdateMode != ForceUpdateMode::eNone)
 			{
 				ThreadData& thread = m_threads[threadIndex];
 				uint32_t schoolMax = me.m_baseSchoolIndex + schoolsDone;
@@ -229,9 +229,12 @@ void ThreadedRenderingGL::animateJobFunction(uint32_t threadIndex)
 				{
 					// Updating in GL is just animating.  We cannot update our instance data in another thread.
 					CPU_TIMER_SCOPE(CPU_TIMER_THREAD_BASE_ANIMATE + threadIndex);
-					m_schools[i]->Animate(getClampedFrameTime(), &m_schoolStateMgr, m_avoidance);
-					// Dispatch vbo update commands
-					m_schools[i]->Update(m_geometryCommands);
+					if (m_forceUpdateMode != ForceUpdateMode::eForceDispatch)
+					{
+						m_schools[i]->Animate(getClampedFrameTime(), &m_schoolStateMgr, m_avoidance);
+						// Dispatch vbo update commands
+						m_schools[i]->Update(m_geometryCommands);
+					}
 					// Dispatch render commands
 					m_schoolsDrawCount[i] = m_schools[i]->Render(m_uiBatchSize, m_geometryCommands);
 				}
@@ -292,6 +295,13 @@ void ThreadedRenderingGL::helperJobFunction()
 	{
 		if (waitForWork(me, -1))
 			continue;
+
+		if (m_animPaused && m_forceUpdateMode != ForceUpdateMode::eForceDispatch)
+		{
+			updateStats();
+			signalWorkComplete(1);
+			continue;
+		}
 
 		CPU_TIMER_SCOPE(CPU_TIMER_THREAD_BASE_TOTAL + threadIndex);
 		s_threadMask |= 1 << threadIndex;
@@ -462,7 +472,7 @@ ThreadedRenderingGL::ThreadedRenderingGL() :
 	m_animPaused(false),
 	m_avoidance(true),
 	m_currentTime(0.0f),
-	m_bForceSchoolUpdate(false),
+	m_forceUpdateMode(ForceUpdateMode::eNone),
 	m_bUIDirty(true),
 	m_uiSchoolCount(0),
 	m_uiFishCount(0),
@@ -722,7 +732,8 @@ uint32_t ThreadedRenderingGL::setNumSchools(uint32_t numSchools)
 	if (nullptr != m_pVBOPool)
 	{
 		m_pVBOPool->SetNumSubRanges(numSchools);
-		m_bForceSchoolUpdate = numSchools != m_activeSchools;
+		if (numSchools != m_activeSchools)
+			m_forceUpdateMode = ForceUpdateMode::eForceUpdate;
 	}
 
 	if (m_schoolDescs.size() < numSchools)
@@ -857,7 +868,7 @@ void ThreadedRenderingGL::setVBOPolicy(Nv::VBOPolicy policy)
 
 	// Since all of their existing VBOs have been destroyed, each
 	// school will need to update again to fill in its instance data
-	m_bForceSchoolUpdate = true;
+	m_forceUpdateMode = ForceUpdateMode::eForceUpdate;
 }
 
 void ThreadedRenderingGL::updateSchoolTankSizes()
@@ -1066,7 +1077,7 @@ void ThreadedRenderingGL::initUI(void)
 	m_logoNVIDIA = initLogoTexture("textures/LogoNVIDIA.dds");
 	m_logoGLES = initLogoTexture("textures/LogoGLES.dds");
 	m_logoGL = initLogoTexture("textures/LogoGL.dds");
-	}
+}
 
 NvUIGraphic* ThreadedRenderingGL::initLogoTexture(const char* pTexFilename)
 {
@@ -1161,7 +1172,7 @@ NvUIEventResponse ThreadedRenderingGL::handleReaction(const NvUIReaction &react)
 	case UIACTION_SCHOOLCOUNT:
 	{
 		m_uiSchoolCount = setNumSchools(react.ival);
-		m_bForceSchoolUpdate = true;
+		m_forceUpdateMode = ForceUpdateMode::eForceUpdate;
 		bStateModified = true;
 		break;
 	}
@@ -1192,7 +1203,7 @@ NvUIEventResponse ThreadedRenderingGL::handleReaction(const NvUIReaction &react)
 		}
 
 
-		m_bForceSchoolUpdate = true;
+		m_forceUpdateMode = ForceUpdateMode::eForceUpdate;
 		break;
 	}
 	case UIACTION_TANKSIZE:
@@ -1406,7 +1417,7 @@ NvUIEventResponse ThreadedRenderingGL::handleReaction(const NvUIReaction &react)
 	}
 	case UIACTION_ANIMPAUSED:
 	{
-		m_bForceSchoolUpdate = true;
+		m_forceUpdateMode = ForceUpdateMode::eForceDispatch;
 		break;
 	}
 	case UIACTION_RENDERINGTECHNIQUE:
@@ -1711,7 +1722,7 @@ void ThreadedRenderingGL::draw(void)
 		//NOTE. Could create a special command queue for handling VBO updates/async streaming
 		{
 			m_schoolStateMgr.BeginFrame(m_activeSchools);
-			if ((nullptr != m_pVBOPool) && (!m_animPaused || m_bForceSchoolUpdate))
+			if ((nullptr != m_pVBOPool) && (!m_animPaused || m_forceUpdateMode == ForceUpdateMode::eForceUpdate))
 			{
 				// For the pooled VBO policy, we have to surround any schools' updates with
 				// a BeginUpdate/EndUpdate for the master VBO pool.  This ensures that the
@@ -1761,15 +1772,17 @@ void ThreadedRenderingGL::draw(void)
 		CPU_TIMER_SCOPE(CPU_TIMER_MAIN_CMD_BUILD);
 		GPU_TIMER_SCOPE();
 
-		// nothing to pass as GL doesn't have any contexts
-		m_geometryCommands.submit(nullptr);
-	}
+		const bool clearCommands = !m_animPaused; // using recorded commands when paused
 
+		// nothing to pass as GL doesn't have any contexts
+		m_geometryCommands.submit(nullptr, clearCommands);
+	}
+	m_forceUpdateMode = ForceUpdateMode::eNone;
 #if FISH_DEBUG
 	LOGI("END OF FRAME");
 	LOGI("################################################################\n");
 #endif
-}
+	}
 
 //-----------------------------------------------------------------------------
 // PRIVATE METHODS

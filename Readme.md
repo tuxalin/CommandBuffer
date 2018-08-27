@@ -3,20 +3,19 @@ A lock-free CommandBuffer implementation designed for multi-threaded rendering a
 Useful to reduce state switches(i.e. materials, shaders), depth sorting(for transparency or hardware early-z rejection) and also for dispatching commands from multiple threads.
 ## Features
 - designed for high-congestion as it's lock-free
-- render API indepdent(see cb::RenderContext)
+- graphics API independent(see cb::RenderContext)
 - fast and configurable allocation via a linear allocator 
 - optional material binder with multiple material passes support
 - chainable/appendable commands
-- configurable key type for sorting commands(opaque, transparent, depth sorting)
+- configurable key type for sorting of commands(opaque, transparent, depth sorting)
 - easy to use and configurable draw key via bitfields
 - debug utilities, tag commands
-- basic GL commands(see GLCommands.h)
+- basic GL commands implementation(see GLCommands.h)
 - lightweight, header only
-- C++11 support
 	
 ## Installation
 
-The implementation is header only, it's only requirement is at least (C++11) support.
+The implementation is header only, except GL commands, requires at least C++11 support.
 
 ## Usage
 
@@ -103,7 +102,7 @@ Sometimes you may want to share/reference a command so you don't copy it's data 
     //fill command data
     ...
 ``` 
-NOTE. Since matrices is a POD you can use data copy commands which will automatically allocate auxilarry memory and copy it.
+NOTE. Since matrices is a POD you can use data copy commands which will automatically allocate auxiliary memory and copy it.
 
 ## Example
 
