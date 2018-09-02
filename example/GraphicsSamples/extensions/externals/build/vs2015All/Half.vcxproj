@@ -32,7 +32,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7B07CE8A-72CE-1F32-5039-88C256EA7899}</ProjectGuid>
     <RootNamespace>Half</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Tegra-Android'" Label="Configuration">

@@ -11,3 +11,5 @@ example/ThreadedRenderingGL/bin/vs2015x64/ThreadedRenderingGLD.lib
 example/ThreadedRenderingGL/bin/vs2015x64/ThreadedRenderingGLD.exp
 example/ThreadedRenderingGL/bin/vs2015x64/ThreadedRenderingGLD.exe.pdb
 example/ThreadedRenderingGL/bin/vs2015x64/ThreadedRenderingGLD.exe
+example/ThreadedRenderingGL/bin/vs2015x86/
+example/GraphicsSamples/extensions/externals/lib/vs2015x86/
