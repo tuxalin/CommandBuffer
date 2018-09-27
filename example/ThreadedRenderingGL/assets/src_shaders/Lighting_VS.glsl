@@ -1,5 +1,5 @@
 //----------------------------------------------------------------------------------
-// File:        es3aep-kepler\ThreadedRenderingGL\assets\src_shaders/skyboxcolor_FS.glsl
+// File:        gl4-kepler\DeferredShadingMSAA\assets\shaders/Lighting_VS.glsl
 // SDK Version: v3.00 
 // Email:       gameworks@nvidia.com
 // Site:        http://developer.nvidia.com/
@@ -32,24 +32,16 @@
 //
 //----------------------------------------------------------------------------------
 #version 310 es
-#extension GL_ANDROID_extension_pack_es31a : enable
+precision highp float;
 
-precision mediump float;
+layout(location = 0) in vec4 inVertexPosition;
 
-// INPUT
-in vec3 v_vCubemapCoord;
+layout(location = 0) out vec4 outProjPos;
 
-// OUTPUT
-layout(location = 0) out vec4 outNormalDepth;
-layout(location = 1) out vec4 outDiffuseRoughness;
+uniform mat4 uModelViewMatrix;
 
-// UNIFORMS
-layout(binding = 4) uniform sampler2D u_tSandTex;
-layout(binding = 5) uniform sampler2D u_tGradientTex;
-
-void main()
+void main(void)
 {
-    // outDiffuseRoughness = vec4(0.0f, ((normalize(v_vCubemapCoord.xyz) + 1.0f) * 0.5f).y, 0.0f, 1.0f);
-    outDiffuseRoughness = vec4(texture(u_tGradientTex, vec2(0.5f, (normalize(v_vCubemapCoord.xyz).y + 1.0f) * 0.5f)).rgb, 1.0f);
-	outNormalDepth = vec4(0.0);
+    outProjPos = inVertexPosition;
+    gl_Position = uModelViewMatrix * inVertexPosition;
 }

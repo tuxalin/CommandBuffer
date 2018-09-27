@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="('$(Platform)'=='Tegra-Android')" Label="NsightTegraProject">
     <NsightTegraProjectRevisionNumber Label="NsightTegraProject">11</NsightTegraProjectRevisionNumber>
@@ -436,6 +436,7 @@
     <ClInclude Include="..\..\RenderContext.h" />
     <ClInclude Include="..\..\LinearAllocator.h" />
     <ClInclude Include="..\..\MemoryUtil.h" />
+    <ClInclude Include="assets\src_shaders\Lighting_FS_Shared.h" />
     <ClInclude Include="Buffers.h" />
     <ClInclude Include="Commands.h" />
     <ClInclude Include="NvInstancedModelExtGL.h" />
@@ -447,6 +448,16 @@
     <ClInclude Include="SchoolStateManager.h" />
     <ClInclude Include="ThreadedRenderingGL.h" />
     <ClInclude Include="VertexFormatBinder.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\src_shaders\DirectionalLighting_FS.glsl" />
+    <None Include="assets\src_shaders\Lighting_VS.glsl" />
+    <None Include="assets\src_shaders\groundplane_FS.glsl" />
+    <None Include="assets\src_shaders\groundplane_VS.glsl" />
+    <None Include="assets\src_shaders\skyboxcolor_FS.glsl" />
+    <None Include="assets\src_shaders\skyboxcolor_VS.glsl" />
+    <None Include="assets\src_shaders\staticfish_FS.glsl" />
+    <None Include="assets\src_shaders\staticfish_VS.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

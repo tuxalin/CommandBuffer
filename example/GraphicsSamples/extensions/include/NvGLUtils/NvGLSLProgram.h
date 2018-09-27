@@ -35,8 +35,8 @@
 #ifndef NV_GLSL_PROGRAM_H
 #define NV_GLSL_PROGRAM_H
 
-#include <NvSimpleTypes.h>
 #include "NV/NvPlatformGL.h"
+#include <NvSimpleTypes.h>
 
 /// \file
 /// GLSL shader program wrapper
@@ -321,7 +321,7 @@ public:
     /// \param[in] m array of matrices
     /// \param[in] count number of values in array unform
     /// \param[in] transpose if true, the matrices are transposed on input
-    void setUniformMatrix4fv(const GLchar *name, GLfloat *m, int32_t count=1, bool transpose=false);
+    void setUniformMatrix4fv(const GLchar *name, const GLfloat *m, int32_t count=1, bool transpose=false);
 
     /// Set matrix array program uniform array by index
     /// Assumes that the given shader is bound via #enable
@@ -329,7 +329,7 @@ public:
     /// \param[in] m array of matrices
     /// \param[in] count number of values in array unform
     /// \param[in] transpose if true, the matrices are transposed on input
-    void setUniformMatrix4fv(GLint index, GLfloat *m, int32_t count=1, bool transpose=false);
+    void setUniformMatrix4fv(GLint index, const GLfloat *m, int32_t count=1, bool transpose=false);
 
     /// Returns the index containing the named vertex attribute
     /// \param[in] uniform the null-terminated string name of the attribute

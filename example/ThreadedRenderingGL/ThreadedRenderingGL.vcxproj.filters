@@ -3,9 +3,8 @@
   <ItemGroup>
     <Filter Include="src">
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="glsl_shaders">
+    <Filter Include="src_shaders">
+      <UniqueIdentifier>{839396a9-1fab-419b-b8f6-138548b32937}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -79,5 +78,34 @@
     <ClInclude Include="Buffers.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="assets\src_shaders\Lighting_FS_Shared.h">
+      <Filter>src_shaders</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\src_shaders\DirectionalLighting_FS.glsl">
+      <Filter>src_shaders</Filter>
+    </None>
+    <None Include="assets\src_shaders\Lighting_VS.glsl">
+      <Filter>src_shaders</Filter>
+    </None>
+    <None Include="assets\src_shaders\skyboxcolor_FS.glsl">
+      <Filter>src_shaders</Filter>
+    </None>
+    <None Include="assets\src_shaders\skyboxcolor_VS.glsl">
+      <Filter>src_shaders</Filter>
+    </None>
+    <None Include="assets\src_shaders\staticfish_FS.glsl">
+      <Filter>src_shaders</Filter>
+    </None>
+    <None Include="assets\src_shaders\staticfish_VS.glsl">
+      <Filter>src_shaders</Filter>
+    </None>
+    <None Include="assets\src_shaders\groundplane_VS.glsl">
+      <Filter>src_shaders</Filter>
+    </None>
+    <None Include="assets\src_shaders\groundplane_FS.glsl">
+      <Filter>src_shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

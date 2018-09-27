@@ -32,8 +32,8 @@
 //
 //----------------------------------------------------------------------------------
 #include "NvGLUtils/NvGLSLProgram.h"
-#include "NvAssetLoader/NvAssetLoader.h"
 #include "NV/NvLogs.h"
+#include "NvAssetLoader/NvAssetLoader.h"
 #include <string>
 
 bool NvGLSLProgram::ms_logAllMissing = false;
@@ -668,7 +668,7 @@ NvGLSLProgram::setUniform4fv(GLint index, const float *value, int32_t count)
 }
 
 void
-NvGLSLProgram::setUniformMatrix4fv(const char *name, float *m, int32_t count, bool transpose)
+NvGLSLProgram::setUniformMatrix4fv(const char *name, const float *m, int32_t count, bool transpose)
 {
     GLint loc = getUniformLocation(name, false);
     if (loc >= 0) {
@@ -677,7 +677,7 @@ NvGLSLProgram::setUniformMatrix4fv(const char *name, float *m, int32_t count, bo
 }
 
 void
-NvGLSLProgram::setUniformMatrix4fv(GLint index, float *m, int32_t count, bool transpose)
+NvGLSLProgram::setUniformMatrix4fv(GLint index, const float *m, int32_t count, bool transpose)
 {
     if (index >= 0) {
         glUniformMatrix4fv(index, count, transpose, m);

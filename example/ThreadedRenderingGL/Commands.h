@@ -68,6 +68,13 @@ namespace cmds
 		Nv::NvSharedVBOGL* vbo;
 		const void* data;
 		size_t size;
+	};	
+
+	struct ClearRenderTarget
+	{
+		static const cb::RenderContext::function_t kDispatchFunction;
+
+		int bufferCount;
 	};
 
 }  // namespace cmd

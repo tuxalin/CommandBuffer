@@ -126,6 +126,13 @@ public:
 		STATS_COUNT
 	};
 
+	enum BRDF
+	{
+		BRDF_LAMBERT,
+		BRDF_ORENNAYAR,
+		BRDF_COUNT
+	};
+
 	/// Structure matching a Uniform Object in most shaders that contains
 	/// the standard camera/projection matrices shared by most objects
 	/// in the scene.
@@ -256,6 +263,9 @@ private:
 	//             the null terminator.
 	void buildFullStatsString(char* buffer, int32_t size);
 
+	void InitRenderTargets();
+	void DestroyRenderTargets();
+
 	uint32_t activeThreadCount() const
 	{
 		return m_activeAnimationThreads + 1;
@@ -327,6 +337,9 @@ private:
 	NvGLSLProgram* m_shader_GroundPlane;
 	NvGLSLProgram* m_shader_Skybox;
 	NvGLSLProgram* m_shader_Fish;
+	NvGLSLProgram* m_shader_DirectionalLight;
+
+	BRDF m_brdf;
 
 	// Member fields that hold the scene geometry
 	// Enum giving identifiers for all Fish models available for use
@@ -584,6 +597,15 @@ private:
 	uint32_t m_statsMode;
 	NvTweakVarBase* m_pStatsModeVar;
 
+	// Deferred
+	int m_imageWidth;
+	int m_imageHeight;
+
+	enum { GBUFFER_COUNT = 2 };
+	GLuint m_texGBuffer[GBUFFER_COUNT];
+	GLuint m_texDepthStencilBuffer;
+	GLuint m_texGBufferFboId;
+
 	// Current Stats
 	float m_meanFPS;
 	float m_meanCPUMainCmd;
@@ -655,10 +677,10 @@ private:
 			glBufferData(GL_UNIFORM_BUFFER, sizeof(LightingUBO), &cmd.lightingUBO_Data, GL_STREAM_DRAW);
 			glBindBuffer(GL_UNIFORM_BUFFER, 0);
 
-			glClear(GL_DEPTH_BUFFER_BIT);
-
-			glEnable(GL_BLEND);
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			glEnable(GL_DEPTH_TEST);
+			glDepthMask(GL_TRUE);
+			glEnable(GL_STENCIL_TEST);
+			glDisable(GL_BLEND);
 		}
 	};
 
@@ -693,7 +715,47 @@ private:
 		}
 	};
 
+	// Setups a new frame
+	struct BeginDeferredCommand
+	{
+		static const cb::RenderContext::function_t kDispatchFunction;
+
+		GLuint mainFboId;
+
+		static void execute(const void* data, cb::RenderContext* rc)
+		{
+			auto& cmd = *reinterpret_cast<const BeginDeferredCommand*>(data);
+
+			glBindFramebuffer(GL_FRAMEBUFFER, cmd.mainFboId);
+
+			glClearDepth(1.0f);
+			glClearStencil(0);
+			glStencilMask(0xFF);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+		}
+	};
+
+	struct DrawDirectionalLightCommand
+	{
+		static const cb::RenderContext::function_t kDispatchFunction;
+		// hint that we dont care about ctr/dtr
+		typedef void pod_hint_tag;
+
+		GLuint projUBO_Location;
+		GLuint projUBO_Id;
+		GLuint lightingUBO_Location;
+		GLuint lightingUBO_Id;
+		NvGLSLProgram* shader;
+		GLuint texGBuffer[GBUFFER_COUNT];
+		uint32_t brdf;
+
+		nv::matrix4f fullscreenMVP;
+
+		static void execute(const void* data, cb::RenderContext* rc);
+	};
+
 	GeometryCommandBuffer m_geometryCommands;
+	DeferredCommandBuffer m_deferredCommands;
 
 };
 #endif // ThreadedRenderingGL_H_

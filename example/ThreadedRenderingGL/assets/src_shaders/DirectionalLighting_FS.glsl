@@ -1,5 +1,5 @@
 //----------------------------------------------------------------------------------
-// File:        es3aep-kepler\ThreadedRenderingGL\assets\src_shaders/staticfish_VS.glsl
+// File:        gl4-kepler\DeferredShadingMSAA\assets\shaders/Lighting_NoMSAA_FS.glsl
 // SDK Version: v3.00 
 // Email:       gameworks@nvidia.com
 // Site:        http://developer.nvidia.com/
@@ -31,29 +31,16 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 //----------------------------------------------------------------------------------
-#version 310 es
-#extension GL_ANDROID_extension_pack_es31a : enable
 
-precision highp float;
+layout(location = 0) in vec4 inProjPos;
 
-// INPUT
-layout(location = 0) in vec3 a_vPosition; // In BaseShader
-layout(location = 1) in vec3 a_vNormal;   // In BaseProjNormalShader
-layout(location = 2) in vec2 a_vTexCoord; // In SceneColorShader
+layout(location = 0) out vec4 outColor;
 
-// Instancing Input
-layout(location = 7) in vec3 a_vInstancePos;
-layout(location = 8) in vec3 a_vInstanceHeading;
-layout(location = 9) in float a_fInstanceAnimTime;
-layout(location = 10) in uint a_iSchoolId;
+uniform int uLightingModel;
 
-// OUTPUT
-out vec2 v_vTexcoord;
-out vec4 v_vPosEyeSpace;
-out vec4 v_vPosWorldSpace;
-out vec3 v_vNormalWorldSpace;
+uniform highp sampler2DRect uNormalDepth;
+uniform highp sampler2DRect uDiffuseRoughness;
 
-// UNIFORMS
 layout(binding=0) uniform ProjBlock {
 	mat4 u_mProjectionMatrix;
 	mat4 u_mInverseProjMatrix;
@@ -69,35 +56,50 @@ layout(binding=1) uniform LightingBlock {
 	float u_fCausticTiling;
 };
 
-layout(binding=2) uniform ModelBlock {
-	mat4 u_mModelMatrix;
-	float u_fTailStart;
-};
-
-void main()
+void main(void)
 {
-    vec3 basisZ = -a_vInstanceHeading;
-    vec3 basisX = normalize(cross(vec3(0.0f, 1.0f, 0.0f), basisZ));
-    vec3 basisY = normalize(cross(basisZ, basisX));
+    vec3 color;
 
-    mat4 instanceXfm = mat4(vec4(basisX, 0.0f), vec4(basisY, 0.0f), vec4(basisZ, 0.0f), vec4(a_vInstancePos, 1.0f));
-	mat4 modelXfm = u_mModelMatrix;
-	vec4 vPosModelSpace = modelXfm * vec4(a_vPosition.xyz, 1.0);
+    // Read G-Buffer
+    vec4 normalDepth = texelFetch(uNormalDepth, ivec2(gl_FragCoord.xy));
+    vec4 diffuseRoughness = texelFetch(uDiffuseRoughness, ivec2(gl_FragCoord.xy));
+    vec3 mtlColor = diffuseRoughness.rgb;
+	float roughness = diffuseRoughness.a;
 
-	// Determine if this vertex is on the tail
-	float tailFactor = vPosModelSpace.z - u_fTailStart;
-	if (tailFactor < 0.0f)
-	{
-		tailFactor *= 0.05f;
-	}
-	float displacement = sin(a_fInstanceAnimTime) * tailFactor;
-	vPosModelSpace.x += displacement;
-    mat4 worldXfm = instanceXfm;
-    v_vPosWorldSpace = worldXfm * vPosModelSpace;
-    v_vPosEyeSpace = u_mViewMatrix * vec4(v_vPosWorldSpace.xyz, 1.0);
+    // Get the normal
+    vec3 worldNormal = normalDepth.xyz;
 
-    gl_Position = u_mProjectionMatrix * v_vPosEyeSpace;
+    // Calculate position
+    float viewLinearDepth = normalDepth.w;
+    vec3 viewPos = DepthToPosition(viewLinearDepth, inProjPos, u_mInverseProjMatrix, 100.0f);
+    vec3 worldPos = (u_mInverseViewMatrix * vec4(viewPos, 1.0f)).xyz;
 
-    v_vNormalWorldSpace = normalize(mat3(worldXfm) * mat3(modelXfm) * a_vNormal);
-    v_vTexcoord = a_vTexCoord;
+    // Calculate to eye vector
+    vec3 eyeWorldPos = (u_mInverseViewMatrix * vec4(0, 0, 0, 1)).xyz;
+    vec3 toEyeVector = normalize(eyeWorldPos - worldPos);
+    float normLength = length(worldNormal);
+    if (normLength > 0.0)
+    {
+        vec3 normal = worldNormal / normLength;
+        vec3 dirToLight = normalize(u_vLightPosition.xyz);
+        vec3 lightAmbient = u_vLightAmbient.rgb;
+        vec3 lightColor = u_vLightDiffuse.rgb;
+        switch (uLightingModel)
+        {
+        case 1:
+            color = OrenNayar(dirToLight, toEyeVector, normal, lightColor, mtlColor, roughness);
+            break;
+        case 0:
+        default:
+            color = LambertDiffuse(dirToLight, normal, lightAmbient, lightColor, mtlColor);
+			color += max(0.0, GGX(dirToLight, toEyeVector, normal, roughness, 0.6));
+            break;
+        }
+    }
+    else
+    {
+        // No geometry rendered, so use just the color
+        color = mtlColor;
+    }
+    outColor = vec4(color, 1.0);
 }

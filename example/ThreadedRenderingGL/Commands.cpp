@@ -138,9 +138,28 @@ namespace cmds
 		cmd.vbo->EndUpdate();
 	}
 
-	const cb::RenderContext::function_t WaitFenceCommand::kDispatchFunction = &waitFenceCommand;
+	void clearRenderTarget(const void* data, cb::RenderContext* rc)
+	{
+		auto& cmd = *reinterpret_cast<const ClearRenderTarget*>(data);
+
+		GLenum drawBuffers[GL_MAX_COLOR_ATTACHMENTS];
+		for (int i = 0; i < cmd.bufferCount; ++i)
+		{
+			drawBuffers[i] = GL_COLOR_ATTACHMENT0 + i;
+		}
+		glDrawBuffers(cmd.bufferCount, drawBuffers);
+
+		float clearColorZero[4] = { 0.f, 0.f, 0.f, 0.f };
+		for (int i = 0; i < cmd.bufferCount; ++i)
+			glClearBufferfv(GL_COLOR, i, clearColorZero);
+
+		glClear(GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+	}
+
+    const cb::RenderContext::function_t WaitFenceCommand::kDispatchFunction = &waitFenceCommand;
 	const cb::RenderContext::function_t VboPoolUpdateCommand::kDispatchFunction = &vboPoolUpdateCommand;
 	const cb::RenderContext::function_t DrawSkyboxCommand::kDispatchFunction = &drawSkyboxCommand;
 	const cb::RenderContext::function_t DrawGroundCommand::kDispatchFunction = &drawGroundCommand;
 	const cb::RenderContext::function_t VboUpdate::kDispatchFunction = &vboUpdate;
+	const cb::RenderContext::function_t ClearRenderTarget::kDispatchFunction = &clearRenderTarget;
 }

@@ -34,6 +34,7 @@
 #include "ThreadedRenderingGL.h"
 
 #include "Commands.h"
+#include "cmds/GLCommands.h"
 
 #include "NvAppBase/NvFramerateCounter.h"
 #include "NvAppBase/NvInputHandler_CameraFly.h"
@@ -403,6 +404,37 @@ void ThreadedRenderingGL::helperJobFunction()
 			CB_DEBUG_COMMAND_TAG(cmd);
 		}
 
+		{
+			cb::DrawKey key = cb::DrawKey::makeCustom(cb::ViewLayerType::eHighest, 10);
+			auto& cmd = *m_geometryCommands.addCommand<cmds::BindFramebuffer>(key);
+			cmd.target = GL_FRAMEBUFFER;
+			cmd.fbo = m_texGBufferFboId;
+			CB_DEBUG_COMMAND_TAG(cmd);
+
+			auto& clearCmd = *m_geometryCommands.appendCommand<cmds::ClearRenderTarget>(&cmd);
+			clearCmd.bufferCount = GBUFFER_COUNT;
+			CB_DEBUG_COMMAND_SET_MSG(clearCmd, "Clear GBUffer");
+		}
+
+		//deferred commands
+		{
+			auto& cmd = *m_deferredCommands.addCommand<BeginDeferredCommand>(100);
+			cmd.mainFboId = getMainFBO();
+			CB_DEBUG_COMMAND_TAG(cmd);
+
+			auto& drawCmd = *m_deferredCommands.appendCommand<DrawDirectionalLightCommand>(&cmd);
+			drawCmd.brdf = m_brdf;
+			drawCmd.shader = m_shader_DirectionalLight;
+			drawCmd.fullscreenMVP = nv::matrix4f(); // identity
+			drawCmd.lightingUBO_Id = m_lightingUBO_Id;
+			drawCmd.lightingUBO_Location = m_lightingUBO_Location;
+			drawCmd.projUBO_Id = m_projUBO_Id;
+			drawCmd.projUBO_Location = m_projUBO_Location;
+			for (int i = 0; i < GBUFFER_COUNT; ++i)
+				drawCmd.texGBuffer[i] = m_texGBuffer[i];
+			CB_DEBUG_COMMAND_TAG(drawCmd);
+		}
+
 		updateStats();
 
 		signalWorkComplete(1);
@@ -514,6 +546,11 @@ ThreadedRenderingGL::ThreadedRenderingGL() :
 	m_meanGPUFrameMS(0.0f),
 	m_frameID(0)
 {
+	m_imageWidth = m_imageHeight = 0;
+	m_texGBuffer[2] = m_texGBuffer[1] = m_texGBuffer[0] = 0;
+	m_texGBufferFboId = m_texDepthStencilBuffer = 0;
+	m_brdf = BRDF_LAMBERT;
+
 	cb::DrawKey::sanityChecks();
 	m_geometryCommands.resize(10000, 3 * 1024);
 #if STRESS_TEST
@@ -639,8 +676,19 @@ void ThreadedRenderingGL::initRendering(void)
 	m_shader_Skybox = NvGLSLProgram::createFromFiles("src_shaders/skyboxcolor_VS.glsl", "src_shaders/skyboxcolor_FS.glsl");
 	m_shader_Fish = NvGLSLProgram::createFromFiles("src_shaders/staticfish_VS.glsl", "src_shaders/staticfish_FS.glsl");
 
+	{
+		int32_t len;
+		char* lightingVSSrc = NvAssetLoaderRead("src_shaders/Lighting_VS.glsl", len);
+
+		char* lightingFSSrc[2];
+		lightingFSSrc[0] = NvAssetLoaderRead("src_shaders/Lighting_FS_Shared.h", len);
+		lightingFSSrc[1] = NvAssetLoaderRead("src_shaders/DirectionalLighting_FS.glsl", len);
+		m_shader_DirectionalLight = NvGLSLProgram::createFromStrings((const char**)(&lightingVSSrc), 1, (const char**)lightingFSSrc, 2, false);
+	}
+
 	if ((nullptr == m_shader_GroundPlane) ||
 		(nullptr == m_shader_Skybox) ||
+		(nullptr == m_shader_DirectionalLight) ||
 		(nullptr == m_shader_Fish))
 	{
 		showDialog("Fatal: Cannot Find Assets", "The shader assets cannot be loaded.\n"
@@ -677,6 +725,7 @@ void ThreadedRenderingGL::initRendering(void)
 	initThreads();
 #if CB_DEBUG_COMMANDS_PRINT
 	m_geometryCommands.setLogFunction(&commandLogFunction);
+	m_deferredCommands.setLogFunction(&commandLogFunction);
 #endif
 
 	const auto key = cb::DrawKey::makeCustom(cb::ViewLayerType::eHighest, 0);
@@ -707,8 +756,8 @@ void ThreadedRenderingGL::initGL()
 
 	// Assign some values which apply to the entire scene and update once per frame.
 	m_lightingUBO_Data.m_lightPosition = nv::vec4f(1.0f, 1.0f, 1.0f, 0.0f);
-	m_lightingUBO_Data.m_lightAmbient = nv::vec4f(0.4f, 0.4f, 0.4f, 1.0f);
-	m_lightingUBO_Data.m_lightDiffuse = nv::vec4f(0.7f, 0.7f, 0.7f, 1.0f);
+	m_lightingUBO_Data.m_lightAmbient = nv::vec4f(0.2f, 0.2f, 0.2f, 1.0f);
+	m_lightingUBO_Data.m_lightDiffuse = nv::vec4f(0.45f, 0.45f, 0.6f, 1.0f);
 	m_lightingUBO_Data.m_causticOffset = m_currentTime * m_causticSpeed;
 	m_lightingUBO_Data.m_causticTiling = m_causticTiling;
 
@@ -1532,6 +1581,16 @@ void ThreadedRenderingGL::reshape(int32_t width, int32_t height)
 {
 	glViewport(0, 0, NvSampleApp::m_width, NvSampleApp::m_height);
 
+	if (m_imageWidth != width || m_imageHeight != height)
+	{
+		m_imageWidth = width;
+		m_imageHeight = height;
+
+		// Destroy the current render targets and let them get recreated on our next draw
+		DestroyRenderTargets();
+		InitRenderTargets();
+	}
+
 	//setting the perspective projection matrix
 	nv::perspective(m_projUBO_Data.m_projectionMatrix, NV_PI / 3.0f,
 		static_cast<float>(NvSampleApp::m_width) /
@@ -1768,6 +1827,7 @@ void ThreadedRenderingGL::draw(void)
 	// Rendering
 	{
 		m_geometryCommands.sort();
+		m_deferredCommands.sort();
 
 		CPU_TIMER_SCOPE(CPU_TIMER_MAIN_CMD_BUILD);
 		GPU_TIMER_SCOPE();
@@ -1776,6 +1836,7 @@ void ThreadedRenderingGL::draw(void)
 
 		// nothing to pass as GL doesn't have any contexts
 		m_geometryCommands.submit(nullptr, clearCommands);
+		m_deferredCommands.submit(nullptr, clearCommands);
 	}
 	m_forceUpdateMode = ForceUpdateMode::eNone;
 #if FISH_DEBUG
@@ -2126,12 +2187,88 @@ void ThreadedRenderingGL::buildFullStatsString(char* buffer, int32_t size)
 	}
 }
 
+
+void ThreadedRenderingGL::DestroyRenderTargets()
+{
+	// Validating our render targets at the start of rendering each frame means that
+	// we can always destroy them when circumstances change, such as a resize event,
+	// and not have to immediately re-create them.  This helps with resize events 
+	// that happen multiple times between draw calls, which would otherwise have us 
+	// recreating surfaces that would just be destroyed again before being used.
+	{
+		glDeleteFramebuffers(1, &m_texGBufferFboId);
+		m_texGBufferFboId = 0;
+		glDeleteTextures(1, &m_texDepthStencilBuffer);
+		m_texDepthStencilBuffer = 0;
+		glDeleteTextures(GBUFFER_COUNT, m_texGBuffer);
+		for(int i = 0; i < GBUFFER_COUNT; ++i)
+			m_texGBuffer[i] = 0;
+	}
+}
+
+void ThreadedRenderingGL::InitRenderTargets()
+{
+	glDisable(GL_MULTISAMPLE);
+
+	// Create textures for the G-Buffer
+	{
+		glGenTextures(GBUFFER_COUNT, m_texGBuffer);
+		// Ensure that the unused entry in our array is 0 so that it doesn't cause problems when deleting
+		m_texGBuffer[GBUFFER_COUNT] = 0;
+
+		// Buffer 0 holds Normals and Depth
+		glBindTexture(GL_TEXTURE_RECTANGLE, m_texGBuffer[0]);
+		glTexImage2D(GL_TEXTURE_RECTANGLE, 0, GL_RGBA16F, m_imageWidth, m_imageHeight, 0, GL_RGBA, GL_FLOAT, 0);
+
+		// Buffer 1 holds Color
+		glBindTexture(GL_TEXTURE_RECTANGLE, m_texGBuffer[1]);
+		glTexImage2D(GL_TEXTURE_RECTANGLE, 0, GL_RGBA16F, m_imageWidth, m_imageHeight, 0, GL_RGBA, GL_FLOAT, 0);
+	}
+
+	// Create the Depth/Stencil
+	glGenTextures(1, &m_texDepthStencilBuffer);
+	glBindTexture(GL_TEXTURE_RECTANGLE, m_texDepthStencilBuffer);
+	glTexImage2D(GL_TEXTURE_RECTANGLE, 0, GL_DEPTH24_STENCIL8, m_imageWidth, m_imageHeight, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, 0);
+
+	glBindTexture(GL_TEXTURE_RECTANGLE, 0);
+
+	glGenFramebuffers(1, &m_texGBufferFboId);
+	glBindFramebuffer(GL_FRAMEBUFFER, m_texGBufferFboId);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_RECTANGLE, m_texGBuffer[0], 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_RECTANGLE, m_texGBuffer[1], 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_RECTANGLE, m_texDepthStencilBuffer, 0);
+}
+
 //-----------------------------------------------------------------------------
+
+void ThreadedRenderingGL::DrawDirectionalLightCommand::execute(const void* data, cb::RenderContext* rc)
+{
+	auto& cmd = *reinterpret_cast<const DrawDirectionalLightCommand*>(data);
+
+	glDisable(GL_DEPTH_TEST);
+	glDisable(GL_STENCIL_TEST);
+
+	cmd.shader->enable();
+
+	glBindBufferBase(GL_UNIFORM_BUFFER, cmd.projUBO_Location, cmd.projUBO_Id);
+	glBindBufferBase(GL_UNIFORM_BUFFER, cmd.lightingUBO_Location, cmd.lightingUBO_Id);
+
+	cmd.shader->setUniform1i("uLightingModel", cmd.brdf);
+	cmd.shader->bindTextureRect("uNormalDepth", 0, cmd.texGBuffer[0]);
+	cmd.shader->bindTextureRect("uDiffuseRoughness", 1, cmd.texGBuffer[1]);
+
+	cmd.shader->setUniformMatrix4fv("uModelViewMatrix", cmd.fullscreenMVP._array);
+	NvDrawQuadGL(0);
+
+	cmd.shader->disable();
+}
 
 const cb::RenderContext::function_t ThreadedRenderingGL::InitializeCommand::kDispatchFunction = &ThreadedRenderingGL::InitializeCommand::execute;
 const cb::RenderContext::function_t ThreadedRenderingGL::BeginFrameCommand::kDispatchFunction = &ThreadedRenderingGL::BeginFrameCommand::execute;
 const cb::RenderContext::function_t ThreadedRenderingGL::EndFrameCommand::kDispatchFunction = &ThreadedRenderingGL::EndFrameCommand::execute;
 const cb::RenderContext::function_t ThreadedRenderingGL::SetVBOPolicyCommand::kDispatchFunction = &ThreadedRenderingGL::SetVBOPolicyCommand::execute;
+const cb::RenderContext::function_t ThreadedRenderingGL::BeginDeferredCommand::kDispatchFunction = &ThreadedRenderingGL::BeginDeferredCommand::execute;
+const cb::RenderContext::function_t ThreadedRenderingGL::DrawDirectionalLightCommand::kDispatchFunction = &ThreadedRenderingGL::DrawDirectionalLightCommand::execute;
 
 //-----------------------------------------------------------------------------
 // FUNCTION NEEDED BY THE FRAMEWORK

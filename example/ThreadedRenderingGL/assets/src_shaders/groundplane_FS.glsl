@@ -42,7 +42,8 @@ in vec4 v_vPosWorldSpace;
 in vec4 v_vPosEyeSpace;
 
 // OUTPUT
-out vec4 o_vFragColor;
+layout(location = 0) out vec4 outNormalDepth;
+layout(location = 1) out vec4 outDiffuseRoughness;
 
 // UNIFORMS
 layout(binding = 2) uniform sampler2D u_tCaustic1Tex;
@@ -77,7 +78,9 @@ float fogIntensity(float dist)
 
 void main()
 {
-    o_vFragColor = texture(u_tSandTex, v_vTexcoord) + getCausticIntensity(v_vPosWorldSpace);
+    outDiffuseRoughness = texture(u_tSandTex, v_vTexcoord) + getCausticIntensity(v_vPosWorldSpace);
     float fog = fogIntensity(length(v_vPosEyeSpace.xyz));
-    o_vFragColor.rgb = mix(o_vFragColor.rgb, g_fogColor, fog);
+    outDiffuseRoughness.rgb = mix(outDiffuseRoughness.rgb, g_fogColor, fog);
+	outDiffuseRoughness.a = 1.0;
+	outNormalDepth = vec4(0.0);
 }
