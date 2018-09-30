@@ -66,21 +66,14 @@ float getCausticIntensity(vec4 worldPos)
 	return (caustic1 * caustic2);
 }
 
-float g_maxFogDist = 75.0f;
 vec3 g_fogColor = vec3(0.0f, 0.0f, 0.64f);
-
-float fogIntensity(float dist)
-{
-	float normalizedDist = clamp((dist / g_maxFogDist), 0.0f, 1.0f);
-	// Use a linear falloff to give the ground plane more of a distant look
-	return normalizedDist;// * normalizedDist * normalizedDist;
-}
 
 void main()
 {
     outDiffuseRoughness = texture(u_tSandTex, v_vTexcoord) + getCausticIntensity(v_vPosWorldSpace);
-    float fog = fogIntensity(length(v_vPosEyeSpace.xyz));
-    outDiffuseRoughness.rgb = mix(outDiffuseRoughness.rgb, g_fogColor, fog);
-	outDiffuseRoughness.a = 1.0;
-	outNormalDepth = vec4(0.0);
+    outDiffuseRoughness.rgb = mix(outDiffuseRoughness.rgb, g_fogColor, 0.25);
+	outDiffuseRoughness.a = 0.0;
+
+	outNormalDepth.xyz = vec3(0.0, 1.0, 0.0);
+    outNormalDepth.w = v_vPosEyeSpace.z / 100.0;
 }

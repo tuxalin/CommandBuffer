@@ -79,9 +79,9 @@ int commandLogFunction(const char* fmt, ...)
 #define INSTANCE_COUNT 100
 
 #ifdef ANDROID
-#define MAX_SCHOOL_COUNT 2000
+#define MAX_SCHOOL_COUNT 500
 #else
-#define MAX_SCHOOL_COUNT 5000
+#define MAX_SCHOOL_COUNT 1000
 #endif
 
 #if STRESS_TEST
@@ -464,6 +464,8 @@ void ThreadedRenderingGL::helperJobFunction()
 				transform.set_scale(lightRadius);
 				transform.set_translate(position);
 
+				//NOTE. Could do frustum culling and not submit lights out of view.
+
 				auto& drawCmd = *m_deferredCommands.addCommand<DrawPointLightCommand>(1);
 				drawCmd.brdf = m_brdf;
 				drawCmd.shader = m_shader_PointLight;
@@ -837,7 +839,7 @@ void ThreadedRenderingGL::initGL()
 	}
 
 	setNumSchools(SCHOOL_COUNT);
-	setNumLights(MAX_LIGHTS_COUNT / 2);
+	setNumLights(MAX_LIGHTS_COUNT / 4);
 
 	resetFish(false);
 }

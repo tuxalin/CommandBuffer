@@ -61,6 +61,20 @@ layout(binding=1) uniform LightingBlock {
 #endif
 };
 
+float g_maxFogDist = 75.0f;
+float g_ambientIncrease = 2.0f;
+vec3 g_fogColor = vec3(0.0f, 0.0f, 0.64f);
+
+float fogIntensity(float dist)
+{
+	dist *= 0.8;
+
+	float normalizedDist = clamp((dist / g_maxFogDist), 0.0f, 1.0f);
+
+	// Also use a square distance to maintain some color from the fish vs. the ground
+	return normalizedDist * normalizedDist; 
+}
+
 void main(void)
 {
     vec3 color;
@@ -104,7 +118,7 @@ void main(void)
         case 0:
         default:
             color = LambertDiffuse(dirToLight, normal, lightAmbient, lightColor, mtlColor);
-			color += max(0.0, GGX(dirToLight, toEyeVector, normal, roughness, 0.6));
+			color += max(0.0, GGX(dirToLight, toEyeVector, normal, roughness, 0.06));
             break;
         }
 
@@ -117,6 +131,11 @@ void main(void)
 		color /= attenuation;
 #endif
 
+#ifndef USE_POINT_LIGHT
+		float fog = fogIntensity(length(viewPos.xyz));
+		color.rgb = mix(color.rgb, g_fogColor * u_vLightAmbient.rgb * g_ambientIncrease, fog);
+#endif
+
     }
     else
     {
@@ -124,7 +143,7 @@ void main(void)
 		color = vec3(0.0);
 #else
 		// No geometry rendered, so use just the color
-        color = mtlColor * u_vLightAmbient.rgb * 1.5;
+        color = mtlColor * u_vLightAmbient.rgb * g_ambientIncrease;
 #endif
     }
 	 

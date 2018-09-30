@@ -67,22 +67,6 @@ float getCausticIntensity(vec4 worldPos)
 	return (caustic1 * caustic2) * 2.0f;
 }
 
-float g_maxFogDist = 75.0f;
-vec3 g_fogColor = vec3(0.0f, 0.0f, 0.64f);
-
-float fogIntensity(float dist)
-{
-	// Push the start of the fog range out, so that we have a nice, bright range of fish
-	// near the camera with a steeper falloff further out.
-	dist -= 10.0f;
-	dist *= 0.8;
-
-	float normalizedDist = clamp((dist / g_maxFogDist), 0.0f, 1.0f);
-
-	// Also use a square distance to maintain some color from the fish vs. the ground
-	return normalizedDist * normalizedDist; 
-}
-
 void main()
 {
     outDiffuseRoughness = texture(u_tDiffuseTex, v_vTexcoord);
@@ -91,8 +75,6 @@ void main()
         discard;
     }
     outDiffuseRoughness.rgb += vec3(getCausticIntensity(v_vPosWorldSpace));
-    float fog = fogIntensity(length(v_vPosEyeSpace.xyz));
-    outDiffuseRoughness.rgb = mix(outDiffuseRoughness.rgb, g_fogColor, fog);
 	outDiffuseRoughness.a = 0.25;
 
 	outNormalDepth.xyz = normalize(v_vNormalWorldSpace);
