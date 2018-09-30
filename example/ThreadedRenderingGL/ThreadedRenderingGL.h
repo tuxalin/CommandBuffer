@@ -74,6 +74,7 @@ public:
 
 	enum {
 		MAX_ANIMATION_THREAD_COUNT = 8,
+		MAX_LIGHTS_COUNT = 64,
 		MAX_THREAD_COUNT = MAX_ANIMATION_THREAD_COUNT + 1,
 		THREAD_STACK_SIZE = 8192U
 	};
@@ -153,8 +154,16 @@ public:
 		nv::vec4f m_lightPosition;
 		nv::vec4f m_lightAmbient;
 		nv::vec4f m_lightDiffuse;
-		float m_causticOffset;
-		float m_causticTiling;
+		union
+		{
+			float m_causticOffset;
+			float m_linearAttenuation;
+		};
+		union
+		{
+			float m_causticTiling;
+			float m_quadraticAttenuation;
+		};
 	};
 
 	/// Book-keeping structure holding data pertinent to a thread
@@ -245,6 +254,7 @@ private:
 	uint32_t setNumSchools(uint32_t numSchools);
 	void updateSchoolTankSizes();
 	uint32_t setAnimationThreadNum(uint32_t numThreads);
+	uint32_t setNumLights(uint32_t numLights);
 
 	/// Updates the stats displayed by the UI
 	void updateStats();
@@ -338,6 +348,7 @@ private:
 	NvGLSLProgram* m_shader_Skybox;
 	NvGLSLProgram* m_shader_Fish;
 	NvGLSLProgram* m_shader_DirectionalLight;
+	NvGLSLProgram* m_shader_PointLight;
 
 	BRDF m_brdf;
 
@@ -382,6 +393,11 @@ private:
 	LightingUBO m_lightingUBO_Data;       // Actual values for the UBO
 	GLuint      m_lightingUBO_Id;         // UBO Id
 	GLint       m_lightingUBO_Location;   // Uniform Index
+
+
+	LightingUBO         m_lightsUBO_Data[MAX_LIGHTS_COUNT];
+	std::vector<int>    m_lightsSchoolIndex;      
+	GLuint              m_lightsUBO_Id[MAX_LIGHTS_COUNT];     
 
 	// define the volume that the fish will remain within
 	static nv::vec3f ms_tankMin;
@@ -474,6 +490,7 @@ private:
 	typedef std::vector<School*> SchoolSet;
 	SchoolSet m_schools;
 	std::vector<uint32_t> m_schoolsDrawCount;
+	std::vector<nv::vec3f> m_schoolsCentroid;
 	uint32_t m_activeSchools;
 
 	// Scene wide and background shared textures
@@ -539,18 +556,21 @@ private:
 		, UIACTION_RESET_FISHPLOSION
 		, UIACTION_RESET_FISHFIREWORKS
 		, UIACTION_ANIMTHREADCOUNT
+		, UIACTION_LIGHTSCOUNT
 		, UIACTION_ANIMPAUSED
 		, UIACTION_INSTCOUNT
 		, UIACTION_BATCHSIZE
 		, UIACTION_STATSTOGGLE
 		, UIACTION_RENDERINGTECHNIQUE
 		, UIACTION_TANKSIZE
+		, UIACTION_UIBRDF
 	};
 
 	uint32_t m_uiSchoolCount;
 	uint32_t m_uiFishCount;
 	uint32_t m_uiTankSize;
 	bool     m_bTankSizeChanged;
+	uint32_t m_uiLightsCount;
 	uint32_t m_uiThreadCount;
 	uint32_t m_uiInstanceCount;
 	uint32_t m_uiBatchSize;
@@ -679,8 +699,10 @@ private:
 
 			glEnable(GL_DEPTH_TEST);
 			glDepthMask(GL_TRUE);
-			glEnable(GL_STENCIL_TEST);
+			glDisable(GL_STENCIL_TEST);
 			glDisable(GL_BLEND);
+			glDisable(GL_CULL_FACE);
+			glCullFace(GL_BACK);
 		}
 	};
 
@@ -715,7 +737,7 @@ private:
 		}
 	};
 
-	// Setups a new frame
+	// Setups the deferred pass
 	struct BeginDeferredCommand
 	{
 		static const cb::RenderContext::function_t kDispatchFunction;
@@ -728,10 +750,37 @@ private:
 
 			glBindFramebuffer(GL_FRAMEBUFFER, cmd.mainFboId);
 
-			glClearDepth(1.0f);
-			glClearStencil(0);
+			glClear(GL_COLOR_BUFFER_BIT);
+
+			glDisable(GL_DEPTH_TEST);
+			glDisable(GL_STENCIL_TEST);
+			glDepthMask(GL_FALSE);
+		}
+	};
+
+	struct BeginPointLightPassCommand
+	{
+		static const cb::RenderContext::function_t kDispatchFunction;
+
+		uint32_t dummy;
+
+		static void execute(const void* data, cb::RenderContext* rc)
+		{
+			auto& cmd = *reinterpret_cast<const BeginPointLightPassCommand*>(data);
+
+			glEnable(GL_BLEND);
+			glBlendEquation(GL_FUNC_ADD);
+			glBlendFunc(GL_ONE, GL_ONE);
+
+			glEnable(GL_STENCIL_TEST);
+			glDisable(GL_CULL_FACE); 
+
 			glStencilMask(0xFF);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+			glClearStencil(0);
+
+			// we'll render the light volume faces once per light
+			glStencilFunc(GL_EQUAL, 0, 0xFF);
+			glStencilOp(GL_KEEP, GL_INCR, GL_INCR);
 		}
 	};
 
@@ -750,6 +799,26 @@ private:
 		uint32_t brdf;
 
 		nv::matrix4f fullscreenMVP;
+
+		static void execute(const void* data, cb::RenderContext* rc);
+	};
+
+	struct DrawPointLightCommand
+	{
+		static const cb::RenderContext::function_t kDispatchFunction;
+		// hint that we dont care about ctr/dtr
+		typedef void pod_hint_tag;
+
+		GLuint projUBO_Location;
+		GLuint projUBO_Id;
+		GLuint lightingUBO_Location;
+		GLuint lightingUBO_Id;
+		LightingUBO lightingUBO_Data;
+		NvGLSLProgram* shader;
+		GLuint texGBuffer[GBUFFER_COUNT];
+		uint32_t brdf;
+
+		nv::matrix4f MVP;
 
 		static void execute(const void* data, cb::RenderContext* rc);
 	};

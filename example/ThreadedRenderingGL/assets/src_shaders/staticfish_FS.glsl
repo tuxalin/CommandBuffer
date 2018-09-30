@@ -93,8 +93,8 @@ void main()
     outDiffuseRoughness.rgb += vec3(getCausticIntensity(v_vPosWorldSpace));
     float fog = fogIntensity(length(v_vPosEyeSpace.xyz));
     outDiffuseRoughness.rgb = mix(outDiffuseRoughness.rgb, g_fogColor, fog);
-	outDiffuseRoughness.a = 0.5;
-	
+	outDiffuseRoughness.a = 0.25;
+
 	outNormalDepth.xyz = normalize(v_vNormalWorldSpace);
     outNormalDepth.w = v_vPosEyeSpace.z / 100.0;
 }

@@ -211,7 +211,7 @@
     </ClCompile>
     <Link>
       <AdditionalOptions>/DEBUG /MACHINE:x86 /LARGEADDRESSAWARE /NOLOGO /OPT:REF /OPT:ICF /INCREMENTAL:NO</AdditionalOptions>
-      <AdditionalDependencies>xinput9_1_0.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;opengl32.lib;glew32sd.lib;glfw3d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>xinput9_1_0.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;opengl32.lib;glew32sd.lib;glfw3d.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)ThreadedRenderingGLD.exe</OutputFile>
       <AdditionalLibraryDirectories>./../GraphicsSamples/extensions/externals/lib/vs2015x86;./../GraphicsSamples/extensions/lib/vs2015x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ProgramDatabaseFile>$(OutDir)/ThreadedRenderingGLD.exe.pdb</ProgramDatabaseFile>
@@ -450,7 +450,7 @@
     <ClInclude Include="VertexFormatBinder.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="assets\src_shaders\DirectionalLighting_FS.glsl" />
+    <None Include="assets\src_shaders\Lighting_FS.glsl" />
     <None Include="assets\src_shaders\Lighting_VS.glsl" />
     <None Include="assets\src_shaders\groundplane_FS.glsl" />
     <None Include="assets\src_shaders\groundplane_VS.glsl" />

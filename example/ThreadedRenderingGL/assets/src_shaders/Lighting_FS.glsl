@@ -51,9 +51,14 @@ layout(binding=0) uniform ProjBlock {
 layout(binding=1) uniform LightingBlock {
 	vec4 u_vLightPosition;  
 	vec4 u_vLightAmbient;   
-	vec4 u_vLightDiffuse;   
+	vec4 u_vLightDiffuse;  
+#ifdef USE_POINT_LIGHT
+	float u_fLinearAttenuation;
+	float u_fQuadraticAttenuation;
+#else
 	float u_fCausticOffset;
 	float u_fCausticTiling;
+#endif
 };
 
 void main(void)
@@ -81,7 +86,14 @@ void main(void)
     if (normLength > 0.0)
     {
         vec3 normal = worldNormal / normLength;
-        vec3 dirToLight = normalize(u_vLightPosition.xyz);
+#ifdef USE_POINT_LIGHT
+        vec3 dirToLight = worldPos - u_vLightPosition.xyz;
+		float distance = length(dirToLight);
+		dirToLight = dirToLight / distance;
+#else
+		// directional light
+		vec3 dirToLight = normalize(u_vLightPosition.xyz);
+#endif
         vec3 lightAmbient = u_vLightAmbient.rgb;
         vec3 lightColor = u_vLightDiffuse.rgb;
         switch (uLightingModel)
@@ -95,11 +107,26 @@ void main(void)
 			color += max(0.0, GGX(dirToLight, toEyeVector, normal, roughness, 0.6));
             break;
         }
+
+#ifdef USE_POINT_LIGHT
+		float Kc = 1.0;
+		float Kl = u_fLinearAttenuation;
+		float Kd = u_fQuadraticAttenuation;
+		float attenuation = Kc + Kl * distance + Kd * distance * distance;
+		attenuation = max(1.0, attenuation);
+		color /= attenuation;
+#endif
+
     }
     else
     {
-        // No geometry rendered, so use just the color
-        color = mtlColor;
+#ifdef USE_POINT_LIGHT
+		color = vec3(0.0);
+#else
+		// No geometry rendered, so use just the color
+        color = mtlColor * u_vLightAmbient.rgb * 1.5;
+#endif
     }
-    outColor = vec4(color, 1.0);
+	 
+	outColor = vec4(color, 1.0);
 }

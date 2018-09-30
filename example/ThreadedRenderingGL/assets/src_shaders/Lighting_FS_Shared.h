@@ -44,17 +44,16 @@ vec3 LambertDiffuse(vec3 dirToLight, vec3 surfaceNormal, vec3 ambientColor, vec3
 
 float GGX(vec3 L, vec3 V, vec3 N, float roughness, float F0)
 {
-
-	float alpha = roughness * roughness;
+	float roughSqr = roughness * roughness;
 	vec3 H = normalize(L - V);
 	float dotLH = max(0.0, dot(L, H));
 	float dotNH = max(0.0, dot(N, H));
 	float dotNL = max(0.0, dot(N, L));
-	float alphaSqr = alpha * alpha;
+	float alphaSqr = roughSqr * roughSqr;
 	float denom = dotNH * dotNH * (alphaSqr - 1.0) + 1.0;
 	float D = alphaSqr / (3.141592653589793 * denom * denom);
 	float F = F0 + (1.0 - F0) * pow(1.0 - dotLH, 5.0);
-	float k = 0.5 * alpha;
+	float k = 0.5 * roughSqr;
 	float k2 = k * k;
 	return dotNL * D * F / (dotLH*dotLH*(1.0 - k2) + k2);
 }
@@ -83,10 +82,11 @@ vec3 OrenNayar(vec3 dirToLight, vec3 dirToEye, vec3 surfaceNormal, vec3 lightCol
     vec3 projEye = normalize(dirToEye - (surfaceNormal * clamp(dot(dirToEye, surfaceNormal), 0.0, 1.0)));        // approaches ||0,0,0|| , 
 
     float gamma = dot(projEye, projLight);
-    float roughSqr = roughness * roughness;
 
-    float A = 1.0 - (0.5 * (roughSqr / (roughSqr + 0.57)));
-    float B = 0.45 * (roughSqr / (roughSqr + 0.09));
+    float alphaSqr = 1.0 - roughness * roughness;
+
+    float A = 1.0 - (0.5 * (alphaSqr / (alphaSqr + 0.57)));
+    float B = 0.45 * (alphaSqr / (alphaSqr + 0.09));
     float C = clamp(sin(alpha), 0.0, 1.0) * max(0.0, tan(beta));
 
     float final = A + B * max(0.0, gamma) * C;

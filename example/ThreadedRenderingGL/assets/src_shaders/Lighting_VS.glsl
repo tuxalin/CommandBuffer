@@ -42,6 +42,6 @@ uniform mat4 uModelViewMatrix;
 
 void main(void)
 {
-    outProjPos = inVertexPosition;
-    gl_Position = uModelViewMatrix * inVertexPosition;
+    outProjPos = uModelViewMatrix * inVertexPosition;
+    gl_Position = outProjPos;
 }

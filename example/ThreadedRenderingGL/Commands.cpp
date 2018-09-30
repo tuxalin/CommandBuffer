@@ -108,7 +108,6 @@ namespace cmds
 		glBindTexture(GL_TEXTURE_2D, cmd.skyboxSandTex);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 
-		glDisable(GL_CULL_FACE);
 		cmd.shader->enable();
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 		cmd.shader->disable();

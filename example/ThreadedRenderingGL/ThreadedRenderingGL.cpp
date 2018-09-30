@@ -343,6 +343,9 @@ void ThreadedRenderingGL::helperJobFunction()
 		}
 #endif
 		updateSchoolTankSizes();
+	
+		m_projUBO_Data.m_viewMatrix = m_pInputHandler->getViewMatrix();
+		m_projUBO_Data.m_inverseViewMatrix = m_pInputHandler->getCameraMatrix();
 
 		// NOTE. could create enums with priorities for better management
 		{
@@ -352,8 +355,6 @@ void ThreadedRenderingGL::helperJobFunction()
 			// gamepad, etc.)
 			cmd->projUBO_Id = m_projUBO_Id;
 			cmd->projUBO_Data = m_projUBO_Data;
-			cmd->projUBO_Data.m_viewMatrix = m_pInputHandler->getViewMatrix();
-			cmd->projUBO_Data.m_inverseViewMatrix = m_pInputHandler->getCameraMatrix();
 			cmd->lightingUBO_Id = m_lightingUBO_Id;
 			cmd->lightingUBO_Data = m_lightingUBO_Data;
 			cmd->lightingUBO_Data.m_causticOffset = m_currentTime * m_causticSpeed;
@@ -416,23 +417,66 @@ void ThreadedRenderingGL::helperJobFunction()
 			CB_DEBUG_COMMAND_SET_MSG(clearCmd, "Clear GBUffer");
 		}
 
-		//deferred commands
+		// deferred commands
 		{
-			auto& cmd = *m_deferredCommands.addCommand<BeginDeferredCommand>(100);
+			auto& cmd = *m_deferredCommands.addCommand<BeginDeferredCommand>(0);
 			cmd.mainFboId = getMainFBO();
 			CB_DEBUG_COMMAND_TAG(cmd);
 
-			auto& drawCmd = *m_deferredCommands.appendCommand<DrawDirectionalLightCommand>(&cmd);
-			drawCmd.brdf = m_brdf;
-			drawCmd.shader = m_shader_DirectionalLight;
-			drawCmd.fullscreenMVP = nv::matrix4f(); // identity
-			drawCmd.lightingUBO_Id = m_lightingUBO_Id;
-			drawCmd.lightingUBO_Location = m_lightingUBO_Location;
-			drawCmd.projUBO_Id = m_projUBO_Id;
-			drawCmd.projUBO_Location = m_projUBO_Location;
-			for (int i = 0; i < GBUFFER_COUNT; ++i)
-				drawCmd.texGBuffer[i] = m_texGBuffer[i];
-			CB_DEBUG_COMMAND_TAG(drawCmd);
+ 			auto& drawCmd = *m_deferredCommands.appendCommand<DrawDirectionalLightCommand>(&cmd);
+ 			drawCmd.brdf = m_brdf;
+ 			drawCmd.shader = m_shader_DirectionalLight;
+ 			drawCmd.fullscreenMVP = nv::matrix4f(); // identity
+ 			drawCmd.lightingUBO_Id = m_lightingUBO_Id;
+ 			drawCmd.lightingUBO_Location = m_lightingUBO_Location;
+ 			drawCmd.projUBO_Id = m_projUBO_Id;
+ 			drawCmd.projUBO_Location = m_projUBO_Location;
+ 			for (int i = 0; i < GBUFFER_COUNT; ++i)
+ 				drawCmd.texGBuffer[i] = m_texGBuffer[i];
+ 			CB_DEBUG_COMMAND_TAG(drawCmd);
+
+  			auto& pointPassCmd = *m_deferredCommands.appendCommand<BeginPointLightPassCommand>(&drawCmd);
+  			CB_DEBUG_COMMAND_TAG(pointPassCmd);
+		}
+		// deferred point lights 
+		if (!m_schoolsCentroid.empty() && !m_lightsSchoolIndex.empty())
+		{
+			const nv::matrix4f projMatrix = m_projUBO_Data.m_projectionMatrix;
+			const nv::matrix4f viewMatrix = m_projUBO_Data.m_viewMatrix;
+			for (size_t i = 0; i < m_lightsSchoolIndex.size(); ++i)
+			{
+				nv::vec3f position = m_schoolsCentroid[m_lightsSchoolIndex[i]];
+				m_lightsUBO_Data[i].m_lightPosition = nv::vec4f(position);
+
+				// compute the light sphere radius/scale
+				nv::vec4f lightColor = m_lightsUBO_Data[i].m_lightDiffuse;
+				float intensityMax = std::max(std::max(lightColor.x, lightColor.y), lightColor.z);
+				float constantAttenuation = 1.f; // always one
+				float linearAttenuation = m_lightsUBO_Data[i].m_linearAttenuation;
+				float linearAttenuationSqr = linearAttenuation * linearAttenuation;
+				float quadraticAttenuation = m_lightsUBO_Data[i].m_quadraticAttenuation;
+				float threshold = 256.f;
+				// quadratic equation
+				float sqrtAttenuation = std::sqrt(linearAttenuationSqr - 4 * quadraticAttenuation * (constantAttenuation - threshold * intensityMax));
+				float lightRadius = (-linearAttenuation + sqrtAttenuation) / (2 * quadraticAttenuation);
+
+				nv::matrix4f transform;
+				transform.set_scale(lightRadius);
+				transform.set_translate(position);
+
+				auto& drawCmd = *m_deferredCommands.addCommand<DrawPointLightCommand>(1);
+				drawCmd.brdf = m_brdf;
+				drawCmd.shader = m_shader_PointLight;
+				drawCmd.MVP = projMatrix * viewMatrix * transform;
+				drawCmd.lightingUBO_Id = m_lightsUBO_Id[i];
+				drawCmd.lightingUBO_Data = m_lightsUBO_Data[i];
+				drawCmd.lightingUBO_Location = m_lightingUBO_Location;
+				drawCmd.projUBO_Id = m_projUBO_Id;
+				drawCmd.projUBO_Location = m_projUBO_Location;
+				for (int i = 0; i < GBUFFER_COUNT; ++i)
+					drawCmd.texGBuffer[i] = m_texGBuffer[i];
+				CB_DEBUG_COMMAND_TAG(drawCmd);
+			}
 		}
 
 		updateStats();
@@ -511,6 +555,7 @@ ThreadedRenderingGL::ThreadedRenderingGL() :
 	m_uiTankSize(30),
 	m_bTankSizeChanged(false),
 	m_uiThreadCount(0),
+	m_uiLightsCount(0),
 	m_uiInstanceCount(INSTANCE_COUNT),
 	m_uiBatchSize(m_uiInstanceCount),
 	m_pBatchSlider(nullptr),
@@ -549,7 +594,7 @@ ThreadedRenderingGL::ThreadedRenderingGL() :
 	m_imageWidth = m_imageHeight = 0;
 	m_texGBuffer[2] = m_texGBuffer[1] = m_texGBuffer[0] = 0;
 	m_texGBufferFboId = m_texDepthStencilBuffer = 0;
-	m_brdf = BRDF_LAMBERT;
+	m_brdf = BRDF_ORENNAYAR;
 
 	cb::DrawKey::sanityChecks();
 	m_geometryCommands.resize(10000, 3 * 1024);
@@ -627,7 +672,7 @@ ThreadedRenderingGL::~ThreadedRenderingGL()
 void ThreadedRenderingGL::configurationCallback(NvGLConfiguration& config)
 {
 	config.depthBits = 24;
-	config.stencilBits = 0;
+	config.stencilBits = 8;
 	config.apiVer = NvGLAPIVersionGL4_4();
 }
 
@@ -680,15 +725,21 @@ void ThreadedRenderingGL::initRendering(void)
 		int32_t len;
 		char* lightingVSSrc = NvAssetLoaderRead("src_shaders/Lighting_VS.glsl", len);
 
-		char* lightingFSSrc[2];
+		const char* lightingFSSrc[3];
 		lightingFSSrc[0] = NvAssetLoaderRead("src_shaders/Lighting_FS_Shared.h", len);
-		lightingFSSrc[1] = NvAssetLoaderRead("src_shaders/DirectionalLighting_FS.glsl", len);
+		lightingFSSrc[1] = NvAssetLoaderRead("src_shaders/Lighting_FS.glsl", len);
 		m_shader_DirectionalLight = NvGLSLProgram::createFromStrings((const char**)(&lightingVSSrc), 1, (const char**)lightingFSSrc, 2, false);
+
+		const char* define = "#define USE_POINT_LIGHT 1";
+		lightingFSSrc[1] = define;
+		lightingFSSrc[2] = NvAssetLoaderRead("src_shaders/Lighting_FS.glsl", len);
+		m_shader_PointLight = NvGLSLProgram::createFromStrings((const char**)(&lightingVSSrc), 1, (const char**)lightingFSSrc, 3, false);
 	}
 
 	if ((nullptr == m_shader_GroundPlane) ||
 		(nullptr == m_shader_Skybox) ||
 		(nullptr == m_shader_DirectionalLight) ||
+		(nullptr == m_shader_PointLight) ||
 		(nullptr == m_shader_Fish))
 	{
 		showDialog("Fatal: Cannot Find Assets", "The shader assets cannot be loaded.\n"
@@ -748,6 +799,24 @@ void ThreadedRenderingGL::initGL()
 	glBufferData(GL_UNIFORM_BUFFER, sizeof(LightingUBO), &m_lightingUBO_Data, GL_STREAM_DRAW);
 	glBindBuffer(GL_UNIFORM_BUFFER, 0);
 
+	glGenBuffers(MAX_LIGHTS_COUNT, &m_lightsUBO_Id[0]);
+	for (size_t i = 0; i < MAX_LIGHTS_COUNT; ++i)
+	{
+		float gColor = ((rand() % 192) / 256.f) + 0.25;
+		float bColor = ((rand() % 128) / 256.f) + 0.5;
+		float rColor = ((rand() % 128) / 256.f) + 0.5;
+
+		m_lightsUBO_Data[i].m_lightPosition = nv::vec4f(0.0f, 0.0f, 0.0f, 0.0f);
+		m_lightsUBO_Data[i].m_lightAmbient = nv::vec4f(0.0f, 0.0f, 0.0f, 1.0f);
+		m_lightsUBO_Data[i].m_lightDiffuse = nv::vec4f(rColor, gColor, bColor, 1.0f) * 2.5f;
+		m_lightsUBO_Data[i].m_linearAttenuation = 0.1f +(rand() % 10) / 10.f;
+		m_lightsUBO_Data[i].m_quadraticAttenuation = 0.1f +(rand() % 20) / 20.f;
+
+		glBindBuffer(GL_UNIFORM_BUFFER, m_lightsUBO_Id[i]);
+		glBufferData(GL_UNIFORM_BUFFER, sizeof(LightingUBO), &m_lightsUBO_Data[i], GL_STREAM_DRAW);
+		glBindBuffer(GL_UNIFORM_BUFFER, 0);
+	}
+
 	// Load the skybox
 	m_skyboxSandTex = NvImageGL::UploadTextureFromDDSFile("textures/sand.dds");
 	m_skyboxGradientTex = NvImageGL::UploadTextureFromDDSFile("textures/Gradient.dds");
@@ -756,8 +825,8 @@ void ThreadedRenderingGL::initGL()
 
 	// Assign some values which apply to the entire scene and update once per frame.
 	m_lightingUBO_Data.m_lightPosition = nv::vec4f(1.0f, 1.0f, 1.0f, 0.0f);
-	m_lightingUBO_Data.m_lightAmbient = nv::vec4f(0.2f, 0.2f, 0.2f, 1.0f);
-	m_lightingUBO_Data.m_lightDiffuse = nv::vec4f(0.45f, 0.45f, 0.6f, 1.0f);
+	m_lightingUBO_Data.m_lightAmbient = nv::vec4f(0.05f, 0.05f, 0.05f, 1.0f);
+	m_lightingUBO_Data.m_lightDiffuse = nv::vec4f(0.25f, 0.25f, 0.4f, 1.0f);
 	m_lightingUBO_Data.m_causticOffset = m_currentTime * m_causticSpeed;
 	m_lightingUBO_Data.m_causticTiling = m_causticTiling;
 
@@ -768,6 +837,7 @@ void ThreadedRenderingGL::initGL()
 	}
 
 	setNumSchools(SCHOOL_COUNT);
+	setNumLights(MAX_LIGHTS_COUNT / 2);
 
 	resetFish(false);
 }
@@ -798,6 +868,7 @@ uint32_t ThreadedRenderingGL::setNumSchools(uint32_t numSchools)
 		uint32_t schoolIndex = m_schools.size();
 		m_schools.resize(numSchools);
 		m_schoolsDrawCount.resize(numSchools);
+		m_schoolsCentroid.resize(numSchools);
 
 		m_geometryCommands.materialBinder().materials.resize(numSchools + 1);
 
@@ -852,6 +923,11 @@ uint32_t ThreadedRenderingGL::setNumSchools(uint32_t numSchools)
 		}
 	}
 	m_activeSchools = numSchools;
+
+	for (size_t i = 0; i < m_lightsSchoolIndex.size(); ++i)
+	{
+		m_lightsSchoolIndex[i] = rand() % m_activeSchools;
+	}
 
 	// Update our readout of total number of active fish
 	m_uiFishCount = m_activeSchools * m_uiInstanceCount;
@@ -960,6 +1036,34 @@ uint32_t ThreadedRenderingGL::setAnimationThreadNum(uint32_t numThreads)
 	return m_activeAnimationThreads;
 }
 
+uint32_t ThreadedRenderingGL::setNumLights(uint32_t numLights)
+{
+	if (MAX_LIGHTS_COUNT < numLights)
+	{
+		numLights = MAX_LIGHTS_COUNT;
+	}
+
+	int prevSize = m_lightsSchoolIndex.size();
+	m_lightsSchoolIndex.resize(numLights);
+	for (size_t i = prevSize; i < m_lightsSchoolIndex.size(); ++i)
+	{
+		m_lightsSchoolIndex[i] = rand() % m_activeSchools;
+	}
+
+	updateUI();
+
+	return numLights;
+}
+
+// The sample has a dropdown menu in the TweakBar that allows the user to
+// select a BRDF to use in the lighting computations.
+// These are the options in that menu (for more details, please see the
+// sample documentation)
+static NvTweakEnum<uint32_t> BRDF_OPTIONS[] =
+{
+	{ "Lambert Diffuse", ThreadedRenderingGL::BRDF_LAMBERT},
+	{ "Oren Nayar Diffuse", ThreadedRenderingGL::BRDF_ORENNAYAR }
+};
 
 // The sample has a dropdown menu in the TweakBar that allows the user to
 // choose the API to use to render with, along with the policy used for
@@ -1012,12 +1116,12 @@ void ThreadedRenderingGL::initUI(void)
 
 		mTweakBar->addPadding();
 		mTweakBar->addLabel("Rendering Settings", true);
+		mTweakBar->addValue("Number of Lights", m_uiLightsCount, 1, MAX_LIGHTS_COUNT, 1, UIACTION_LIGHTSCOUNT);
 		mTweakBar->addValue("Number of Worker Threads", m_uiThreadCount, 1, MAX_THREAD_COUNT, 1, UIACTION_ANIMTHREADCOUNT);
 		mTweakBar->addValue("Batch Size (Fish per Draw Call)", m_uiBatchSize, 1, MAX_INSTANCE_COUNT, 1, UIACTION_BATCHSIZE,
 			&m_pBatchSlider, &m_pBatchVar);
-		mTweakBar->addMenu("Mode", m_uiRenderingTechnique, &(RENDER_TECHNIQUES[0]),
-			TECHNIQUE_GLAZDO_POOLED,
-			UIACTION_RENDERINGTECHNIQUE);
+		mTweakBar->addMenu("Mode", m_uiRenderingTechnique, &(RENDER_TECHNIQUES[0]), TECHNIQUE_GLAZDO_POOLED, UIACTION_RENDERINGTECHNIQUE);
+		mTweakBar->addMenu("BRDF", (uint32_t&)m_brdf, &(BRDF_OPTIONS[0]), BRDF_COUNT, UIACTION_UIBRDF);
 
 		mTweakBar->addPadding();
 		mTweakBar->addLabel("Animation Settings", true);
@@ -1266,6 +1370,10 @@ NvUIEventResponse ThreadedRenderingGL::handleReaction(const NvUIReaction &react)
 	{
 		break;
 	}
+	case UIACTION_UIBRDF:
+	{
+		break;
+	}
 	case UIACTION_SCHOOLINFOID:
 	{
 		m_uiSchoolInfoId = react.ival;
@@ -1423,6 +1531,12 @@ NvUIEventResponse ThreadedRenderingGL::handleReaction(const NvUIReaction &react)
 		bStateModified = true;
 		break;
 	}
+	case UIACTION_LIGHTSCOUNT:
+	{
+		setNumLights(react.ival);
+		bStateModified = true;
+		break;
+	}
 	case UIACTION_STATSTOGGLE:
 	{
 		m_statsMode = (m_statsMode + 1) % STATS_COUNT;
@@ -1563,6 +1677,12 @@ void ThreadedRenderingGL::updateUI()
 		m_bUIDirty = true;
 	}
 
+	if (m_uiLightsCount != m_lightsSchoolIndex.size())
+	{
+		m_uiLightsCount = m_lightsSchoolIndex.size();
+		m_bUIDirty = true;
+	}
+
 	uint32_t currentRenderingTechnique = getCurrentRenderingTechnique();
 	if (m_uiRenderingTechnique != currentRenderingTechnique)
 	{
@@ -1610,6 +1730,8 @@ void ThreadedRenderingGL::reshape(int32_t width, int32_t height)
 	mUIWindow->Remove(m_fullStatsBox);
 	mUIWindow->Add(m_fullStatsBox, fpsRect.left + fpsRect.width - textRect.width, fpsRect.top + fpsRect.height);
 	updateLogos();
+
+	mTweakBar->SetHeight(height);
 }
 
 void ThreadedRenderingGL::updateLogos()
@@ -1819,10 +1941,11 @@ void ThreadedRenderingGL::draw(void)
 	m_drawCallCount = 0;
 	for (uint32_t schoolIndex = 0; schoolIndex < m_activeSchools; ++schoolIndex)
 	{
+		m_schoolsCentroid[schoolIndex] = m_schools[schoolIndex]->GetCentroid();
 		m_drawCallCount += m_schoolsDrawCount[schoolIndex];
 	}
-	m_commandCount = m_geometryCommands.count(true);
-	m_commandAllocations = m_geometryCommands.allocations() / 1024.f;
+	m_commandCount = m_geometryCommands.count(true) + m_deferredCommands.count(true);
+	m_commandAllocations = m_geometryCommands.allocations() / 1024.f + m_deferredCommands.allocations() / 1024.f;
 
 	// Rendering
 	{
@@ -2245,20 +2368,49 @@ void ThreadedRenderingGL::DrawDirectionalLightCommand::execute(const void* data,
 {
 	auto& cmd = *reinterpret_cast<const DrawDirectionalLightCommand*>(data);
 
-	glDisable(GL_DEPTH_TEST);
-	glDisable(GL_STENCIL_TEST);
-
 	cmd.shader->enable();
 
 	glBindBufferBase(GL_UNIFORM_BUFFER, cmd.projUBO_Location, cmd.projUBO_Id);
 	glBindBufferBase(GL_UNIFORM_BUFFER, cmd.lightingUBO_Location, cmd.lightingUBO_Id);
+	cmd.shader->setUniformMatrix4fv("uModelViewMatrix", cmd.fullscreenMVP._array);
 
 	cmd.shader->setUniform1i("uLightingModel", cmd.brdf);
 	cmd.shader->bindTextureRect("uNormalDepth", 0, cmd.texGBuffer[0]);
 	cmd.shader->bindTextureRect("uDiffuseRoughness", 1, cmd.texGBuffer[1]);
 
-	cmd.shader->setUniformMatrix4fv("uModelViewMatrix", cmd.fullscreenMVP._array);
 	NvDrawQuadGL(0);
+
+	cmd.shader->disable();
+}
+
+void ThreadedRenderingGL::DrawPointLightCommand::execute(const void* data, cb::RenderContext* rc)
+{
+	auto& cmd = *reinterpret_cast<const DrawPointLightCommand*>(data);
+
+	cmd.shader->enable();
+
+	glClear(GL_STENCIL_BUFFER_BIT); // stencil enabled, render point light faces once
+
+	glBindBuffer(GL_UNIFORM_BUFFER, cmd.lightingUBO_Id);
+	glBufferData(GL_UNIFORM_BUFFER, sizeof(LightingUBO), &cmd.lightingUBO_Data, GL_STREAM_DRAW);
+	glBindBuffer(GL_UNIFORM_BUFFER, 0);
+
+	glBindBufferBase(GL_UNIFORM_BUFFER, cmd.projUBO_Location, cmd.projUBO_Id);
+	glBindBufferBase(GL_UNIFORM_BUFFER, cmd.lightingUBO_Location, cmd.lightingUBO_Id);
+	cmd.shader->setUniformMatrix4fv("uModelViewMatrix", cmd.MVP._array);
+
+	cmd.shader->setUniform1i("uLightingModel", cmd.brdf);
+	cmd.shader->bindTextureRect("uNormalDepth", 0, cmd.texGBuffer[0]);
+	cmd.shader->bindTextureRect("uDiffuseRoughness", 1, cmd.texGBuffer[1]);
+
+	static GLUquadricObj *quadric = nullptr;
+	if (!quadric)
+	{
+		quadric = gluNewQuadric();
+		gluQuadricDrawStyle(quadric, GLU_FILL);
+	}
+	
+	gluSphere(quadric, 0.5f, 16, 16);
 
 	cmd.shader->disable();
 }
@@ -2268,7 +2420,9 @@ const cb::RenderContext::function_t ThreadedRenderingGL::BeginFrameCommand::kDis
 const cb::RenderContext::function_t ThreadedRenderingGL::EndFrameCommand::kDispatchFunction = &ThreadedRenderingGL::EndFrameCommand::execute;
 const cb::RenderContext::function_t ThreadedRenderingGL::SetVBOPolicyCommand::kDispatchFunction = &ThreadedRenderingGL::SetVBOPolicyCommand::execute;
 const cb::RenderContext::function_t ThreadedRenderingGL::BeginDeferredCommand::kDispatchFunction = &ThreadedRenderingGL::BeginDeferredCommand::execute;
+const cb::RenderContext::function_t ThreadedRenderingGL::BeginPointLightPassCommand::kDispatchFunction = &ThreadedRenderingGL::BeginPointLightPassCommand::execute;
 const cb::RenderContext::function_t ThreadedRenderingGL::DrawDirectionalLightCommand::kDispatchFunction = &ThreadedRenderingGL::DrawDirectionalLightCommand::execute;
+const cb::RenderContext::function_t ThreadedRenderingGL::DrawPointLightCommand::kDispatchFunction = &ThreadedRenderingGL::DrawPointLightCommand::execute;
 
 //-----------------------------------------------------------------------------
 // FUNCTION NEEDED BY THE FRAMEWORK
