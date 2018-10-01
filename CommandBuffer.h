@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <atomic>
 #include <cstdint>
+#include <functional> 
 #include <vector>
 
 #include "CommandKeys.h"
@@ -55,12 +56,33 @@ namespace cb
 		cmd.execute();
 	}
 
+	template <typename KeyType>
+	struct CommandPair
+	{
+		CommandPacket* cmd;
+		KeyType        key;
+
+		CB_FORCE_INLINE bool operator<(const CommandPair& other) const
+		{
+			assert(cmd);
+			return key < other.key;
+		}
+
+		template<typename T>
+		explicit operator T() 
+		{
+			return(T)key;
+		}
+	};
+
 	/// The command buffer is composed of more CommandPackets and their corresponding keys.
 	template <typename KeyType = cb::DrawKey, class KeyDecoderClass = DefaultKeyDecoder, class MaterialBinderClass = DefaultMaterialBinder>
 	class CommandBuffer
 	{
 	public:
 		typedef KeyType key_t;
+		typedef CommandPair<key_t> command_t;
+		typedef std::function<void(command_t*, command_t*)> sort_func_t;
 		typedef MaterialBinderClass binder_t;
 		typedef KeyDecoderClass decoder_t;
 		typedef int(*log_function_t)(const char* fmt, ...);
@@ -79,7 +101,7 @@ namespace cb
 		///@warning Should never resize when dispatching commands in progress, only before.
 		void resize(uint32_t commandCount, uint32_t commandKBs);
 		/// Sorts the created commands based on their key priority.
-		void sort();
+		void sort(sort_func_t sortFunc = std::sort<command_t*>);
 		/// Submits the sorted commands to the GPU.
 		/// @param clearBuffer - clear all created commands from the buffer.
 		void submit(cb::RenderContext* rc, bool clearBuffer = true);
@@ -133,18 +155,6 @@ namespace cb
 		void clear();
 
 	private:
-		struct CommandPair
-		{
-			CommandPacket* cmd;
-			key_t       key;
-
-			CB_FORCE_INLINE bool operator<(const CommandPair& other) const
-			{
-				assert(cmd);
-				return key < other.key;
-			}
-		};
-
 		struct CommandPacketReference
 		{
 			CB_COMMAND_PACKET_ALIGN()
@@ -158,7 +168,7 @@ namespace cb
 
 		cb::LinearAllocator<kALignment>	m_allocator;
 		MaterialBinderClass				m_materialBinder;
-		std::vector<CommandPair>		m_commands;
+		std::vector<command_t>			m_commands;
 		std::atomic<uint32_t>			m_currentIndex;
 #if CB_DEBUG_COMMANDS_PRINT
 		log_function_t m_logger = printf;
@@ -293,7 +303,7 @@ namespace cb
 		{
 			const uint32_t currentIndex = m_currentIndex.fetch_add(1, std::memory_order_relaxed);
 			assert(currentIndex < (uint32_t)m_commands.size());
-			CommandPair& pair = m_commands[currentIndex];
+			command_t& pair = m_commands[currentIndex];
 			pair.cmd = packet;
 			pair.key = key;
 		}
@@ -439,14 +449,14 @@ namespace cb
 		cmd->size = sizeof(AuxilaryData);
 		return packet;
 	}
-
-	COMMAND_TEMPLATE
-		void COMMAND_QUAL::sort()
-	{
-		std::sort(m_commands.begin(), m_commands.begin() + (int)m_currentIndex.load(std::memory_order_acquire));
-
-		assert(m_commands.size() > m_currentIndex.load(std::memory_order_acquire));
-	}
+	
+ 	COMMAND_TEMPLATE
+ 		void COMMAND_QUAL::sort(sort_func_t sortFunc /*= std::sort<CommandPair*>*/)
+ 	{
+		sortFunc(m_commands.data(), m_commands.data() + (int)m_currentIndex.load(std::memory_order_acquire));
+ 
+ 		assert(m_commands.size() > m_currentIndex.load(std::memory_order_acquire));
+ 	}
 
 	COMMAND_TEMPLATE
 		void COMMAND_QUAL::clear()

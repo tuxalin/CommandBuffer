@@ -67,6 +67,57 @@ int commandLogFunction(const char* fmt, ...)
 	return 0;
 }
 
+template<typename T>
+void countingSort(T* arr, int N, uint64_t p)
+{
+	static T output[10000];
+	assert(N < 10000);
+
+	int count[10] = { 0 }; //keeping count if digits <=9
+
+	for (int i = 0; i < N; i++)
+		count[((uint64_t)arr[i] / p) % 10]++;
+
+	//Applying counting sort so now the array contains actual position of the digits
+	for (int i = 1; i < 10; i++) {
+		count[i] += count[i - 1];
+	}
+
+	//staring from N-1 helps to keep digits in order
+	for (int i = N - 1; i >= 0; i--) {
+		uint64_t val = (uint64_t)arr[i] / p;
+		output[count[val % 10] - 1] = arr[i];
+		count[val % 10]--;
+	}
+
+	for (int i = 0; i < N; i++)
+		arr[i] = output[i];
+}
+
+template<typename T>
+void radixsort(T* begin, T* end)
+{
+	size_t N = std::distance(begin, end);
+	uint64_t max = 0;
+
+	for (size_t i = 0; i < N; i++)
+	{
+		uint64_t val = (uint64_t)begin[i];
+		max = std::max(max, val);
+	}
+
+	uint64_t p = 1;
+	uint64_t pass = 1;
+
+	while (max / p > 0) {
+		countingSort(begin, N, p);
+		pass++;
+		p *= 10;
+	}
+
+	std::reverse(begin, end); // could flip keys
+}
+
 #define ARRAY_SIZE(a) ( sizeof(a) / sizeof( (a)[0] ))
 #define NV_UNUSED( variable ) ( void )( variable )
 
@@ -1951,7 +2002,7 @@ void ThreadedRenderingGL::draw(void)
 
 	// Rendering
 	{
-		m_geometryCommands.sort();
+		m_geometryCommands.sort(radixsort<GeometryCommandBuffer::command_t>);
 		m_deferredCommands.sort();
 
 		CPU_TIMER_SCOPE(CPU_TIMER_MAIN_CMD_BUILD);

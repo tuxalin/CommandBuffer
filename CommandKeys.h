@@ -135,6 +135,8 @@ namespace cb
 		///@note Used for sorting commands based on their precedence order.
 		bool operator<(DrawKey other) const;
 
+		explicit operator uint64_t();
+
 		///@note The priority is inversed, i.e. lower values have highest priority.
 		static DrawKey makeDefault(uint32_t viewportId, cb::ViewLayerType viewLayer = ViewLayerType::e3D);
 		static DrawKey makeCustom(cb::ViewLayerType viewLayer, uint32_t priority);
@@ -221,6 +223,11 @@ namespace cb
 	{
 		uint64_t keyValue = reinterpret_cast<const uint64_t&>(*this);
 		return (keyValue & kOpaqueModeMask) == kOpaqueModeValue;
+	}
+
+	inline DrawKey::operator uint64_t()
+	{
+		return value;
 	}
 
 	inline bool DrawKey::operator<(DrawKey other) const
