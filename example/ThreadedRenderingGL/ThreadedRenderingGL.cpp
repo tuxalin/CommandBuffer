@@ -1167,9 +1167,7 @@ static NvTweakEnum<uint32_t> RENDER_TECHNIQUES[] =
 	{ "(GLES) Persistent VBO SubRanges", ThreadedRenderingGL::TECHNIQUE_GLES_SUBRANGE_PERSISTENT },
 	{ "(GLES) Orphaned VBOs", ThreadedRenderingGL::TECHNIQUE_GLES_ORPHANED },
 	{ "(GLES) VBO Pool", ThreadedRenderingGL::TECHNIQUE_GLES_POOLED },
-	{ "(GLES) Persistent VBO Pool", ThreadedRenderingGL::TECHNIQUE_GLES_POOLED_PERSISTENT },
-	{ "(AZDO) VBO Pool", ThreadedRenderingGL::TECHNIQUE_GLAZDO_POOLED },
-	{ "(AZDO) Persistent VBO Pool", ThreadedRenderingGL::TECHNIQUE_GLAZDO_POOLED_PERSISTENT }
+	{ "(GLES) Persistent VBO Pool", ThreadedRenderingGL::TECHNIQUE_GLES_POOLED_PERSISTENT }
 };
 
 
@@ -1212,7 +1210,7 @@ void ThreadedRenderingGL::initUI(void)
 		mTweakBar->addValue("Number of Worker Threads", m_uiThreadCount, 1, MAX_THREAD_COUNT, 1, UIACTION_ANIMTHREADCOUNT);
 		mTweakBar->addValue("Batch Size (Fish per Draw Call)", m_uiBatchSize, 1, MAX_INSTANCE_COUNT, 1, UIACTION_BATCHSIZE,
 			&m_pBatchSlider, &m_pBatchVar);
-		mTweakBar->addMenu("Mode", m_uiRenderingTechnique, &(RENDER_TECHNIQUES[0]), TECHNIQUE_GLAZDO_POOLED, UIACTION_RENDERINGTECHNIQUE);
+		mTweakBar->addMenu("Mode", m_uiRenderingTechnique, &(RENDER_TECHNIQUES[0]), TECHNIQUE_COUNT, UIACTION_RENDERINGTECHNIQUE);
 		mTweakBar->addMenu("BRDF", (uint32_t&)m_brdf, &(BRDF_OPTIONS[0]), BRDF_COUNT, UIACTION_UIBRDF);
 		var = mTweakBar->addValue("Use Volumetric Lights", m_useVolumetricLights);
 		addTweakKeyBind(var, NvKey::K_V);
@@ -1694,10 +1692,6 @@ NvUIEventResponse ThreadedRenderingGL::handleReaction(const NvUIReaction &react)
 			break;
 		case TECHNIQUE_GLES_POOLED_PERSISTENT:
 			policy = Nv::VBO_POOLED_PERSISTENT;
-			break;
-		case TECHNIQUE_GLAZDO_POOLED:
-		case TECHNIQUE_GLAZDO_POOLED_PERSISTENT:
-			policy = m_ESVBOPolicy;
 			break;
 		}
 

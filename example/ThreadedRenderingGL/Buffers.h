@@ -22,7 +22,7 @@ namespace Nv
 		///@note Returns true if there are more passes to bind.
 		CB_FORCE_INLINE bool operator()(cb::MaterialId material) const
 		{
-			if (material.id == 0) // first material is a dummy
+			if (material.id == 0) // first material is a dummy, nothing to bind
 				return false;
 
 			const Material&  mat = materials[material.id];

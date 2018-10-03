@@ -699,7 +699,7 @@ uint32_t School::Render(const nv::matrix4f& projView, uint32_t batchSize, Geomet
 		return drawCallCount;
 	}
 
-	// draw closest opaque first for early-z culling
+	// draw front to back order for early-z culling
 	nv::vec4f position = projView * nv::vec4f(m_lastCentroid.x, 1.f);
 	float invDepth = (1.f - position.z / position.w);
 	invDepth *= 10000.f;
@@ -716,6 +716,7 @@ void School::SetMaterial(cb::TranslucencyType translucency, uint32_t materialId)
 	m_pInstancedModel->DrawKey().setViewLayer(cb::ViewLayerType::e3D, translucency);
 	m_pInstancedModel->DrawKey().setMaterial(materialId);
 }
+
 void School::FindNewGoal()
 {
 	m_schoolGoal = ScaledRandomVector(m_flockParams.m_spawnZoneMax
