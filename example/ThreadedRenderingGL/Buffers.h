@@ -63,3 +63,4 @@ namespace Nv
 
 typedef cb::CommandBuffer<cb::DrawKey, cb::DefaultKeyDecoder, Nv::MaterialBinder> GeometryCommandBuffer;
 typedef cb::CommandBuffer<uint32_t,cb::DummyKeyDecoder<uint32_t>> DeferredCommandBuffer;
+typedef cb::CommandBuffer<uint16_t,cb::DummyKeyDecoder<uint16_t>> PostProcessCommandBuffer;

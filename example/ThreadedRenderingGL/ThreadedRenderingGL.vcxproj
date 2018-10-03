@@ -450,14 +450,16 @@
     <ClInclude Include="VertexFormatBinder.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="assets\src_shaders\basic_VS.glsl" />
+    <None Include="assets\src_shaders\emission_FS.glsl" />
     <None Include="assets\src_shaders\Lighting_FS.glsl" />
-    <None Include="assets\src_shaders\Lighting_VS.glsl" />
     <None Include="assets\src_shaders\groundplane_FS.glsl" />
     <None Include="assets\src_shaders\groundplane_VS.glsl" />
     <None Include="assets\src_shaders\skyboxcolor_FS.glsl" />
     <None Include="assets\src_shaders\skyboxcolor_VS.glsl" />
     <None Include="assets\src_shaders\staticfish_FS.glsl" />
     <None Include="assets\src_shaders\staticfish_VS.glsl" />
+    <None Include="assets\src_shaders\volumetric_FS.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

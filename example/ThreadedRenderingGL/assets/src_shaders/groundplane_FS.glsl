@@ -44,6 +44,7 @@ in vec4 v_vPosEyeSpace;
 // OUTPUT
 layout(location = 0) out vec4 outNormalDepth;
 layout(location = 1) out vec4 outDiffuseRoughness;
+layout(location = 2) out vec4 outEmission;
 
 // UNIFORMS
 layout(binding = 2) uniform sampler2D u_tCaustic1Tex;
@@ -76,4 +77,5 @@ void main()
 
 	outNormalDepth.xyz = vec3(0.0, 1.0, 0.0);
     outNormalDepth.w = v_vPosEyeSpace.z / 100.0;
+	outEmission = vec4(0.0);
 }

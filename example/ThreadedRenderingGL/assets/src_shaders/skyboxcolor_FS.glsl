@@ -42,6 +42,7 @@ in vec3 v_vCubemapCoord;
 // OUTPUT
 layout(location = 0) out vec4 outNormalDepth;
 layout(location = 1) out vec4 outDiffuseRoughness;
+layout(location = 2) out vec4 outEmission;
 
 // UNIFORMS
 layout(binding = 4) uniform sampler2D u_tSandTex;
@@ -52,4 +53,5 @@ void main()
     // outDiffuseRoughness = vec4(0.0f, ((normalize(v_vCubemapCoord.xyz) + 1.0f) * 0.5f).y, 0.0f, 1.0f);
     outDiffuseRoughness = vec4(texture(u_tGradientTex, vec2(0.5f, (normalize(v_vCubemapCoord.xyz).y + 1.0f) * 0.5f)).rgb, 1.0f);
 	outNormalDepth = vec4(0.0);
+	outEmission = vec4(0.0);
 }

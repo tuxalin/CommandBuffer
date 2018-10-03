@@ -489,6 +489,7 @@ void ThreadedRenderingGL::helperJobFunction()
   			auto& pointPassCmd = *m_deferredCommands.appendCommand<BeginPointLightPassCommand>(&drawCmd);
   			CB_DEBUG_COMMAND_TAG(pointPassCmd);
 		}
+
 		// deferred point lights 
 		if (!m_schoolsCentroid.empty() && !m_lightsSchoolIndex.empty())
 		{
@@ -496,8 +497,9 @@ void ThreadedRenderingGL::helperJobFunction()
 			const nv::matrix4f viewMatrix = m_projUBO_Data.m_viewMatrix;
 			for (size_t i = 0; i < m_lightsSchoolIndex.size(); ++i)
 			{
-				nv::vec3f position = m_schoolsCentroid[m_lightsSchoolIndex[i]];
-				m_lightsUBO_Data[i].m_lightPosition = nv::vec4f(position);
+				nv::vec4f position(m_schoolsCentroid[m_lightsSchoolIndex[i]]);
+				position.w = 1.f;
+				m_lightsUBO_Data[i].m_lightPosition = position;
 
 				// compute the light sphere radius/scale
 				nv::vec4f lightColor = m_lightsUBO_Data[i].m_lightDiffuse;
@@ -513,7 +515,7 @@ void ThreadedRenderingGL::helperJobFunction()
 
 				nv::matrix4f transform;
 				transform.set_scale(lightRadius);
-				transform.set_translate(position);
+				transform.set_translate(nv::vec3f(position));
 
 				//NOTE. Could do frustum culling and not submit lights out of view.
 
@@ -529,6 +531,33 @@ void ThreadedRenderingGL::helperJobFunction()
 				for (int i = 0; i < GBUFFER_COUNT; ++i)
 					drawCmd.texGBuffer[i] = m_texGBuffer[i];
 				CB_DEBUG_COMMAND_TAG(drawCmd);
+
+				if(i > 4)
+					continue;
+				transform.make_identity();
+				transform.set_scale(lightRadius * 0.005f + 0.5f);
+				transform.set_translate(nv::vec3f(position));
+				 
+				// gbuffer command
+				auto& geomCmd = *m_geometryCommands.addCommand<DrawSphereCommand>(cb::DrawKey::makeDefault(0, cb::ViewLayerType::e3D));
+				geomCmd.shader = m_shader_Emission;
+				geomCmd.MVP = projMatrix * viewMatrix * transform;
+				geomCmd.color = m_lightsUBO_Data[i].m_lightDiffuse;
+				geomCmd.color.w = i;
+				CB_DEBUG_COMMAND_TAG(geomCmd);
+
+				// post process command
+				auto& postCmd = *m_postProcessCommands.addCommand<PostProcessVolumetricLight>((uint16_t)i);
+				postCmd.shader = m_shader_Volumetric;
+				postCmd.texEmission = m_texGBuffer[2];
+				nv::vec4f screenPos = projMatrix * viewMatrix * position;
+				screenPos.x /= screenPos.w;
+				screenPos.y /= screenPos.w;
+				postCmd.lightScreenPos.x = screenPos.x * 0.5f + 0.5f;
+				postCmd.lightScreenPos.y = screenPos.y * 0.5f + 0.5f;
+				postCmd.lightScreenPos.z = 0.0;
+				postCmd.lightId = i;
+				CB_DEBUG_COMMAND_TAG(postCmd);
 			}
 		}
 
@@ -645,7 +674,8 @@ ThreadedRenderingGL::ThreadedRenderingGL() :
 	m_frameID(0)
 {
 	m_imageWidth = m_imageHeight = 0;
-	m_texGBuffer[2] = m_texGBuffer[1] = m_texGBuffer[0] = 0;
+	for(int i = 0; i < GBUFFER_COUNT; ++i)
+		m_texGBuffer[i] = 0;
 	m_texGBufferFboId = m_texDepthStencilBuffer = 0;
 	m_brdf = BRDF_ORENNAYAR;
 
@@ -773,10 +803,12 @@ void ThreadedRenderingGL::initRendering(void)
 	m_shader_GroundPlane = NvGLSLProgram::createFromFiles("src_shaders/groundplane_VS.glsl", "src_shaders/groundplane_FS.glsl");
 	m_shader_Skybox = NvGLSLProgram::createFromFiles("src_shaders/skyboxcolor_VS.glsl", "src_shaders/skyboxcolor_FS.glsl");
 	m_shader_Fish = NvGLSLProgram::createFromFiles("src_shaders/staticfish_VS.glsl", "src_shaders/staticfish_FS.glsl");
+	m_shader_Emission = NvGLSLProgram::createFromFiles("src_shaders/basic_VS.glsl", "src_shaders/emission_FS.glsl");
+	m_shader_Volumetric = NvGLSLProgram::createFromFiles("src_shaders/basic_VS.glsl", "src_shaders/volumetric_FS.glsl");
 
 	{
 		int32_t len;
-		char* lightingVSSrc = NvAssetLoaderRead("src_shaders/Lighting_VS.glsl", len);
+		char* lightingVSSrc = NvAssetLoaderRead("src_shaders/basic_VS.glsl", len);
 
 		const char* lightingFSSrc[3];
 		lightingFSSrc[0] = NvAssetLoaderRead("src_shaders/Lighting_FS_Shared.h", len);
@@ -793,6 +825,8 @@ void ThreadedRenderingGL::initRendering(void)
 		(nullptr == m_shader_Skybox) ||
 		(nullptr == m_shader_DirectionalLight) ||
 		(nullptr == m_shader_PointLight) ||
+		(nullptr == m_shader_Emission) ||
+		(nullptr == m_shader_Volumetric) ||
 		(nullptr == m_shader_Fish))
 	{
 		showDialog("Fatal: Cannot Find Assets", "The shader assets cannot be loaded.\n"
@@ -830,6 +864,7 @@ void ThreadedRenderingGL::initRendering(void)
 #if CB_DEBUG_COMMANDS_PRINT
 	m_geometryCommands.setLogFunction(&commandLogFunction);
 	m_deferredCommands.setLogFunction(&commandLogFunction);
+	m_postProcessCommands.setLogFunction(&commandLogFunction);
 #endif
 
 	const auto key = cb::DrawKey::makeCustom(cb::ViewLayerType::eHighest, 0);
@@ -1280,8 +1315,6 @@ void ThreadedRenderingGL::initUI(void)
 
 	// Initially create our logos and add them to the window, but hidden in the upper corner.  
 	// Let the reshape call fix up the size and location
-	m_logoNVIDIA = initLogoTexture("textures/LogoNVIDIA.dds");
-	m_logoGLES = initLogoTexture("textures/LogoGLES.dds");
 	m_logoGL = initLogoTexture("textures/LogoGL.dds");
 }
 
@@ -1997,13 +2030,14 @@ void ThreadedRenderingGL::draw(void)
 		m_schoolsCentroid[schoolIndex] = m_schools[schoolIndex]->GetCentroid();
 		m_drawCallCount += m_schoolsDrawCount[schoolIndex];
 	}
-	m_commandCount = m_geometryCommands.count(true) + m_deferredCommands.count(true);
+	m_commandCount = m_geometryCommands.count(true) + m_deferredCommands.count(true)  + m_postProcessCommands.count(true) ;
 	m_commandAllocations = m_geometryCommands.allocations() / 1024.f + m_deferredCommands.allocations() / 1024.f;
 
 	// Rendering
 	{
 		m_geometryCommands.sort(radixsort<GeometryCommandBuffer::command_t>);
 		m_deferredCommands.sort();
+		m_postProcessCommands.sort();
 
 		CPU_TIMER_SCOPE(CPU_TIMER_MAIN_CMD_BUILD);
 		GPU_TIMER_SCOPE();
@@ -2013,6 +2047,7 @@ void ThreadedRenderingGL::draw(void)
 		// nothing to pass as GL doesn't have any contexts
 		m_geometryCommands.submit(nullptr, clearCommands);
 		m_deferredCommands.submit(nullptr, clearCommands);
+		m_postProcessCommands.submit(nullptr, clearCommands);
 	}
 	m_forceUpdateMode = ForceUpdateMode::eNone;
 #if FISH_DEBUG
@@ -2396,8 +2431,12 @@ void ThreadedRenderingGL::InitRenderTargets()
 		glBindTexture(GL_TEXTURE_RECTANGLE, m_texGBuffer[0]);
 		glTexImage2D(GL_TEXTURE_RECTANGLE, 0, GL_RGBA16F, m_imageWidth, m_imageHeight, 0, GL_RGBA, GL_FLOAT, 0);
 
-		// Buffer 1 holds Color
+		// Buffer 1 holds Color and Roughness
 		glBindTexture(GL_TEXTURE_RECTANGLE, m_texGBuffer[1]);
+		glTexImage2D(GL_TEXTURE_RECTANGLE, 0, GL_RGBA16F, m_imageWidth, m_imageHeight, 0, GL_RGBA, GL_FLOAT, 0);
+
+		// Buffer 2 holds Emission and light id
+		glBindTexture(GL_TEXTURE_RECTANGLE, m_texGBuffer[2]);
 		glTexImage2D(GL_TEXTURE_RECTANGLE, 0, GL_RGBA16F, m_imageWidth, m_imageHeight, 0, GL_RGBA, GL_FLOAT, 0);
 	}
 
@@ -2412,6 +2451,7 @@ void ThreadedRenderingGL::InitRenderTargets()
 	glBindFramebuffer(GL_FRAMEBUFFER, m_texGBufferFboId);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_RECTANGLE, m_texGBuffer[0], 0);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_RECTANGLE, m_texGBuffer[1], 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT2, GL_TEXTURE_RECTANGLE, m_texGBuffer[2], 0);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_RECTANGLE, m_texDepthStencilBuffer, 0);
 }
 
@@ -2468,6 +2508,57 @@ void ThreadedRenderingGL::DrawPointLightCommand::execute(const void* data, cb::R
 	cmd.shader->disable();
 }
 
+void ThreadedRenderingGL::DrawSphereCommand::execute(const void* data, cb::RenderContext* rc)
+{
+	auto& cmd = *reinterpret_cast<const DrawSphereCommand*>(data);
+
+	cmd.shader->enable();
+
+	cmd.shader->setUniformMatrix4fv("uModelViewMatrix", cmd.MVP._array);
+	cmd.shader->setUniform4fv("uColor", cmd.color._array);
+
+	static GLUquadricObj *quadric = nullptr;
+	if (!quadric)
+	{
+		quadric = gluNewQuadric();
+		gluQuadricDrawStyle(quadric, GLU_FILL);
+	}
+
+	gluSphere(quadric, 0.5f, 32, 32);
+
+	cmd.shader->disable();
+}
+
+void ThreadedRenderingGL::PostProcessVolumetricLight::execute(const void* data, cb::RenderContext* rc)
+{
+	auto& cmd = *reinterpret_cast<const PostProcessVolumetricLight*>(data);
+
+	cmd.shader->enable();
+
+	glDisable(GL_DEPTH_TEST);
+	glDisable(GL_STENCIL_TEST);
+	glDepthMask(GL_FALSE);
+
+	glEnable(GL_BLEND);
+	glBlendEquation(GL_FUNC_ADD);
+	glBlendFunc(GL_ONE, GL_ONE);
+
+	nv::matrix4f idendity;
+	cmd.shader->setUniformMatrix4fv("uModelViewMatrix", idendity._array);
+	cmd.shader->setUniform1f("uExposure", 0.62f);
+	cmd.shader->setUniform1f("uDecay", 0.96f);
+	cmd.shader->setUniform1f("uDensity", 0.95f);
+	cmd.shader->setUniform1f("uWeight", 0.9f);
+	cmd.shader->setUniform3fv("uLightPosition", cmd.lightScreenPos._array);
+	cmd.shader->setUniform1f("uLightId", cmd.lightId);
+
+	cmd.shader->bindTextureRect("uOclussionPass", 0, cmd.texEmission);
+
+	NvDrawQuadGL(0);
+
+	cmd.shader->disable();
+}
+
 const cb::RenderContext::function_t ThreadedRenderingGL::InitializeCommand::kDispatchFunction = &ThreadedRenderingGL::InitializeCommand::execute;
 const cb::RenderContext::function_t ThreadedRenderingGL::BeginFrameCommand::kDispatchFunction = &ThreadedRenderingGL::BeginFrameCommand::execute;
 const cb::RenderContext::function_t ThreadedRenderingGL::EndFrameCommand::kDispatchFunction = &ThreadedRenderingGL::EndFrameCommand::execute;
@@ -2476,6 +2567,8 @@ const cb::RenderContext::function_t ThreadedRenderingGL::BeginDeferredCommand::k
 const cb::RenderContext::function_t ThreadedRenderingGL::BeginPointLightPassCommand::kDispatchFunction = &ThreadedRenderingGL::BeginPointLightPassCommand::execute;
 const cb::RenderContext::function_t ThreadedRenderingGL::DrawDirectionalLightCommand::kDispatchFunction = &ThreadedRenderingGL::DrawDirectionalLightCommand::execute;
 const cb::RenderContext::function_t ThreadedRenderingGL::DrawPointLightCommand::kDispatchFunction = &ThreadedRenderingGL::DrawPointLightCommand::execute;
+const cb::RenderContext::function_t ThreadedRenderingGL::DrawSphereCommand::kDispatchFunction = &ThreadedRenderingGL::DrawSphereCommand::execute;
+const cb::RenderContext::function_t ThreadedRenderingGL::PostProcessVolumetricLight::kDispatchFunction = &ThreadedRenderingGL::PostProcessVolumetricLight::execute;
 
 //-----------------------------------------------------------------------------
 // FUNCTION NEEDED BY THE FRAMEWORK

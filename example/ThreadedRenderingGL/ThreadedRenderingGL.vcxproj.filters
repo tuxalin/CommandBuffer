@@ -83,9 +83,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="assets\src_shaders\Lighting_VS.glsl">
-      <Filter>src_shaders</Filter>
-    </None>
     <None Include="assets\src_shaders\skyboxcolor_FS.glsl">
       <Filter>src_shaders</Filter>
     </None>
@@ -105,6 +102,15 @@
       <Filter>src_shaders</Filter>
     </None>
     <None Include="assets\src_shaders\Lighting_FS.glsl">
+      <Filter>src_shaders</Filter>
+    </None>
+    <None Include="assets\src_shaders\basic_VS.glsl">
+      <Filter>src_shaders</Filter>
+    </None>
+    <None Include="assets\src_shaders\emission_FS.glsl">
+      <Filter>src_shaders</Filter>
+    </None>
+    <None Include="assets\src_shaders\volumetric_FS.glsl">
       <Filter>src_shaders</Filter>
     </None>
   </ItemGroup>

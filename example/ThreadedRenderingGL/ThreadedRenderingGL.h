@@ -349,6 +349,8 @@ private:
 	NvGLSLProgram* m_shader_Fish;
 	NvGLSLProgram* m_shader_DirectionalLight;
 	NvGLSLProgram* m_shader_PointLight;
+	NvGLSLProgram* m_shader_Emission;
+	NvGLSLProgram* m_shader_Volumetric;
 
 	BRDF m_brdf;
 
@@ -621,7 +623,7 @@ private:
 	int m_imageWidth;
 	int m_imageHeight;
 
-	enum { GBUFFER_COUNT = 2 };
+	enum { GBUFFER_COUNT = 3 };
 	GLuint m_texGBuffer[GBUFFER_COUNT];
 	GLuint m_texDepthStencilBuffer;
 	GLuint m_texGBufferFboId;
@@ -823,8 +825,36 @@ private:
 		static void execute(const void* data, cb::RenderContext* rc);
 	};
 
+	struct DrawSphereCommand
+	{
+		static const cb::RenderContext::function_t kDispatchFunction;
+		// hint that we dont care about ctr/dtr
+		typedef void pod_hint_tag;
+
+		NvGLSLProgram* shader;
+		nv::vec4f color;
+		nv::matrix4f MVP;
+
+		static void execute(const void* data, cb::RenderContext* rc);
+	};
+
+	struct PostProcessVolumetricLight
+	{
+		static const cb::RenderContext::function_t kDispatchFunction;
+		// hint that we dont care about ctr/dtr
+		typedef void pod_hint_tag;
+
+		NvGLSLProgram* shader;
+		GLuint texEmission;
+		nv::vec3f lightScreenPos;
+		float lightId;
+
+		static void execute(const void* data, cb::RenderContext* rc);
+	};
+
 	GeometryCommandBuffer m_geometryCommands;
 	DeferredCommandBuffer m_deferredCommands;
+	PostProcessCommandBuffer m_postProcessCommands;
 
 };
 #endif // ThreadedRenderingGL_H_
