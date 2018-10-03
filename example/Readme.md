@@ -3,7 +3,7 @@ Based on NVIDIA's Gameworks GL Threading example, it was adapted to a deferred r
 
 It shows more advanced usage of how to use commands recording, pod hints, creating a material binder, prioritize custom commands, dispatch and have multiple command buffers for a deferred renderer.
 
-![pic-main](example/screenshot.png)
+![pic-main](screenshot.png)
 
 ## Usage
 Requires Visual Studio 2017. 
