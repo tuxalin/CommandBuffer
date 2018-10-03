@@ -521,6 +521,7 @@ private:
 	// Flag indicating whether schools should be aware of each other and 
 	// attempt to avoid each other
 	bool m_avoidance;
+	bool m_useVolumetricLights;
 
 	// Current application time in seconds
 	float m_currentTime;

@@ -1,4 +1,6 @@
 
+// Based on: Volumetric Light Scattering as a Post-Process by Kenny Mitchell
+
 #version 310 es
 
 precision mediump float;

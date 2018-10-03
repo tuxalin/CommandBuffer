@@ -691,13 +691,19 @@ void School::UpdateInstanceDataBuffer()
 	m_pInstanceData->EndUpdate();
 }
 
-uint32_t School::Render(uint32_t batchSize, GeometryCommandBuffer& geometryCommands)
+uint32_t School::Render(const nv::matrix4f& projView, uint32_t batchSize, GeometryCommandBuffer& geometryCommands)
 {
 	uint32_t drawCallCount = 0;
 	if (nullptr == m_pInstancedModel)
 	{
 		return drawCallCount;
 	}
+
+	// draw closest opaque first for early-z culling
+	nv::vec4f position = projView * nv::vec4f(m_lastCentroid.x, 1.f);
+	float invDepth = (1.f - position.z / position.w);
+	invDepth *= 10000.f;
+	m_pInstancedModel->DrawKey().setDepth(invDepth);
 
 	m_pInstancedModel->SetBatchSize(batchSize);
 	drawCallCount += m_pInstancedModel->Render(geometryCommands, 0, 1, 2);

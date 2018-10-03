@@ -285,7 +285,7 @@ public:
 	/// Render the school using GL commands and structures
 	/// \param batchSize Number of instances rendered per draw call
 	/// \return Returns the number of draw calls invoked during the Render call
-	uint32_t Render(uint32_t batchSize, GeometryCommandBuffer& geometryCommands);
+	uint32_t Render(const nv::matrix4f& projView, uint32_t batchSize, GeometryCommandBuffer& geometryCommands);
 
 	/// Set the values used by the flocking simulation that drives the school
 	/// \param params A SchoolFlockingParams object initialized with the

@@ -272,6 +272,8 @@ void ThreadedRenderingGL::animateJobFunction(uint32_t threadIndex)
 			// its update).  In our fixed school size case, this is not an issue, so 
 			// thread utilization should not be significantly impacted.
 
+			const nv::matrix4f projView = m_projUBO_Data.m_projectionMatrix * m_projUBO_Data.m_viewMatrix;
+
 			schoolsDone = me.m_schoolCount;
 			if (!m_animPaused || m_forceUpdateMode != ForceUpdateMode::eNone)
 			{
@@ -288,7 +290,7 @@ void ThreadedRenderingGL::animateJobFunction(uint32_t threadIndex)
 						m_schools[i]->Update(m_geometryCommands);
 					}
 					// Dispatch render commands
-					m_schoolsDrawCount[i] = m_schools[i]->Render(m_uiBatchSize, m_geometryCommands);
+					m_schoolsDrawCount[i] = m_schools[i]->Render(projView, m_uiBatchSize, m_geometryCommands);
 				}
 			}
 
@@ -532,8 +534,9 @@ void ThreadedRenderingGL::helperJobFunction()
 					drawCmd.texGBuffer[i] = m_texGBuffer[i];
 				CB_DEBUG_COMMAND_TAG(drawCmd);
 
-				if(i > 4)
+				if(i > 4 || !m_useVolumetricLights)
 					continue;
+
 				transform.make_identity();
 				transform.set_scale(lightRadius * 0.005f + 0.5f);
 				transform.set_translate(nv::vec3f(position));
@@ -629,6 +632,7 @@ ThreadedRenderingGL::ThreadedRenderingGL() :
 	m_pFishplosionVar(nullptr),
 	m_animPaused(false),
 	m_avoidance(true),
+	m_useVolumetricLights(true),
 	m_currentTime(0.0f),
 	m_forceUpdateMode(ForceUpdateMode::eNone),
 	m_bUIDirty(true),
@@ -1210,6 +1214,8 @@ void ThreadedRenderingGL::initUI(void)
 			&m_pBatchSlider, &m_pBatchVar);
 		mTweakBar->addMenu("Mode", m_uiRenderingTechnique, &(RENDER_TECHNIQUES[0]), TECHNIQUE_GLAZDO_POOLED, UIACTION_RENDERINGTECHNIQUE);
 		mTweakBar->addMenu("BRDF", (uint32_t&)m_brdf, &(BRDF_OPTIONS[0]), BRDF_COUNT, UIACTION_UIBRDF);
+		var = mTweakBar->addValue("Use Volumetric Lights", m_useVolumetricLights);
+		addTweakKeyBind(var, NvKey::K_V);
 
 		mTweakBar->addPadding();
 		mTweakBar->addLabel("Animation Settings", true);
