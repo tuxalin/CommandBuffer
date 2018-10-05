@@ -1,8 +1,10 @@
 # Lock-free CommandBuffer
 [![Language](https://img.shields.io/badge/language-C++-blue.svg)](https://isocpp.org/)
 [![License](http://img.shields.io/badge/license-MIT-blue.svg)](http://opensource.org/licenses/MIT)
+
 A lock-free CommandBuffer implementation designed for multi-threaded rendering applications. 
 Useful to reduce state switches(i.e. materials, shaders), depth sorting(for transparency or hardware early-z rejection) and also for dispatching commands from multiple threads.
+
 ## Features
 - designed for high-congestion as it's lock-free
 - graphics API independent(see cb::RenderContext)
