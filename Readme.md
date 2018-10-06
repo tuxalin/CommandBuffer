@@ -7,8 +7,8 @@ A lock-free CommandBuffer implementation designed for multi-threaded rendering a
 Useful to reduce state switches(i.e. materials, shaders), depth sorting(for transparency or hardware early-z rejection) and also for dispatching commands from multiple threads.
 
 ## Features
-- designed for high-congestion as it's lock-free
-- graphics API independent(see cb::RenderContext)
+- lock-free, designed for high-congestion
+- graphics API agnostic(see cb::RenderContext)
 - fast and configurable allocation via a linear allocator 
 - optional material binder with multiple material passes support
 - chainable/appendable commands
@@ -72,7 +72,7 @@ void testFunction() {
 ```
 NOTE. Can enable/disable logging of the commands via CB_DEBUG_COMMANDS_PRINT in config.h which is enabled by default. 
 
-Appending/chaining commands(useful to reduce overhead of redundant material binding):
+Appending/chaining commands(useful to reduce overhead of redundant material bindings):
 ```cpp
     cb::DrawKey key = cb::DrawKey::makeDefault(viewportId, cb::ViewLayerType::e3D);
     //setup key
@@ -107,11 +107,11 @@ Sometimes you may want to share/reference a command so you don't copy it's data 
     //fill command data
     ...
 ``` 
-NOTE. Since matrices is a POD you can use data copy commands which will automatically allocate auxiliary memory and copy it.
+NOTE. Since matrices are PODs you can use data copy commands which will automatically allocate auxiliary memory and copy it.
 
 ## Example
 
-Check the [example](example/) folder which shows how to use the CommandBuffer in a real use case scenario and more advanced usage, it was done by adapting NVIDIA's Gameworks GL Threading example to a deferred renderer. 
+Check the [example](example/) folder which shows how to use the CommandBuffer in a real use case scenario with more advanced usage, it was done by adapting NVIDIA's Gameworks GL Threading example to a deferred renderer. 
 
 ## Contributing
 
