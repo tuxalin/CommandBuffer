@@ -1,0 +1,11 @@
+version: 1.0.{build}
+branches:
+  only:
+  - msvc
+skip_tags: true
+image: Visual Studio 2017
+configuration: Release
+platform: x64
+build:
+  project: example\ThreadedRenderingGL\ThreadedRenderingGL.vcxproj
+  verbosity: detailed
