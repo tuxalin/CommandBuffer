@@ -4,7 +4,7 @@ branches:
   - msvc
 skip_tags: true
 image: Visual Studio 2017
-configuration: Release
+configuration: release
 platform: x64
 build:
   project: example\ThreadedRenderingGL\ThreadedRenderingGL.vcxproj

@@ -110,8 +110,7 @@ NOTE. Since matrices is a POD you can use data copy commands which will automati
 
 ## Example
 
-Check the [example](example/) folder which shows how to use the CommandBuffers in a real use case, it was done by adapdting NVIDIA's Gameworks GL Threading example. 
-It shows more advanced usage of how to create and use reference/shared commands, commands recording, pod hints, creating a material binder, prioritize custom commands, dispatch and have multiple command buffers for a deferred renderer.
+Check the [example](example/) folder which shows how to use the CommandBuffer in a real use case scenario and more advanced usage, it was done by adapting NVIDIA's Gameworks GL Threading example to a deferred renderer. 
 
 ## Contributing
 

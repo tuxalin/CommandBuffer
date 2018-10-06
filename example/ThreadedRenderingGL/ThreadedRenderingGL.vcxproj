@@ -293,7 +293,7 @@
     </ClCompile>
     <Link>
       <AdditionalOptions>/DEBUG /MACHINE:x64 /LARGEADDRESSAWARE /NOLOGO /OPT:REF /OPT:ICF /INCREMENTAL:NO</AdditionalOptions>
-      <AdditionalDependencies>xinput9_1_0.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;opengl32.lib;glew32sd.lib;glfw3d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>xinput9_1_0.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;opengl32.lib;glew32sd.lib;glfw3d.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)ThreadedRenderingGLD.exe</OutputFile>
       <AdditionalLibraryDirectories>./../GraphicsSamples/extensions/externals/lib/vs2015x64;./../GraphicsSamples/extensions/lib/vs2015x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ProgramDatabaseFile>$(OutDir)/ThreadedRenderingGLD.exe.pdb</ProgramDatabaseFile>
@@ -323,7 +323,7 @@
       <FloatingPointModel>Fast</FloatingPointModel>
       <AdditionalOptions>/Oy- /EHsc /wd4100 /wd4201 /wd4390 /wd4748 /wd4995 /wd4996 /wd4244 /wd4267 /wd4334</AdditionalOptions>
       <Optimization>Full</Optimization>
-      <AdditionalIncludeDirectories>./;./../GraphicsSamples/extensions/include;./../GraphicsSamples/extensions/externals/include;./../GraphicsSamples/extensions/include/NsFoundation;./../GraphicsSamples/extensions/include/NvFoundation;./../GraphicsSamples/extensions/externals/include/GLFW;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../;./../GraphicsSamples/extensions/include;./../GraphicsSamples/extensions/externals/include;./../GraphicsSamples/extensions/include/NsFoundation;./../GraphicsSamples/extensions/include/NvFoundation;./../GraphicsSamples/extensions/externals/include/GLFW;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NV_FOUNDATION_DLL=0;GW_APP_NAME="ThreadedRenderingGL";NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <WarningLevel>Level3</WarningLevel>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -333,7 +333,7 @@
     </ClCompile>
     <Link>
       <AdditionalOptions>/DEBUG /MACHINE:x64 /LARGEADDRESSAWARE /NOLOGO /OPT:REF /OPT:ICF /INCREMENTAL:NO</AdditionalOptions>
-      <AdditionalDependencies>xinput9_1_0.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;opengl32.lib;glew32s.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>xinput9_1_0.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;opengl32.lib;glew32s.lib;glfw3.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)ThreadedRenderingGL.exe</OutputFile>
       <AdditionalLibraryDirectories>./../GraphicsSamples/extensions/externals/lib/vs2015x64;./../GraphicsSamples/extensions/lib/vs2015x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ProgramDatabaseFile>$(OutDir)/ThreadedRenderingGL.exe.pdb</ProgramDatabaseFile>

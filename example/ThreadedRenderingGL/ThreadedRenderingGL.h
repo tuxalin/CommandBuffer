@@ -396,8 +396,8 @@ private:
 
 
 	LightingUBO         m_lightsUBO_Data[MAX_LIGHTS_COUNT];
-	std::vector<int>    m_lightsSchoolIndex;      
-	GLuint              m_lightsUBO_Id[MAX_LIGHTS_COUNT];     
+	std::vector<int>    m_lightsSchoolIndex;
+	GLuint              m_lightsUBO_Id[MAX_LIGHTS_COUNT];
 
 	// define the volume that the fish will remain within
 	static nv::vec3f ms_tankMin;
@@ -757,6 +757,8 @@ private:
 			glDisable(GL_STENCIL_TEST);
 			glDepthMask(GL_FALSE);
 		}
+
+		CB_COMMAND_PACKET_ALIGN()
 	};
 
 	struct BeginPointLightPassCommand
@@ -774,7 +776,7 @@ private:
 			glBlendFunc(GL_ONE, GL_ONE);
 
 			glEnable(GL_STENCIL_TEST);
-			glDisable(GL_CULL_FACE); 
+			glDisable(GL_CULL_FACE);
 
 			glStencilMask(0xFF);
 			glClearStencil(0);
@@ -783,6 +785,8 @@ private:
 			glStencilFunc(GL_EQUAL, 0, 0xFF);
 			glStencilOp(GL_KEEP, GL_INCR, GL_INCR);
 		}
+
+		CB_COMMAND_PACKET_ALIGN()
 	};
 
 	struct DrawDirectionalLightCommand
@@ -857,4 +861,3 @@ private:
 
 };
 #endif // ThreadedRenderingGL_H_
-

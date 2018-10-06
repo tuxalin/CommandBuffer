@@ -129,6 +129,8 @@ namespace cmds
 
 		GLenum target;
 		GLuint fbo;
+
+		CB_COMMAND_PACKET_ALIGN()
 	};
 
 	struct UnbindFramebuffer

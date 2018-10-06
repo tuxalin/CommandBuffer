@@ -179,4 +179,4 @@ But you can also use other command buffers only for VBO updates that would simpl
 ## License
 
 The code is available under a custom license as it based on [NVIDIA's Gameworks Samples](https://github.com/NVIDIAGameWorks/GraphicsSamples), see license.txt.
-Code that is not part of the Gameworks example is avaiable under the MIT license.
+Code that is not part of the Gameworks example is available under the MIT license.

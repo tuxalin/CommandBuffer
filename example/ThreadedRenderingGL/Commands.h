@@ -3,6 +3,7 @@
 
 #include "NV/NvPlatformGL.h"
 
+#include "CommandPacket.h"
 #include "RenderContext.h"
 
 class ThreadedRenderingGL;
@@ -68,13 +69,15 @@ namespace cmds
 		Nv::NvSharedVBOGL* vbo;
 		const void* data;
 		size_t size;
-	};	
+	};
 
 	struct ClearRenderTarget
 	{
 		static const cb::RenderContext::function_t kDispatchFunction;
 
 		int bufferCount;
+
+		CB_COMMAND_PACKET_ALIGN()
 	};
 
 }  // namespace cmd
