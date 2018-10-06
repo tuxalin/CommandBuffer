@@ -1,4 +1,5 @@
 # Lock-free CommandBuffer
+[![Windows status](https://ci.appveyor.com/api/projects/status/p2mx4t7x6sx8crix?svg=true)](https://ci.appveyor.com/project/tuxalin/commandbuffer/branch/master)
 [![Language](https://img.shields.io/badge/language-C++-blue.svg)](https://isocpp.org/)
 [![License](http://img.shields.io/badge/license-MIT-blue.svg)](http://opensource.org/licenses/MIT)
 
