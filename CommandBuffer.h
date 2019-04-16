@@ -69,7 +69,7 @@ namespace cb
 		}
 
 		template<typename T>
-		explicit operator T() 
+		explicit operator T()
 		{
 			return(T)key;
 		}
@@ -118,6 +118,8 @@ namespace cb
 		template <class CommandClass, typename AuxilaryData>
 		CommandClass* addCommandData(const key_t& key, const AuxilaryData& data);
 		template <class CommandClass, typename AuxilaryData>
+		CommandClass* addCommandData(const key_t& key, const std::vector<AuxilaryData>& data);
+		template <class CommandClass, typename AuxilaryData>
 		CommandClass* addCommandData(const key_t& key, const AuxilaryData* data, uint32_t count);
 		/// Adds the given command packet with the given key.
 		///@note Only references the original packet's auxiliary data.
@@ -135,6 +137,8 @@ namespace cb
 		///@note Also copies data from the given auxiliary data.
 		template <class CommandClass, class AppendCommandClass, typename AuxilaryData>
 		CommandClass* appendCommandData(AppendCommandClass* cmd, const AuxilaryData& data);
+		template <class CommandClass, class AppendCommandClass, typename AuxilaryData>
+		CommandClass* appendCommandData(AppendCommandClass* prevCmd, const std::vector<AuxilaryData>& data);
 		template <class CommandClass, class AppendCommandClass, typename AuxilaryData>
 		CommandClass* appendCommandData(AppendCommandClass* prevCmd, const AuxilaryData* data, uint32_t count);
 		template <class CommandClass, typename AuxilaryData>
@@ -322,8 +326,17 @@ namespace cb
 
 	COMMAND_TEMPLATE
 		template <class CommandClass, typename AuxilaryData>
+	CommandClass* COMMAND_QUAL::addCommandData(const key_t& key, const std::vector<AuxilaryData>& data)
+	{
+		return addCommandData<CommandClass>(key, data.data(), data.size());
+	}
+
+	COMMAND_TEMPLATE
+		template <class CommandClass, typename AuxilaryData>
 	CommandClass* COMMAND_QUAL::addCommandData(const key_t& key, const AuxilaryData* data, uint32_t count)
 	{
+		static_assert(cb::detail::is_pod<AuxilaryData>::value, "AUXILARY_DATA_INVALID_TYPE");
+
 		const uint32_t size = sizeof(AuxilaryData) * count;
 		CommandClass*  cmd = addCommand<CommandClass>(key, size);
 
@@ -397,8 +410,17 @@ namespace cb
 
 	COMMAND_TEMPLATE
 		template <class CommandClass, class AppendCommandClass, typename AuxilaryData>
+	CommandClass* COMMAND_QUAL::appendCommandData(AppendCommandClass* prevCmd, const std::vector<AuxilaryData>& data)
+	{
+		return appendCommandData<CommandClass>(prevCmd, data.data(), data.size());
+	}
+
+	COMMAND_TEMPLATE
+		template <class CommandClass, class AppendCommandClass, typename AuxilaryData>
 	CommandClass* COMMAND_QUAL::appendCommandData(AppendCommandClass* prevCmd, const AuxilaryData* data, uint32_t count)
 	{
+		static_assert(cb::detail::is_pod<AuxilaryData>::value, "AUXILARY_DATA_INVALID_TYPE");
+
 		const uint32_t size = sizeof(AuxilaryData) * count;
 		CommandClass*  cmd = appendCommand<CommandClass>(prevCmd, size);
 
@@ -449,14 +471,14 @@ namespace cb
 		cmd->size = sizeof(AuxilaryData);
 		return packet;
 	}
-	
- 	COMMAND_TEMPLATE
- 		void COMMAND_QUAL::sort(sort_func_t sortFunc /*= std::sort<CommandPair*>*/)
- 	{
+
+	COMMAND_TEMPLATE
+		void COMMAND_QUAL::sort(sort_func_t sortFunc /*= std::sort<CommandPair*>*/)
+	{
 		sortFunc(m_commands.data(), m_commands.data() + (int)m_currentIndex.load(std::memory_order_acquire));
- 
- 		assert(m_commands.size() > m_currentIndex.load(std::memory_order_acquire));
- 	}
+
+		assert(m_commands.size() > m_currentIndex.load(std::memory_order_acquire));
+	}
 
 	COMMAND_TEMPLATE
 		void COMMAND_QUAL::clear()

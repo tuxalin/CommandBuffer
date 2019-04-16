@@ -137,9 +137,11 @@ namespace cb
 
 		explicit operator uint64_t();
 
-		///@note The priority is inversed, i.e. lower values have highest priority.
+		static DrawKey makeDefault(cb::ViewLayerType viewLayer);
 		static DrawKey makeDefault(uint32_t viewportId, cb::ViewLayerType viewLayer = ViewLayerType::e3D);
+		///@note The priority is inversed, i.e. lower values have highest priority.
 		static DrawKey makeCustom(cb::ViewLayerType viewLayer, uint32_t priority);
+		static DrawKey makeCustom(uint32_t viewportId, cb::ViewLayerType viewLayer, uint32_t priority);
 
 		static void sanityChecks();
 	};  // struct DrawKey
@@ -235,6 +237,13 @@ namespace cb
 		return value > other.value;
 	}
 
+	inline DrawKey DrawKey::makeDefault(cb::ViewLayerType viewLayer)
+	{
+		DrawKey key(0);
+		key.viewLayer = static_cast<uint32_t>(viewLayer);
+		return key;
+	}
+
 	inline DrawKey DrawKey::makeDefault(uint32_t viewportId, cb::ViewLayerType viewLayer)
 	{
 		DrawKey key(0);
@@ -246,6 +255,16 @@ namespace cb
 	inline DrawKey DrawKey::makeCustom(cb::ViewLayerType viewLayer, uint32_t priority)
 	{
 		DrawKey key(viewLayer);
+		key.custom.enabled = true;
+		key.custom.priority = (2 << kPriorityBits) - 1 - priority;
+		return key;
+	}
+
+	inline DrawKey DrawKey::makeCustom(uint32_t viewportId, cb::ViewLayerType viewLayer, uint32_t priority)
+	{
+		DrawKey key(0);
+		key.viewportId = viewportId;
+		key.viewLayer = static_cast<uint32_t>(viewLayer);
 		key.custom.enabled = true;
 		key.custom.priority = (2 << kPriorityBits) - 1 - priority;
 		return key;
