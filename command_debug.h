@@ -17,38 +17,38 @@
 
 namespace cb
 {
-	namespace detail
-	{
-		struct packet_debug
-		{
-			static const int kSize = 128;
+    namespace detail
+    {
+        struct packet_debug
+        {
+            static const int kSize = 128;
 
-			void setTag(const std::string& str)
-			{
-				assert(str.size() < kSize);
-				std::copy(str.begin(), str.end(), tag);
-				tag[str.size()] = '\0';
-			}
-			void setTag(const std::string& str1, const std::string& str2)
-			{
-				size_t size = str1.size() + str2.size() + 3;
-				assert(size < kSize);
-				const std::string str = str1 + " : " + str2;
-				std::copy(str.begin(), str.end(), tag);
-				tag[size] = '\0';
-			}
-			void setTag(const std::string& str1, const std::string& str2, const std::string& str3)
-			{
-				size_t size = str1.size() + str2.size() + 3 + str3.size() + 3;
-				assert(size < kSize);
-				const std::string str = str1 + " : " + str2 + " : " + str3;
-				std::copy(str.begin(), str.end(), tag);
-				tag[size] = '\0';
-			}
+            void setTag(const std::string& str)
+            {
+                assert(str.size() < kSize);
+                std::copy(str.begin(), str.end(), tag);
+                tag[str.size()] = '\0';
+            }
+            void setTag(const std::string& str1, const std::string& str2)
+            {
+                size_t size = str1.size() + str2.size() + 3;
+                assert(size < kSize);
+                const std::string str = str1 + " : " + str2;
+                std::copy(str.begin(), str.end(), tag);
+                tag[size] = '\0';
+            }
+            void setTag(const std::string& str1, const std::string& str2, const std::string& str3)
+            {
+                size_t size = str1.size() + str2.size() + 3 + str3.size() + 3;
+                assert(size < kSize);
+                const std::string str = str1 + " : " + str2 + " : " + str3;
+                std::copy(str.begin(), str.end(), tag);
+                tag[size] = '\0';
+            }
 
-			char tag[kSize];
-		};
-	} // namespace detail
+            char tag[kSize];
+        };
+    } // namespace detail
 } // namespace cb
 
 #define CB_DEBUG_STRINGIFY(x) #x
